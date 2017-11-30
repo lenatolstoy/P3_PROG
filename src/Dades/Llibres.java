@@ -131,7 +131,18 @@ public class Llibres {
 	}
 
 	public void setTema(String tema) {
+		
 		this.tema = tema;
+		
+		if (!comprovarTema(tema)) {
+			String[] aux = new String[temes.length + 1];
+			
+			//Copiem tot el contingut de la llista en l'auxiliar
+			for(int i=0; i<temes.length; i++){
+				aux[i] = temes[i];	
+			}
+			aux[aux.length - 1] = tema;
+		}
 	}
 
 	public static void setTemes(String[] temes) {
@@ -184,6 +195,9 @@ public class Llibres {
 	*/	
 
 	/**
+	 * @param titol (String) El titol del llibre
+	 * @param autors (String) El primer autor del llibre
+	 * @param comptador (int) El nombre del llibre ingresat
 	 * Retorna el codi del llibre
 	 * @return codi
 	 */
@@ -195,6 +209,12 @@ public class Llibres {
 		return (codi);
 	}
 	
+	/**
+	 * 
+	 * @param tema
+	 * @return un boolea que ens indica si el tema ya existeix en la llista de temes
+	 */
+	
 	private boolean comprovarTema(String tema) {
 		
 		boolean hiEs = false;
@@ -205,7 +225,36 @@ public class Llibres {
 		}
 		return hiEs;
 	}
+	
+	/**
+	 * 
+	 * @param codi
+	 * @return un boolea que ens indica si el codi del llibre hauria d'anar despres del que li passem per parametre alfabeticament
+	 */
 
+	public boolean comprovaAlfabetic(String codi) {
+		boolean trobat = false, surt_bucle = false;
+		char comp1, comp2;
+		
+		if(codi.length() > this.codi.length()) {
+			trobat = true;
+		}else if (codi.length() < this.codi.length()){
+			trobat = false;
+		}else {
+			for(int i = 0; i < codi.length() && trobat == false && surt_bucle == false; i++) {
+				comp1 = codi.charAt(i);
+				comp2 = this.codi.charAt(i);
+				
+				comp1 = Character.toUpperCase(comp1); /* ho paso a majuscules per comparar-ho be */
+				comp2 = Character.toUpperCase(comp2);
+				
+				trobat = (comp1 < comp2);  /* Si this.codi te una B i codi una A vol dir que
+											el codi anira abans de this.codi (codi < this.codi) */
+				surt_bucle = !(comp1 > comp2);  /*Si la lletra de this.codi es A i la de codi es B) */
+			}
+		}
+		return trobat;
+	}
 	
 	
 }
