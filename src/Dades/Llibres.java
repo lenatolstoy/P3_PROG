@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class Llibres {
 
+	private final int DIES_RESERVA = 15;
+	
 	protected String titol;
 	protected String[] autors;
 	protected String tema;
@@ -15,6 +17,7 @@ public class Llibres {
 	protected boolean disponible;
 	protected static int comptador = 0;
 	/**
+	 * @param DIES_RESERVA (int) Constant que ens indica els dies de reserva d'un llibre.
 	 * @param titol (String) Titol del llibre.
 	 * @param autors (Vector de Strings) Autor o autors del llibre.
 	 * @param tema (String) Tematica del llibre.
@@ -143,6 +146,11 @@ public class Llibres {
 		this.disponible = disponible;
 	}
 	
+	public void setNouTema(String tema) {
+		
+		//Exception comrpova tema
+	}
+	
 	/**
 	 * Mètode que duplica la instància del llibre
 	 * @return duplicat
@@ -187,7 +195,16 @@ public class Llibres {
 		return (codi);
 	}
 	
-	
+	private boolean comprovarTema(String tema) {
+		
+		boolean hiEs = false;
+		
+		for(int i = 0; (i < temes.length) && (hiEs == false); i++) {
+			
+			hiEs = (temes[i] == tema);
+		}
+		return hiEs;
+	}
 
 	
 	
