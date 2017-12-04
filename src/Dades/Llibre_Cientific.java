@@ -1,9 +1,15 @@
 package Dades;
 
+import java.util.Date;
+
 public class Llibre_Cientific extends Llibres {
 
-	private int dies_reserva = 0;
+	private int dies_reserva;
 	
+	public Llibre_Cientific(String titol, String[] autors, String tema, int num_edicio, Date any_edicio, boolean disponible) {
+		super(titol, autors, tema, num_edicio, any_edicio, disponible);
+		dies_reserva = 0;
+	}
 	
 	/**
 	 * Getters
