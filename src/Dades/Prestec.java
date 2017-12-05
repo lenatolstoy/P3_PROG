@@ -1,5 +1,5 @@
 /** 
- * Practica 3. Classe LlistaCobertures.
+ * Practica 3. Classe Prestecs.
  * 
  * 
  * @author Magdalena Tolstoy
@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat;
 import java.text.DateFormat;
 import java.text.ParseException;
 
-public class Prestecs {
+public class Prestec {
 	private String id_llibre;
 	private String dni;
 	private Date data_ini, data_fi;
@@ -29,7 +29,7 @@ public class Prestecs {
 	 * @param data: data d'inici del prestec
 	 * @throws LlibreNoTrobatException
 	 */
-	public Prestecs(String id_llibre, String dni, String data) throws LlibreNoTrobatException{
+	public Prestec(String id_llibre, String dni, String data) throws LlibreNoTrobatException{
 		//Mirem que el llibre es troba a la nostra llista de llibres
 		if (!Llista_Llibres.trobaLlibre(id_llibre)) { //Pte saber como se llama -> Cris 
 			throw new LlibreNoTrobatException(); 
@@ -54,7 +54,7 @@ public class Prestecs {
 	 * @param dni: dni de qui realitza el prestec
 	 * @throws LlibreNoTrobatException
 	 */
-	public Prestecs(String id_llibre, String dni) throws LlibreNoTrobatException{
+	public Prestec(String id_llibre, String dni) throws LlibreNoTrobatException{
 		//Mirem que el llibre es trobi a la nostra llista de llibres
 		if (!Llista_Llibres.trobaLlibre(id_llibre)) { //Pte saber como se llama -> Cris 
 			throw new LlibreNoTrobatException(); 
