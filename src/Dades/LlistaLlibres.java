@@ -9,10 +9,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import Exceptions.LlibreNoDisponible;
-import Exceptions.ReservesDiaSuperior30;
 
-public class Llista_Llibres {
+public class LlistaLlibres {
 	
 	//Atributs
 	private int numllibres;
@@ -22,7 +20,7 @@ public class Llista_Llibres {
 	 * Constructor
 	 * @param numllibresmax enter que ens dóna la longitud màxima del vector de llibres
 	 */
-	public Llista_Llibres(int numllibresmax){
+	public LlistaLlibres(int numllibresmax){
 		
 		llistallibres = new Llibre[numllibresmax];
 		numllibres = 0;
@@ -145,6 +143,22 @@ public class Llista_Llibres {
 		
 		public void eliminaLlibre (Llibre llibre) {
 			
+			int i;
+			boolean trobat = false;
+			
+			for (i = 0; i < llistallibres.length && trobat == false; i++) trobat = (llistallibres[i] == llibre);
+			
+			for(int j= i ; j<llistallibres.length; j++)
+				llistallibres[j] = llistallibres[j+1];
+	
+			numllibres--;
+			
+			Llibre[] aux = new Llibre[numllibres];
+			
+			for(i=0; i<numllibres; i++)
+				aux[i] = llistallibres[i];
+
+			llistallibres = aux;
 		}
 		
 		//TOOOOOONO: AQUESTA S'HA D'IMPLEMENTAR, JO ENCARA ESTIC AMB LA MEVA DE RESERVES
@@ -229,9 +243,7 @@ public class Llista_Llibres {
 			String[] temes;
 			int num_edicio;
 			String any_edicio;
-			String codi;
-			String disponible; //Ni que sigui booleà el necessitem com a String al fitxer de text
-			
+			String codi;			
 		
 			BufferedWriter fitxer = new BufferedWriter(new FileWriter("Llibres.txt"));
 			
@@ -258,7 +270,6 @@ public class Llista_Llibres {
 				codi = llistallibres[i].getCodi();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 				any_edicio = sdf.format(llistallibres[i].getAnyEdicio());
-				disponible = String.valueOf(llistallibres[i].getDisponible());
 		
 				//Ho escrivim al fitxer separat per *
 				if(llistallibres[i] instanceof Llibre_Cientific) {
@@ -281,8 +292,6 @@ public class Llista_Llibres {
 				fitxer.write(codi);
 				fitxer.write("*");
 				fitxer.write(any_edicio);
-				fitxer.write("*");
-				fitxer.write(disponible);
 				fitxer.write("*");
 				
 				//Saltem de línia al fitxer per escriure la nova reserva
@@ -309,6 +318,25 @@ public class Llista_Llibres {
 			}
 			return llibres;
 		}
+		/**
+		 * Li passes un codi i un tema i et retorna si el llibre te el tema que li has passat
+		 * @param codi
+		 * @param tema
+		 * @return hiEs un booleà
+		 */
+		public boolean esDelTema(String codi, String tema) {
+			
+			boolean hiEs = false;
+			boolean trobat = false;
+			int i;
+			
+			for (i = 0; i<numllibres && trobat == false; i++) 
+				if(llistallibres[i].getCodi() == codi) trobat = true;
+			
+			if(trobat == true) hiEs = (tema == llistallibres[i].getTema());
+			
+			return hiEs;
+		}
 		
 		public String buscaPerTematica(String tema) {
 			
@@ -326,9 +354,7 @@ public class Llista_Llibres {
 				if(llistallibres[j].getTema().contains(tema)) {
 					llibres = llibres + llistallibres[j].toString() + "";
 				}
-				
 			}
-			
 			return llibres;
 		}
 }

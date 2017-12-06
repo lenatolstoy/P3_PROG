@@ -14,7 +14,6 @@ public class Llibre {
 	protected int num_edicio;
 	protected Date any_edicio;
 	protected String codi;
-	protected boolean disponible;
 	protected static int comptador = 0;
 
 	/**
@@ -29,7 +28,7 @@ public class Llibre {
 	 * @param disponible (Boolean) Ens indica si el llibre esta disponible o no.
 	 * @param comptador (int) s'utilitza per implementar el codi.
 	 */
-	public Llibre(String titol, String[] autors, String tema, int num_edicio, Date any_edicio, boolean disponible) {
+	public Llibre(String titol, String[] autors, String tema, int num_edicio, Date any_edicio) {
 		
 		this.titol = titol;
 		this.autors = autors;
@@ -38,7 +37,6 @@ public class Llibre {
 		this.any_edicio = any_edicio;
 		comptador++;
 		this.codi = generarCodi(titol, autors[0], comptador);
-		this.disponible = disponible;
 	}
 
 	/**
@@ -102,14 +100,6 @@ public class Llibre {
 	}
 	
 	/**
-	 * Retorna un boolea que indica si el llibre esta disponible
-	 * @return disponible
-	 */
-	public Boolean getDisponible(){
-		return (disponible);
-	}
-
-	/**
 	 * Setters
 	*/	
 	
@@ -163,10 +153,6 @@ public class Llibre {
 		this.codi = codi;
 	}
 
-	public void setDisponible(boolean disponible) {
-		this.disponible = disponible;
-	}
-	
 	public void setNouTema(String tema) {
 		
 		//Exception comrpova tema
@@ -183,7 +169,7 @@ public class Llibre {
 	 * l'altre tambe es modificara perque son el mateix.
 	 */
 	public Llibre Duplicat() {
-		Llibre aux = new Llibre(this.titol, this.autors, this.tema, this.num_edicio, this.any_edicio, this.disponible);
+		Llibre aux = new Llibre(this.titol, this.autors, this.tema, this.num_edicio, this.any_edicio);
 		return (aux);
 	}
 
@@ -196,7 +182,7 @@ public class Llibre {
 	public String toString() {
 		return ("Titol: " + titol + "\n" + "Autors: " + Arrays.toString(autors) + "\n" + "Tema: " + tema + "\n"
 				+ "Numero d'edició: " + num_edicio + "\n" + "Any d'edició: " + any_edicio + "\n" + "Codi: " + codi
-				+ "\n" + "Esta disponible: " + disponible + "\n");
+				+ "\n");
 	}
 
 	/**
