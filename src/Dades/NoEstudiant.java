@@ -4,7 +4,6 @@ import java.util.Date;
 public class NoEstudiant extends Soci {
 	
 	//variables
-	final private int maxNumeroPrestecs = 3;
 	private int punts;
 
 	//constructor

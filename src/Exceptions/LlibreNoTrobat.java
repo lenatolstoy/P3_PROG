@@ -1,8 +1,8 @@
 package Exceptions;
 
-public class LlibreNoTrobatException extends Exception {
+public class LlibreNoTrobat extends Exception {
 	private static final long serialVersionUID = 1L;
-	public LlibreNoTrobatException() 
+	public LlibreNoTrobat() 
 	  { 
 		  super("Llibre no trobat"); 
 	  }

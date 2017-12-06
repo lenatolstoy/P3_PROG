@@ -65,7 +65,7 @@ public class Soci {
 		this.incidencias = incidencias;
 	}
 
-	public int getNum_prestec() {
+	public int getNum_prestecs() {
 		return num_prestec;
 	}
 	
