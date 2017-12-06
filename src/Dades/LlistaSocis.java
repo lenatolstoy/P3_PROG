@@ -141,7 +141,7 @@ public class LlistaSocis {
 		return r;
 	}
 
-
+	
 	public void eliminar(String dni) {
 		int i = 0;
 		int posicion;
