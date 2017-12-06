@@ -1,7 +1,7 @@
 package Dades;
 
 import java.util.Date;
-
+// soy el puto amo
 public class Soci {
 	//variables
 	final private int maxNumeroPrestecs = 5;
