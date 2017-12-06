@@ -76,7 +76,7 @@ public class Soci {
 	
 	//Metodes
 	public boolean max_prestec(){
-		return getNum_prestec() < getNum_max_prestec();
+		return (num_prestec >= maxNumeroPrestecs);
 	}
 	
 	public void prestecUP() {
@@ -94,10 +94,9 @@ public class Soci {
 				+ num_prestec + "]";
 	}
 
-
-	
-	
-	
+	public void incidenciaUP() {
+		incidencias++;
+	}
 	
 	
 	

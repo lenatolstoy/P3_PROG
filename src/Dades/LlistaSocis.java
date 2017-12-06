@@ -57,7 +57,7 @@ public class LlistaSocis {
 			data_naixement = sdf.format(lista[i].getData_naixement());
 			data_alta = sdf.format(lista[i].getData_alta());
 			incidencias = String.valueOf(lista[i].getIncidencias());
-			num_prestec = String.valueOf(lista[i].getNum_prestec());
+			num_prestec = String.valueOf(lista[i].getNum_prestecs());
 			escriure.write(dni);
 			escriure.write("*");
 			escriure.write(nom);
@@ -120,14 +120,14 @@ public class LlistaSocis {
 		scan.close();
 	}
 
-	/** PTE UN METODO QUE RETORNE EL USUARIO -> CERCA DICOTOMICA */
+	/** FALTA HACERLO CERCA DICOTOMICA */
 	public Soci retorna(String dni) {
 		if (existeix(dni)) {
 			for (int i = 0; i < lineas; i++) {
-				if (lista[i].getDNI().equals(dni)) return new Soci(lista[i].getDNI(), lista[i].getNom(), lista[i].getData_naixement());
+				if (lista[i].getDNI().equals(dni)) return lista[i];
 			}
 		}
-		return new Soci("", "", new Date(0));
+		return null;
 	}
 
 	/** MEJOR CERCA DICOTOMICA ? */
@@ -140,6 +140,7 @@ public class LlistaSocis {
 		}
 		return r;
 	}
+
 
 	public void eliminar(String dni) {
 		int i = 0;
@@ -160,14 +161,5 @@ public class LlistaSocis {
 		} while (i < lineas && !trobat);
 	}
 
-	public void darPuntos(String dni) {
-		int i = 0;
-		do {
-			if (lista[i] instanceof NoEstudiant && lista[i].getDNI().equals(dni)) {
-				((NoEstudiant) lista[i]).puntsUP();
-			}
-			i++;
-		} while (i < lineas);
-	}
 
 }
