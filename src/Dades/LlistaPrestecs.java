@@ -13,11 +13,12 @@ public class LlistaPrestecs {
 	private Prestec[] llista;
 	
 	/**
-	 * Constructor Llista_Prestecs
+	 * 
+	 * @param mida
 	 */
-	public LlistaPrestecs() {
+	public LlistaPrestecs(int mida) {
 		nprestecs = 0;
-		llista = new Prestec[50];
+		llista = new Prestec[mida];
 	}
 	
 	//Añadir prestamo de manera ordenada por --> nombre? fecha? --> llista dinàmica
@@ -29,4 +30,21 @@ public class LlistaPrestecs {
 	public void fiPrestec(String id_llibre, String dni, LlistaPrestecs Inactius) {
 		
 	}
+	
+	public boolean enPrestec (String id_llibre, String data_ini, int num_dies) {
+		
+	}
+	
+	public void llegirFitxer(String nomFitxer) throws FileNotFoundException{
+		
+	}
+	
+	public void guardarFitxer(String nomFitxer) {
+		
+	}
+	
+	public Prestec retorna(String id_llibre, String dni) {
+		
+	}
+	
 }

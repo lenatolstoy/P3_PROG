@@ -4,22 +4,22 @@ import java.util.Date;
 
 public class Llibre_Cientific extends Llibre {
 
-	private int dies_reserva;
+	private int dies_prestec;
 
 	public Llibre_Cientific(String titol, String[] autors, String tema, int num_edicio, Date any_edicio,
 			boolean disponible) {
 		super(titol, autors, tema, num_edicio, any_edicio, disponible);
-		dies_reserva = 0;
+		dies_prestec = 0;
 	}
 
 	/**
-	 * Getters Retorna el nombre de dies que s'ha reservat el llibre cientific
+	 * Getters Retorna el nombre de dies maxim en el qual es pot tenir en prestec el llibre cientific
 	 * 
-	 * @return dies_reserva
+	 * @return dies_prestec
 	 */
 
-	public int getDiesReserva() {
-		return dies_reserva;
+	public int getDiesPrestec() {
+		return dies_prestec;
 	}
 
 	/**
@@ -29,7 +29,7 @@ public class Llibre_Cientific extends Llibre {
 	 *            (int) el nou nombre de dies que reservarem el llibre
 	 */
 
-	public void setDiesReseva(int dies_reserva) {
-		this.dies_reserva = dies_reserva;
+	public void setDiesPrestec(int dies_reserva) {
+		this.dies_prestec = dies_reserva;
 	}
 }
