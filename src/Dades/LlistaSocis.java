@@ -119,15 +119,19 @@ public class LlistaSocis {
 		}
 		scan.close();
 	}
-
-	/** FALTA HACERLO CERCA DICOTOMICA */
-	public Soci retorna(String dni) {
-		if (existeix(dni)) {
-			for (int i = 0; i < lineas; i++) {
-				if (lista[i].getDNI().equals(dni)) return lista[i];
+	
+	public Soci retornaSoci(String dni) {
+		for (int i = 0; i < lineas; i++) {
+			if (lista[i].getDNI().equals(dni)) {
+				return lista[i];
 			}
 		}
 		return null;
+	}
+	
+
+	public Soci[] getLista() {
+		return lista;
 	}
 
 	/** MEJOR CERCA DICOTOMICA ? */

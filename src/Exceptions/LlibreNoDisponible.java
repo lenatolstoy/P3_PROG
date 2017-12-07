@@ -7,5 +7,9 @@ public class LlibreNoDisponible extends Exception{
 		
 		super("El llibre " +nomllibre+ " no es troba disponible");
 	}
+	public LlibreNoDisponible(){
+		
+		super("El llibre no es troba disponible");
+	}
 	
 }

@@ -6,9 +6,8 @@ public class Llibre_Cientific extends Llibre {
 
 	private int dies_prestec;
 
-	public Llibre_Cientific(String titol, String[] autors, String tema, int num_edicio, Date any_edicio,
-			boolean disponible) {
-		super(titol, autors, tema, num_edicio, any_edicio, disponible);
+	public Llibre_Cientific(String titol, String[] autors, String tema, int num_edicio, int any_edicio) {
+		super(titol, autors, tema, num_edicio, any_edicio);
 		dies_prestec = 0;
 	}
 

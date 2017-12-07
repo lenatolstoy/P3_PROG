@@ -16,6 +16,24 @@ public class LlistaLlibres {
 	private int numllibres;
 	private Llibre[] llistallibres;
 	
+	public int getNumllibres() {
+		return numllibres;
+	}
+
+
+	public Llibre[] getLlistallibres() {
+		return llistallibres;
+	}
+
+	public Llibre retornaLlibre(String codi) {
+		for (int i = 0; i < numllibres; i++) {
+			if (llistallibres[i].getCodi().equals(codi)) {
+				return llistallibres[i];
+			}
+		}
+		return null;
+	}
+
 	/**
 	 * Constructor
 	 * @param numllibresmax enter que ens dóna la longitud màxima del vector de llibres
@@ -141,25 +159,6 @@ public class LlistaLlibres {
 			
 		}
 		
-		public void eliminaLlibre (Llibre llibre) {
-			
-			int i;
-			boolean trobat = false;
-			
-			for (i = 0; i < llistallibres.length && trobat == false; i++) trobat = (llistallibres[i] == llibre);
-			
-			for(int j= i ; j<llistallibres.length; j++)
-				llistallibres[j] = llistallibres[j+1];
-	
-			numllibres--;
-			
-			Llibre[] aux = new Llibre[numllibres];
-			
-			for(i=0; i<numllibres; i++)
-				aux[i] = llistallibres[i];
-
-			llistallibres = aux;
-		}
 		
 		//TOOOOOONO: AQUESTA S'HA D'IMPLEMENTAR, JO ENCARA ESTIC AMB LA MEVA DE RESERVES
 		//ET DEIXO LA CABECERA COM JO HO HE PENSAT DE MOMENT
@@ -305,16 +304,15 @@ public class LlistaLlibres {
 		 * Funcio la qual busca tots els llibres que tenen el nom o part del nom que has buscat
 		 * 
 		 */
-		public String buscaLlibresNom(String nom) {
+		public LlistaLlibres buscaLlibresNom(String nom) {
 			
-			String llibres = "";
+			LlistaLlibres llibres = new LlistaLlibres(5);
 			
 			for (int i = 0; i<numllibres; i++) {
 			
 				if(llistallibres[i].getTitol().contains(nom)) {
-					llibres = llibres + llistallibres[i].toString() + "";
+					llibres.afegirLlibre(llistallibres[i]);
 				}
-				
 			}
 			return llibres;
 		}

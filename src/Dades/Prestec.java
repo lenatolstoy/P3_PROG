@@ -34,7 +34,7 @@ public class Prestec {
 	public Prestec(String id_llibre, String dni, String data) {
 		this.id_llibre = id_llibre;
 		this.dni = dni;
-		data_fi = new Date(0); // Fem una data final de prestec "nul.la"
+		data_fi = null; // Fem una data final nul.la
 		// Passem el string a tipus data
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		try {
@@ -108,5 +108,6 @@ public class Prestec {
 	public void setData_fi(Date data_fi) {
 		this.data_fi=data_fi;
 	}
+	
 
 }

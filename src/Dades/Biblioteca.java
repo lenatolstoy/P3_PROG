@@ -18,7 +18,7 @@ public abstract class Biblioteca {
 			socis = new LlistaSocis(20);
 			prestecsActius = new LlistaPrestecs(20);
 			prestecsInactius = new LlistaPrestecs(20);
-			reserves = new LlistaReserves();
+			reserves = new LlistaReserves(20);
 		}
 
 	
@@ -94,7 +94,7 @@ public abstract class Biblioteca {
 		} catch (FileNotFoundException e) { System.out.println("Fitxer de prestecs inactius no trobat: "+e.toString());}
 		
 		try {
-			reserves.llegirFitxer("reservesactives.txt");
+			reserves.LlegirFitxerReserves();
 		} catch (FileNotFoundException e) { System.out.println("Fitxer de reserves actives no trobat: "+e.toString());}
 		
 	}
@@ -121,7 +121,7 @@ public abstract class Biblioteca {
 		} catch (IOException e) { System.out.println("Fitxer de prestecs inactius no trobat: "+e.toString());}
 		
 		try {
-			reserves.escriureFitxer("reservesactives.txt");
+			reserves.EscriureFitxerReserves();
 		} catch (IOException e) { System.out.println("Fitxer de reserves actives no trobat: "+e.toString());}
 		
 	}

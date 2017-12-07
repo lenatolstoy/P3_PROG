@@ -21,6 +21,19 @@ public class LlistaPrestecs {
 		llista = new Prestec[mida];
 	}
 	
+	public int getNprestecs() {
+		return nprestecs;
+	}
+
+	public Prestec[] getLlista() {
+		return llista;
+	}
+	
+	public String toString() {
+		return null;
+		
+	}
+	
 	//Añadir prestamo de manera ordenada por --> nombre? fecha? --> llista dinàmica
 	public void afegirPrestec(String id_llibre, String dni, String data_ini) {
 		
@@ -31,7 +44,27 @@ public class LlistaPrestecs {
 		
 	}
 	
-	public boolean enPrestec (String id_llibre, String data_ini, int num_dies) {
+	public boolean enPrestec(String id_llibre, String data_ini, int num_dies) {
+		
+	}
+	
+	public boolean enPrestec(String id_llibre, String data_ini) {
+		
+	}
+	
+	public void eliminaPrestec(String dni) {
+		
+	}
+	
+	public Prestec retornaPrestec(String id_llibre, String dni) {
+		for (int i = 0; i < nprestecs; i++) {
+			if (llista[i].getId_llibre().equals(id_llibre) && llista[i].getDni().equals(dni))
+				return llista[i];
+		}
+		return null;
+	}
+	
+	public LlistaPrestecs prestecsUsuari(String dni) {
 		
 	}
 	
@@ -42,9 +75,4 @@ public class LlistaPrestecs {
 	public void guardarFitxer(String nomFitxer) {
 		
 	}
-	
-	public Prestec retorna(String id_llibre, String dni) {
-		
-	}
-	
 }
