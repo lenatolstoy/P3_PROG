@@ -152,9 +152,9 @@ public class BibliotecaUsuari extends Biblioteca {
 			throws LlibreNoTrobat, SociInexistent, PrestecInexistent {
 		Prestec prestec = prestecsActius.retornaPrestec(id_llibre, dni);
 		Soci soci = socis.retornaSoci(dni);
-
+		Llibre llibre = llibres.retornaLlibre(id_llibre);
 		// Mirem que el llibre es trobi a la llista
-		if (llibres.retornaLlibre(id_llibre) == null)
+		if (llibre == null)
 			throw new LlibreNoTrobat();
 
 		// Comprovem que el dni sigui d'un soci
@@ -170,59 +170,16 @@ public class BibliotecaUsuari extends Biblioteca {
 			prestec.setData_fi(new Date());
 
 			// Comprovem si s'ha d'afegir incidencia
-			gestionaIncidencies(soci, prestec);
+			if (!prestec.enTermini(llibre, new Date()))
+				soci.incidenciaUP();
+			else if (soci instanceof NoEstudiant)
+				((NoEstudiant) soci).puntsUP();
 
 			// Movem el prestec a la llista de prestecs Inactius
 			prestecsActius.fiPrestec(id_llibre, dni, prestecsInactius);
 		}
 	}
 
-	/**
-	 * Funcio que indica els dies entre dues dates
-	 * 
-	 * @param d1
-	 *            data antiga
-	 * @param d2
-	 *            data nova
-	 * @return diferencia en dies
-	 */
-	private long getDifferenceDays(Date d1, Date d2) {
-		long diff = d2.getTime() - d1.getTime();
-		return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-	}
-
-	/**
-	 * Metode que calcula els dies entre la data inicial de la reserva i el dia de
-	 * finalitzacio Mirem que la diferencia sigui menor als dies maxims que el soci
-	 * podia tenir el llibre en prestec. Si la diferencia es major augmentem les
-	 * incidencies del soci. En el cas de que el soci sigui NoEstudiant i el llibre
-	 * s'hagi entregat en termini augmentem els punts de fidelitat
-	 * 
-	 * @param soci
-	 *            soci que retorna el llibre
-	 * @param prestec
-	 *            prestec del qual es fa la finalitzacio
-	 */
-	private void gestionaIncidencies(Soci soci, Prestec prestec) {
-		int diesPrestec = 15;
-		long diferencia = getDifferenceDays(prestec.getData_ini(), prestec.getData_fi());
-
-		// Si la diferencia es negativa l'usuari anula el prestec abans de que aquest
-		// sigui efectiu
-		if (diferencia < 0)
-			diferencia = 0;
-
-		Llibre llibre = llibres.retornaLlibre(prestec.getId_llibre());
-
-		// Si el llibre es cientific sobreescribim els dies de reserva
-		if (llibre instanceof Llibre_Cientific)
-			diesPrestec = ((Llibre_Cientific) llibre).getDiesPrestec();
-
-		if (diferencia > diesPrestec)
-			soci.incidenciaUP();
-		else if (soci instanceof NoEstudiant)
-			((NoEstudiant) soci).puntsUP();
-	}
 
 	/**
 	 * Metode que li permet a l'usuari fer la reserva d'un llibre

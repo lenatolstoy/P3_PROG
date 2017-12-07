@@ -8,6 +8,9 @@
  */
 package Dades;
 
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 public class LlistaPrestecs {
 	private int nprestecs;
 	private Prestec[] llista;
@@ -39,10 +42,16 @@ public class LlistaPrestecs {
 		
 	}
 	
+	public void afegirPrestec(Prestec p) {
+		
+	}
+	
+	
 	//Passar
 	public void fiPrestec(String id_llibre, String dni, LlistaPrestecs Inactius) {
 		
 	}
+	
 	
 	public boolean enPrestec(String id_llibre, String data_ini, int num_dies) {
 		
@@ -50,6 +59,15 @@ public class LlistaPrestecs {
 	
 	public boolean enPrestec(String id_llibre, String data_ini) {
 		
+	}
+	
+	public LlistaPrestecs enPrestecAvui() {
+		LlistaPrestecs prestecsActuals = new LlistaPrestecs(10);
+		for (int i=0; i<nprestecs; i++) {
+			if (llista[i].getData_ini().before(new Date()))
+				prestecsActuals.afegirPrestec(llista[i]);
+		}
+		return prestecsActuals;
 	}
 	
 	public void eliminaPrestec(String dni) {

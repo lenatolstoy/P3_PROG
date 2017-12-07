@@ -92,4 +92,42 @@ public class BibliotecaPersonal extends Biblioteca {
 		reserves.EliminarReserva(dni);
 	}
 
+	public String llibresEnPrestec() {
+		LlistaPrestecs prestecsActuals = prestecsActius.enPrestecAvui();
+		String resultat = "";
+		for (int i = 0; i < prestecsActuals.getNprestecs(); i++) {
+			String dni = prestecsActuals.getLlista()[i].getId_llibre();
+			String codi = prestecsActuals.getLlista()[i].getId_llibre();
+			resultat = resultat + i + ".\tCodi del llibre: " + codi
+					+ "\n\tTitol del llibre: " + llibres.retornaLlibre(codi).getTitol()
+					+ "\n\t Dades de l'usari que te el llibre: "
+					+ socis.retornaSoci(dni).toString();
+			if (prestecsActuals.getLlista()[i].enTermini(llibres.retornaLlibre(codi), new Date()))
+				resultat = resultat + "\n\tEN TERMINI\n\n";
+			else
+				resultat = resultat + "\n\tFORA DE TERMINI\n\n";
+		}
+		return resultat;
+	}
+	
+	public String temaAmbMesPrestecs() {
+		String temaMax = "";
+		int ntemaMax = 0;
+		String[] temes = llibres.getLlistallibres()[0].getTemes();		//Pte controlar el tamaño de la array pte afegir tema de sr tono
+		for (int i=0; i<temes.length; i++) {
+			int j = comptaTema(temes[i]);
+			if (j>ntemaMax)
+				temaMax=temes[i];
+		}
+		return temaMax;
+	}
+	
+	private int comptaTema(String tema) {
+		int compt = 0;
+		for (int i=0; i<prestecsActius.getNprestecs(); i++) {
+			if (llibres.esDelTema(prestecsActius.getLlista()[i].getId_llibre(), tema))
+				compt++;
+		}
+		return compt;
+	}
 }
