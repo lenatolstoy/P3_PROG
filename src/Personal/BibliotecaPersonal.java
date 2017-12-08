@@ -92,15 +92,18 @@ public class BibliotecaPersonal extends Biblioteca {
 		reserves.EliminarReserva(dni);
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String llibresEnPrestec() {
 		LlistaPrestecs prestecsActuals = prestecsActius.enPrestecAvui();
 		String resultat = "";
 		for (int i = 0; i < prestecsActuals.getNprestecs(); i++) {
 			String dni = prestecsActuals.getLlista()[i].getId_llibre();
 			String codi = prestecsActuals.getLlista()[i].getId_llibre();
-			resultat = resultat + i + ".\tCodi del llibre: " + codi
-					+ "\n\tTitol del llibre: " + llibres.retornaLlibre(codi).getTitol()
-					+ "\n\t Dades de l'usari que te el llibre: "
+			resultat = resultat + i + ".\tCodi del llibre: " + codi + "\n\tTitol del llibre: "
+					+ llibres.retornaLlibre(codi).getTitol() + "\n\t Dades de l'usari que te el llibre: "
 					+ socis.retornaSoci(dni).toString();
 			if (prestecsActuals.getLlista()[i].enTermini(llibres.retornaLlibre(codi), new Date()))
 				resultat = resultat + "\n\tEN TERMINI\n\n";
@@ -109,25 +112,59 @@ public class BibliotecaPersonal extends Biblioteca {
 		}
 		return resultat;
 	}
-	
+
+	/**
+	 * Metode que retorna el tema del qual hi ha mes prestecs actius
+	 * 
+	 * @return String amb el tema
+	 */
 	public String temaAmbMesPrestecs() {
 		String temaMax = "";
 		int ntemaMax = 0;
-		String[] temes = llibres.getLlistallibres()[0].getTemes();		//Pte controlar el tamaño de la array pte afegir tema de sr tono
-		for (int i=0; i<temes.length; i++) {
+		String[] temes = llibres.getLlistallibres()[0].getTemes(); // Pte controlar el tamaño de la array pte afegir
+																	// tema de sr tono
+		for (int i = 0; i < temes.length; i++) {
 			int j = comptaTema(temes[i]);
-			if (j>ntemaMax)
-				temaMax=temes[i];
+			if (j > ntemaMax)
+				temaMax = temes[i];
 		}
 		return temaMax;
 	}
-	
+
+	/**
+	 * Metode que compta quants prestecs actius hi ha d'un tema en concret
+	 * 
+	 * @param tema
+	 *            tema del qual es vol saber el nombre de prestecs
+	 * @return int amb el nombre de prestecs
+	 */
 	private int comptaTema(String tema) {
 		int compt = 0;
-		for (int i=0; i<prestecsActius.getNprestecs(); i++) {
+		for (int i = 0; i < prestecsActius.getNprestecs(); i++) {
 			if (llibres.esDelTema(prestecsActius.getLlista()[i].getId_llibre(), tema))
 				compt++;
 		}
 		return compt;
 	}
+	
+	public String consultaLlibres() {
+		return llibres.toString();
+	}
+	
+	public String consultaSocis() {
+		return socis.toString();
+	}
+	
+	public String consultaPrestecsActius() {
+		return prestecsActius.toString();
+	}
+	
+	public String consultaPrestecsInactius() {
+		return prestecsInactius.toString();
+	}
+	
+	public String consultaReserves() {
+		return reserves.toString();
+	}
+
 }
