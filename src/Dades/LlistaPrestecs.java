@@ -168,21 +168,34 @@ public class LlistaPrestecs {
 	 * @return false si el llibre no es troba en prestec i true si s'hi troba
 	 */
 	public boolean enPrestec(String id_llibre, String data, int num_dies) {
-		Date data_max = null;
+		Date dat = null;
+		// Passem el String a tipus Data
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		try {
-			data_max = format.parse(data);
-		} catch (ParseException e) {e.printStackTrace();}
-		
-		
+			dat = format.parse(data);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
 		Calendar cal = Calendar.getInstance();
-		cal.setTime(data_max);
+		cal.setTime(dat);
+
+		// Calculem la data minima en la que no es pot haver fet cap prestec
+		// que es *num_dies* dies abans del dia que volem fer el nostre prestec
 		cal.add(Calendar.DATE, -num_dies);
 		Date data_min = cal.getTime();
+
+		// Calculem la data maxima en la que no es pot haver fet cap prestec
+		// que es *num_dies* dies despres del dia que volem fer el nostre prestec
+		cal.add(Calendar.DATE, num_dies * 2);
+		Date data_max = cal.getTime();
+
+		// Busquem si hi ha algun prestec que tingui la data d'inici entre aquests
+		// valors
 		for (int i = 0; i < nprestecs; i++) {
-			if(llista[i].getId_llibre().equals(id_llibre)) {
+			if (llista[i].getId_llibre().equals(id_llibre)) {
 				Date d = llista[i].getData_ini();
-				if((d.before(data_max) && d.after(data_min)) || d.equals(data_max) || d.equals(data_min))
+				if ((d.before(data_max) && d.after(data_min)) || d.equals(data_max) || d.equals(data_min))
 					return true;
 			}
 		}
@@ -203,11 +216,14 @@ public class LlistaPrestecs {
 		return enPrestec(id_llibre, data, 0);
 	}
 	
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public LlistaPrestecs enPrestecAvui() {
 		LlistaPrestecs prestecsActuals = new LlistaPrestecs(10);
 		for (int i = 0; i < nprestecs; i++) {
-			if (llista[i].getData_ini().before(new Date()))
+			if (llista[i].getData_ini().before(Calendar.getInstance().getTime()))
 				prestecsActuals.afegirPrestec(llista[i]);
 		}
 		return prestecsActuals;
