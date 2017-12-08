@@ -337,12 +337,16 @@ public class LlistaReserves {
 	 * @throws IOException
 	 */
 
-	public Reserva[] ConsultarReserves(String DNI) throws IOException {
+	public Reserva[] ConsultarReserves(String DNI) {
 		int i, j = 0;
 		Reserva[] reservesusuari = new Reserva[numreserves];
 		Date aux = new Date();
 		// Actualitzo estat reserves
-		EstatReserves();
+		try {
+			EstatReserves();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		// Recorrem tota la llista
 		for (i = 0; i < numreserves; i++) {
 			// Si la reserva de la posició de la llista que estem mirant té el mateix DNI

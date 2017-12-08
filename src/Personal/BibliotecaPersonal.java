@@ -3,6 +3,7 @@ package Personal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import Dades.*;
@@ -105,7 +106,7 @@ public class BibliotecaPersonal extends Biblioteca {
 			resultat = resultat + i + ".\tCodi del llibre: " + codi + "\n\tTitol del llibre: "
 					+ llibres.retornaLlibre(codi).getTitol() + "\n\t Dades de l'usari que te el llibre: "
 					+ socis.retornaSoci(dni).toString();
-			if (prestecsActuals.getLlista()[i].enTermini(llibres.retornaLlibre(codi), new Date()))
+			if (prestecsActuals.getLlista()[i].enTermini(llibres.retornaLlibre(codi), Calendar.getInstance().getTime()))
 				resultat = resultat + "\n\tEN TERMINI\n\n";
 			else
 				resultat = resultat + "\n\tFORA DE TERMINI\n\n";

@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 import Dades.*;
 import Exceptions.*;
@@ -56,11 +56,11 @@ public class BibliotecaUsuari extends Biblioteca {
 			// Emmagatzemem el codi del llibre i la data d'avui en una String
 			String idllibre = consulta.getLlistallibres()[i].getCodi();
 			DateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-			String avui = formato.format(new Date());
+			String avui = formato.format(Calendar.getInstance().getTime());
 
 			// Segons si el llibre es troba disponible o no afegim disponible o no
 			// disponible al final de la linea
-			if (!prestecsActius.enPrestec(idllibre, avui) && !reserves.ReservaDia(idllibre, new Date()))
+			if (!prestecsActius.enPrestec(idllibre, avui) && !reserves.ReservaDia(idllibre, Calendar.getInstance().getTime()))
 				resultat = resultat + "\tDISPONIBLE\n";
 			else
 				resultat = resultat + "\tNO DISPONIBLE\n";
@@ -117,19 +117,20 @@ public class BibliotecaUsuari extends Biblioteca {
 		else if (prestecsActius.retornaPrestec(id_llibre, dni) != null)
 			throw new PrestecJaExisteix();
 		else {
-			int num_dies = 15;
-
+			int num_dies;
 			// Si el llibre es cientific modifiquem el nombre de dies maxims del prestec
 			if (llibre instanceof Llibre_Cientific)
 				num_dies = ((Llibre_Cientific) llibre).getDiesPrestec();
-
+			else
+				num_dies = 15;
+			
 			// Mirarem que el llibre no estigui en reserva o prestec
 			if (!prestecsActius.enPrestec(id_llibre, data_ini, num_dies)
 					&& !reserves.ReservaPeriode(id_llibre, data_ini, num_dies)) {
 				// Si es aixi augmentem el numero de llibres en prestec del soci
 				soci.prestecUP();
 				// Afegim el prestec a la llista
-				prestecsActius.afegirPrestec(id_llibre, dni, data_ini);
+				prestecsActius.afegirPrestec(new Prestec(id_llibre, dni, data_ini));
 			}
 			else
 				throw new LlibreNoDisponible();
@@ -167,10 +168,10 @@ public class BibliotecaUsuari extends Biblioteca {
 			soci.prestecDown();
 
 			// Definim la data final de prestec com a avui
-			prestec.setData_fi(new Date());
+			prestec.setData_fi(Calendar.getInstance().getTime());
 
 			// Comprovem si s'ha d'afegir incidencia
-			if (!prestec.enTermini(llibre, new Date()))
+			if (!prestec.enTermini(llibre, Calendar.getInstance().getTime()))
 				soci.incidenciaUP();
 			else if (soci instanceof NoEstudiant)
 				((NoEstudiant) soci).puntsUP();
@@ -228,7 +229,7 @@ public class BibliotecaUsuari extends Biblioteca {
 		if (socis.existeix(dni)) {
 			resultat = "LLIBRES EN PRESTEC:\n" + prestecsActius.prestecsUsuari(dni).toString();
 		}
-		resultat = resultat + "\n LLIBRES EN RESERVA:\n" + reserves.reservesUsuari(dni).toString();
+		resultat = resultat + "\n LLIBRES EN RESERVA:\n" + reserves.ConsultarReserves(dni).toString();
 		return resultat;
 	}
 }
