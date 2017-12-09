@@ -94,6 +94,8 @@ public class BibliotecaPersonal extends Biblioteca {
 	}
 
 	/**
+	 * Metode que retorna tots els llibres en prestec amb les dades del soci que el
+	 * te
 	 * 
 	 * @return
 	 */
@@ -103,7 +105,7 @@ public class BibliotecaPersonal extends Biblioteca {
 		for (int i = 0; i < prestecsActuals.getNprestecs(); i++) {
 			String dni = prestecsActuals.getLlista()[i].getId_llibre();
 			String codi = prestecsActuals.getLlista()[i].getId_llibre();
-			resultat = resultat + i + ".\tCodi del llibre: " + codi + "\n\tTitol del llibre: "
+			resultat = resultat + i + 1 + ".\tCodi del llibre: " + codi + "\n\tTitol del llibre: "
 					+ llibres.retornaLlibre(codi).getTitol() + "\n\t Dades de l'usari que te el llibre: "
 					+ socis.retornaSoci(dni).toString();
 			if (prestecsActuals.getLlista()[i].enTermini(llibres.retornaLlibre(codi), Calendar.getInstance().getTime()))
@@ -147,23 +149,23 @@ public class BibliotecaPersonal extends Biblioteca {
 		}
 		return compt;
 	}
-	
+
 	public String consultaLlibres() {
 		return llibres.toString();
 	}
-	
+
 	public String consultaSocis() {
 		return socis.toString();
 	}
-	
+
 	public String consultaPrestecsActius() {
 		return prestecsActius.toString();
 	}
-	
+
 	public String consultaPrestecsInactius() {
 		return prestecsInactius.toString();
 	}
-	
+
 	public String consultaReserves() {
 		return reserves.toString();
 	}

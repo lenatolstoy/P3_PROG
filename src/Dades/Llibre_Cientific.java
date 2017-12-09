@@ -1,6 +1,5 @@
 package Dades;
 
-import java.util.Date;
 
 public class Llibre_Cientific extends Llibre {
 

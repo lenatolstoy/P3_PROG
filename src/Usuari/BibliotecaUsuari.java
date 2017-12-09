@@ -114,7 +114,7 @@ public class BibliotecaUsuari extends Biblioteca {
 		// Comprovem que el soci no es trobi en el seu maxim de prestecs
 		else if (soci.max_prestec())
 			throw new MaximPrestecs();
-		else if (prestecsActius.retornaPrestec(id_llibre, dni) != null)
+		else if (prestecsActius.posicio(id_llibre,dni) != -1)
 			throw new PrestecJaExisteix();
 		else {
 			int num_dies;
@@ -151,7 +151,7 @@ public class BibliotecaUsuari extends Biblioteca {
 	 */
 	public void finalitzarPrestec(String id_llibre, String dni)
 			throws LlibreNoTrobat, SociInexistent, PrestecInexistent {
-		Prestec prestec = prestecsActius.retornaPrestec(id_llibre, dni);
+		Prestec prestec = prestecsActius.retornaPrestec(prestecsActius.posicio(id_llibre, dni));
 		Soci soci = socis.retornaSoci(dni);
 		Llibre llibre = llibres.retornaLlibre(id_llibre);
 		// Mirem que el llibre es trobi a la llista

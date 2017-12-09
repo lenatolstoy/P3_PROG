@@ -1,7 +1,6 @@
 package Dades;
 
 import java.util.Arrays;
-import java.util.Date;
 
 public class Llibre {
 
@@ -16,6 +15,10 @@ public class Llibre {
 	protected String codi;
 	protected static int comptador = 0;
 	protected boolean actiu;
+
+	public int getDIES_RESERVA() {
+		return DIES_RESERVA;
+	}
 
 	/**
 	 * @param DIES_RESERVA

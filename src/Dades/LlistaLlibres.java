@@ -7,7 +7,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 public class LlistaLlibres {
@@ -202,7 +201,7 @@ public class LlistaLlibres {
 						llistallibres[i].setAutor(aux);
 						aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
 						p = f + 2;
-					}while(!aux.equals('/'));
+					}while(!aux.equals("/"));
 					aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
 					p = f + 2;
 					llistallibres[i].setTema(aux);
@@ -211,7 +210,7 @@ public class LlistaLlibres {
 					llistallibres[i].setNum_edicio((Integer.parseInt(aux)));
 					aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
 					p = f + 2;
-					llistallibres[i].setAnyEdicio(Date.parse(aux));
+					llistallibres[i].setAnyEdicio(Integer.parseInt(aux));
 					aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
 					p = f + 2;
 					   
