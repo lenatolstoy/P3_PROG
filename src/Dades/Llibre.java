@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 public class Llibre {
 
+	private final int DIES_RESERVA = 15;
+
 	protected String titol;
 	protected String[] autors;
 	protected String tema;
@@ -124,6 +126,10 @@ public class Llibre {
 	 */
 	public String getCodi() {
 		return (codi);
+	}
+	
+	public int getDIES_RESERVA() {
+		return(DIES_RESERVA);
 	}
 
 	/**
