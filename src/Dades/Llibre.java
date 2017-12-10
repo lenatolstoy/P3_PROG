@@ -9,7 +9,7 @@ public class Llibre {
 	protected String titol;
 	protected String[] autors;
 	protected String tema;
-	protected static String[] temes;
+	protected static String[] temes = null;
 	protected int num_edicio;
 	protected int any_edicio;
 	protected String codi;
