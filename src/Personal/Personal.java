@@ -6,9 +6,9 @@ public class Personal {
 
 	public static void main(String[] args) {
 		Scanner lector = new Scanner(System.in);
-		int op;
+		int op = 14;
 		BibliotecaPersonal biblioteca = new BibliotecaPersonal();
-		biblioteca.llegir();
+		// biblioteca.llegir();
 		do {
 			System.out.println("\n---------MENU---------");
 			System.out.println("1. Afegir llibre a la biblioteca");
@@ -24,12 +24,12 @@ public class Personal {
 			System.out.println("11. Consultar prestecs inactius de la biblioteca");
 			System.out.println("12. Consultar reserves de la biblioteca");
 			System.out.println("13. Sortir");
-
+			System.out.println("Trii una opcio: ");
 			do {// Excepcion de que solo pueden ser enteros
 				try {
-					op = Integer.parseInt(lector.next());
+					op = Integer.parseInt(lector.nextLine());
 				} catch (NumberFormatException e) {
-					op = 14;
+					op = 0;
 				}
 				if (op < 1 || op > 13)
 					System.out.println("Trii una opcio correcta: ");
@@ -38,137 +38,140 @@ public class Personal {
 			switch (op) {
 			case 1:
 				System.out.println("\nHa escollit: afegir un llibre");
-				afegirLlibre(biblioteca);
+				afegirLlibre(biblioteca, lector);
+				System.out.println("Llibre afegit");
 				break;
 			case 2:
 				System.out.println("\nHa escollit: eliminar un llibre");
-				eliminarLlibre(biblioteca);
+				eliminarLlibre(biblioteca, lector);
+				System.out.println("Llibre eliminat");
 				break;
 			case 3:
 				System.out.println("\nHa escollit: afegir tematica");
-				afegirTematica(biblioteca);
+				afegirTematica(biblioteca, lector);
+				System.out.println("Tema afegit");
 				break;
 			case 4:
 				System.out.println("\nHa escollit: donar d'alta un soci");
-				altaSoci(biblioteca);
+				altaSoci(biblioteca, lector);
+				System.out.println("Soci donat d'alta");
 				break;
 			case 5:
 				System.out.println("\nHa escollit: donar de baixa un soci");
-				baixaSoci(biblioteca);
+				baixaSoci(biblioteca, lector);
+				System.out.println("Soci donat de baixa");
 				break;
 			case 6:
 				System.out.println("\nHa escollit: veure els prestecs");
 				System.out.println(biblioteca.llibresEnPrestec());
+				System.out.println("Fi prestecs");
 				break;
 			case 7:
 				System.out.println("\nHa escollit: veure el tema amb mes prestecs actius");
-				System.out.println("El tema amb mes prestecs actius es: "+biblioteca.temaAmbMesPrestecs());
+				System.out.println("El tema amb mes prestecs actius es: " + biblioteca.temaAmbMesPrestecs());
 				break;
 			case 8:
 				System.out.println("\nHa escollit: consultar llibres");
 				System.out.println(biblioteca.consultaLlibres());
+				System.out.println("Fi llibres");
 				break;
 			case 9:
 				System.out.println("\nHa escollit: consultar socis");
 				System.out.println(biblioteca.consultaSocis());
+				System.out.println("Fi socis");
 				break;
 			case 10:
 				System.out.println("\nHa escollit: consultar prestecs actius");
 				System.out.println(biblioteca.consultaPrestecsActius());
+				System.out.println("Fi prestecs actius");
 				break;
 			case 11:
 				System.out.println("\nHa escollit: consultar prestecs inactius");
 				System.out.println(biblioteca.consultaPrestecsInactius());
+				System.out.println("Fi prestecs inactius");
 				break;
 			case 12:
 				System.out.println("\nHa escollit: consultar reserves");
 				System.out.println(biblioteca.consultaReserves());
+				System.out.println("Fi reserves");
 				break;
 			case 13:
 				System.out.println("\nHa escollit: sortir");
 				System.out.println("Vol guardar tots els canvis fets? (Si -> Y | No -> N)");
 				char g = 'c';
 				do {
-					g =lector.next().charAt(0);
-					if (g!='N' && g!='Y') System.out.println("Introdueixi Y o N: ");
-				}while (g!='N' && g!='Y');
-				if (g=='Y') biblioteca.guardar();
+					g = lector.nextLine().charAt(0);
+					if (g != 'N' && g != 'Y')
+						System.out.println("Introdueixi Y o N: ");
+				} while (g != 'N' && g != 'Y');
+				if (g == 'Y')
+					biblioteca.guardar();
 				break;
 			}
 		} while (op != 13);
 		lector.close();
 	}
 
-	private static void afegirLlibre(BibliotecaPersonal biblioteca) {
+	private static void afegirLlibre(BibliotecaPersonal biblioteca, Scanner lector) {
 		String[] autors = new String[10];
-		Scanner lector = new Scanner(System.in);
 		int i = 0;
 		char op = 'N';
 		System.out.println("Introdueixi el titol del llibre: ");
-		String titol = lector.next();
+		String titol = lector.nextLine();
 		do {
 			System.out.println("Introdueixi autor del llibre: ");
-			autors[i] = lector.next();
+			autors[i] = lector.nextLine();
 			i++;
 			if (i == 10)
-				System.out.println("Npmbre maxim d'autors assolit");
+				System.out.println("Nombre maxim d'autors assolit");
 			else {
 				System.out.println(
 						"Vol continuar afegint autors? En cas afirmatiu introdueixi 'Y', si no introdueixi un altre caracter: ");
-				op = lector.next().charAt(0);
+				op = lector.nextLine().charAt(0);
 			}
 		} while (op == 'Y' && i < 10);
 		System.out.println("Introdueixi el tema del llibre: ");
-		String tema = lector.next();
+		String tema = lector.nextLine();
 		int num_edicio = 1;
 		System.out.println("Introudeixi el numero d'edicio: ");
 		try {
-			num_edicio = Integer.parseInt(lector.next());
+			num_edicio = Integer.parseInt(lector.nextLine());
 		} catch (NumberFormatException e) {
 			System.out.println("No ha introduit un nombre, nombre d'edicio predefinit a 1");
 		}
 		System.out.println("Introdueixi l'any d'edicio: ");
 		int any_edicio = 2017;
 		try {
-			any_edicio = Integer.parseInt(lector.next());
+			any_edicio = Integer.parseInt(lector.nextLine());
 		} catch (NumberFormatException e) {
 			System.out.println("No ha introduit un nombre, nombre d'edicio predefinit a 2017");
 		}
 		biblioteca.afegirLlibre(titol, autors, tema, num_edicio, any_edicio);
-		lector.close();
 	}
 
-	private static void eliminarLlibre(BibliotecaPersonal biblioteca) {
-		Scanner lector = new Scanner(System.in);
+	private static void eliminarLlibre(BibliotecaPersonal biblioteca, Scanner lector) {
 		System.out.println("Introdueixi el codi del llibre a eliminar ");
-		biblioteca.eliminaLlibre(lector.next());
-		lector.close();
+		biblioteca.eliminaLlibre(lector.nextLine());
 	}
 
-	private static void afegirTematica(BibliotecaPersonal biblioteca) {
-		Scanner lector = new Scanner(System.in);
+	private static void afegirTematica(BibliotecaPersonal biblioteca, Scanner lector) {
 		System.out.println("Introdueixi una tematica nova: ");
-		biblioteca.afegirTema(lector.next());
-		lector.close();
+		biblioteca.afegirTema(lector.nextLine());
 	}
 
-	private static void altaSoci(BibliotecaPersonal biblioteca) {
-		Scanner lector = new Scanner(System.in);
+	private static void altaSoci(BibliotecaPersonal biblioteca, Scanner lector) {
 		String dni, nom, data_naixement;
 		System.out.println("Afegeixi el DNI del soci: ");
-		dni = lector.next();
+		dni = lector.nextLine();
 		System.out.println("Afegeixi el nom del soci: ");
-		nom = lector.next();
+		nom = lector.nextLine();
 		System.out.println("Afegeixi la data de naixement (en format dd/MM/yyyy)");
-		data_naixement = lector.next();
+		data_naixement = lector.nextLine();
 		biblioteca.afegirSoci(dni, nom, data_naixement);
-		lector.close();
 	}
 
-	private static void baixaSoci(BibliotecaPersonal biblioteca) {
-		Scanner lector = new Scanner(System.in);
+	private static void baixaSoci(BibliotecaPersonal biblioteca, Scanner lector) {
 		System.out.println("Afegeixi el DNI del soci: ");
-		biblioteca.baixaSoci(lector.next());
-		lector.close();
+		biblioteca.baixaSoci(lector.nextLine());
 	}
 }

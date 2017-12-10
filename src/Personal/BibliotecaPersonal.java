@@ -69,7 +69,7 @@ public class BibliotecaPersonal extends Biblioteca {
 	public void afegirSoci(String DNI, String nom, String data_naixement) {
 		Date dnaixement = null;
 		// Passem el string a tipus data
-		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			dnaixement = format.parse(data_naixement);
 		} catch (ParseException e) {

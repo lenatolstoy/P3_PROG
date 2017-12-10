@@ -165,7 +165,7 @@ public class LlistaPrestecs {
 	public boolean enPrestec(String id_llibre, String data, int num_dies) {
 		Date dat = null;
 		// Passem el String a tipus Data
-		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			dat = format.parse(data);
 		} catch (ParseException e) {

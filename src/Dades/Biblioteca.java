@@ -87,7 +87,7 @@ public abstract class Biblioteca {
 		}
 
 		try {
-			prestecsActius.llegirFitxer("prestecsactius.txt");
+			prestecsActius.llegirFitxer("prestecsactius.dat");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -95,7 +95,7 @@ public abstract class Biblioteca {
 		}
 
 		try {
-			prestecsInactius.llegirFitxer("prestecsinactius.txt");
+			prestecsInactius.llegirFitxer("prestecsinactius.dat");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -134,13 +134,13 @@ public abstract class Biblioteca {
 		}
 
 		try {
-			prestecsActius.guardarFitxer("prestecsactius.txt");
+			prestecsActius.guardarFitxer("prestecsactius.dat");
 		} catch (IOException e) {
 			System.out.println("Fitxer de prestecs actius no trobat: " + e.toString());
 		}
 
 		try {
-			prestecsInactius.guardarFitxer("prestecsinactius.txt");
+			prestecsInactius.guardarFitxer("prestecsinactius.dat");
 		} catch (IOException e) {
 			System.out.println("Fitxer de prestecs inactius no trobat: " + e.toString());
 		}

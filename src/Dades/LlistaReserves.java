@@ -447,7 +447,7 @@ public class LlistaReserves {
 		Date data = null;
 		boolean reservat = false;
 		// Passem el string a tipus data
-		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			data = format.parse(string_data);
 		} catch (ParseException e) {e.printStackTrace();}

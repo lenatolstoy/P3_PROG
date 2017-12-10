@@ -55,7 +55,7 @@ public class BibliotecaUsuari extends Biblioteca {
 
 			// Emmagatzemem el codi del llibre i la data d'avui en una String
 			String idllibre = consulta.getLlistallibres()[i].getCodi();
-			DateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 			String avui = formato.format(Calendar.getInstance().getTime());
 
 			// Segons si el llibre es troba disponible o no afegim disponible o no
@@ -192,7 +192,7 @@ public class BibliotecaUsuari extends Biblioteca {
 	public void ferReserva(String id_llibre, String dni, String dia) {
 		Date data = null;
 		// Passem el string a tipus data
-		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			data = format.parse(dia);
 		} catch (ParseException e) {
