@@ -167,14 +167,18 @@ public class Llibre {
 		this.tema = tema;
 
 		if (!comprovarTema(tema)) {
-			String[] aux = new String[temes.length + 1];
+			if(temes == null) {
+				temes[0] = tema;
+			}else {
+				String[] aux = new String[temes.length + 1];
 
-			// Copiem tot el contingut de la llista en l'auxiliar
-			for (int i = 0; i < temes.length; i++) {
-				aux[i] = temes[i];
+				// Copiem tot el contingut de la llista en l'auxiliar
+				for (int i = 0; i < temes.length; i++) {
+					aux[i] = temes[i];
+				}
+				aux[aux.length - 1] = tema;
+				temes = aux;
 			}
-			aux[aux.length - 1] = tema;
-			temes = aux;
 		}
 	}
 
@@ -250,7 +254,7 @@ public class Llibre {
 
 		for (int i = 0; (i < temes.length) && (hiEs == false); i++) {
 
-			hiEs = (temes[i] == tema);
+			hiEs = (temes[i].equals(tema));
 		}
 		return hiEs;
 	}
@@ -298,14 +302,18 @@ public class Llibre {
 	public static void afegirTematica(String tema) {
 		
 		if (!comprovarTema(tema)) {
-			String[] aux = new String[temes.length + 1];
+			if(temes == null) {
+				temes[0] = tema;
+			}else {
+				String[] aux = new String[temes.length + 1];
 
-			// Copiem tot el contingut de la llista en l'auxiliar
-			for (int i = 0; i < temes.length; i++) {
-				aux[i] = temes[i];
+				// Copiem tot el contingut de la llista en l'auxiliar
+				for (int i = 0; i < temes.length; i++) {
+					aux[i] = temes[i];
+				}
+				aux[aux.length - 1] = tema;
+				temes = aux;
 			}
-			aux[aux.length - 1] = tema;
-			temes = aux;
 		}
 		
 	}
