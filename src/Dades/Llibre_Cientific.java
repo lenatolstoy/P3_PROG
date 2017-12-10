@@ -1,14 +1,15 @@
 package Dades;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class Llibre_Cientific extends Llibre {
 
 	private int dies_prestec;
 
-	public Llibre_Cientific(String titol, String[] autors, String tema, int num_edicio, int any_edicio) {
+	public Llibre_Cientific(String titol, String[] autors, String tema, int num_edicio, int any_edicio, int dies_prestec) {
 		super(titol, autors, tema, num_edicio, any_edicio);
-		dies_prestec = 0;
+		this.dies_prestec = dies_prestec;
 	}
 
 	/**
@@ -30,5 +31,12 @@ public class Llibre_Cientific extends Llibre {
 
 	public void setDiesPrestec(int dies_reserva) {
 		this.dies_prestec = dies_reserva;
+	}
+	
+	/**
+	 * toString
+	 */
+	public String toString() {
+		return (super.toString() + "Dies de prestec: " + this.dies_prestec+ "\n");
 	}
 }
