@@ -1,11 +1,8 @@
 package Dades;
 
 import java.util.Arrays;
-import java.util.Date;
 
 public class Llibre {
-
-	private final int DIES_RESERVA = 15;
 
 	protected String titol;
 	protected String[] autors;

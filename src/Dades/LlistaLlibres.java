@@ -169,19 +169,20 @@ public class LlistaLlibres {
 			
 		    try {
 				BufferedReader llibres = new BufferedReader(new FileReader("Llibres.txt"));
-				while((fileToString = llibres.readLine())!=null);
-				llibres.close();
+				fileToString = llibres.readLine();
+				
 				/* ara tenim tot el fitxer a fileToString */
 				
 				int p = 0;
 				int f = 0;
 				int i = 0;
 				
-				aux = (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
-				p = f + 2;
+				
 				
 				
 				do {
+					aux = (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
+					p = f + 2;
 					if(aux.contentEquals("100tifiko")) {
 						aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
 						p = f + 2;
@@ -218,11 +219,11 @@ public class LlistaLlibres {
 					p = f + 2;
 				
 					/* A partir d'aqui ya sería el següent */
-					aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
-					p = f + 2;
+					fileToString = llibres.readLine();
 					
 
-				}while(aux != null);
+				}while(fileToString != null);
+				llibres.close();
 				
 			}
 			catch (FileNotFoundException e) {
