@@ -6,8 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-
 
 public class LlistaLlibres {
 	
@@ -158,10 +156,7 @@ public class LlistaLlibres {
 			
 		}
 		
-		
-		//TOOOOOONO: AQUESTA S'HA D'IMPLEMENTAR, JO ENCARA ESTIC AMB LA MEVA DE RESERVES
-		//ET DEIXO LA CABECERA COM JO HO HE PENSAT DE MOMENT
-		
+				
 		/**
 		 * Mètode per llegir d'un fitxer de llibres
 		 * @return llistallibres del tipus Llibres[] per tenir ja en una llista de llibres tots els llibres
@@ -169,21 +164,24 @@ public class LlistaLlibres {
 		 */
 		public Llibre[] llegirFitxer() throws FileNotFoundException, IOException {
 			
-			String fileToString;
+			String fileToString = "";
 			String aux = "";
 			
 		    try {
-				BufferedReader llibres =new BufferedReader(new FileReader("Llibres.txt"));
-				while((fileToString = llibres.readLine())!=null);
-				llibres.close();
+				BufferedReader llibres = new BufferedReader(new FileReader("Llibres.txt"));
+				fileToString = llibres.readLine();
+				
+				/* ara tenim tot el fitxer a fileToString */
 				
 				int p = 0;
 				int f = 0;
 				int i = 0;
 				
+				
+				
+				
 				do {
-					
-					aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
+					aux = (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
 					p = f + 2;
 					if(aux.contentEquals("100tifiko")) {
 						aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
@@ -192,8 +190,13 @@ public class LlistaLlibres {
 						aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
 						p = f + 2;
 					}
-				
+			
 					llistallibres[i].setTitol(aux);
+					
+					/* subsequence et fa una string desde la posicio p fins la f que en aquest cas es
+					 * fins abans del asterisc, despres li sumem 2 per saltar-nos'el <- (O.o)
+					 */
+			
 					
 					aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
 					p = f + 2;
@@ -210,13 +213,18 @@ public class LlistaLlibres {
 					llistallibres[i].setNum_edicio((Integer.parseInt(aux)));
 					aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
 					p = f + 2;
+					/* Aqui tenim al aux el date en forma de String */
 					llistallibres[i].setAnyEdicio(Integer.parseInt(aux));
 					aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
 					p = f + 2;
-					   
+				
+					/* A partir d'aqui ya sería el següent */
+					fileToString = llibres.readLine();
 					
 
-				}while(aux != null);
+				}while(fileToString != null);
+				llibres.close();
+				
 			}
 			catch (FileNotFoundException e) {
 				System.out.println("No s'ha trobat el fitxer amb les dades de les mesures de Cobertura");
@@ -224,6 +232,7 @@ public class LlistaLlibres {
 			catch (IOException e) {
 				System.out.println("S'ha produit un error al llegir el fitxer amb les dades de les mesures de Cobertura");
 			}
+		    return llistallibres;
 		    
 		}
 		
@@ -240,15 +249,10 @@ public class LlistaLlibres {
 			String tema;
 			String[] temes;
 			int num_edicio;
-			String any_edicio;
+			int any_edicio;
 			String codi;			
 		
 			BufferedWriter fitxer = new BufferedWriter(new FileWriter("Llibres.txt"));
-			
-			//TOOOOONI! CANVIA AMB ELS TEUS ATRIBUTS DE LLIBRE!
-			//TINGUES EN COMPTE QUE TOT SON STRINGS, FIXAT EN L'EXEMPLE DE RESERVES I ELS MEUS COMENTARIS
-			//EN COM ES FA SI EN REALITAT NO EREN STRINGS I ELS HAS CONVERTIT (VALUEOF)
-			//ESBORRA ELS COMENTARIS QUAN HO FACIS JAJA SALUDOS
 			
 			temes = llistallibres[0].getTemes();
 			
@@ -256,7 +260,7 @@ public class LlistaLlibres {
 				fitxer.write(temes[z]);
 				fitxer.write("*");
 			}
-				
+			fitxer.newLine();
 			//Recorrem totes les reserves per anar posant els atributs en variables
 			//I escriure reserva per reserva al fitxer
 			for (int i = 0; i<numllibres; i++) {
@@ -266,13 +270,13 @@ public class LlistaLlibres {
 				tema = llistallibres[i].getTema();
 				num_edicio = llistallibres[i].getNumEdicio();
 				codi = llistallibres[i].getCodi();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-				any_edicio = sdf.format(llistallibres[i].getAnyEdicio());
+				any_edicio = llistallibres[i].getAnyEdicio();
 		
 				//Ho escrivim al fitxer separat per *
 				if(llistallibres[i] instanceof Llibre_Cientific) {
 					fitxer.write("100tifico*");
 					fitxer.write(((Llibre_Cientific)llistallibres[i]).getDiesPrestec());
+					fitxer.write("*");
 				}
 				
 				fitxer.write(titol);
@@ -293,7 +297,9 @@ public class LlistaLlibres {
 				fitxer.write("*");
 				
 				//Saltem de línia al fitxer per escriure la nova reserva
-				fitxer.newLine();
+				if (i != numllibres - 1) {
+					fitxer.newLine();
+				}
 			}
 			//Tanquem el fitxer
 			fitxer.close();

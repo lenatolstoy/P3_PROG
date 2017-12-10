@@ -4,8 +4,6 @@ import java.util.Arrays;
 
 public class Llibre {
 
-	private final int DIES_RESERVA = 15;
-
 	protected String titol;
 	protected String[] autors;
 	protected String tema;
@@ -15,10 +13,6 @@ public class Llibre {
 	protected String codi;
 	protected static int comptador = 0;
 	protected boolean actiu;
-
-	public int getDIES_RESERVA() {
-		return DIES_RESERVA;
-	}
 
 	/**
 	 * @param DIES_RESERVA
@@ -174,6 +168,7 @@ public class Llibre {
 				aux[i] = temes[i];
 			}
 			aux[aux.length - 1] = tema;
+			temes = aux;
 		}
 	}
 
@@ -243,7 +238,7 @@ public class Llibre {
 	 * @return un boolea que ens indica si el tema ya existeix en la llista de temes
 	 */
 
-	private boolean comprovarTema(String tema) {
+	private static boolean comprovarTema(String tema) {
 
 		boolean hiEs = false;
 
@@ -288,8 +283,24 @@ public class Llibre {
 		}
 		return trobat;
 	}
+	
+	/**
+	 * Afegeix un tema a la llista de temas, si esta repetit no l'afegeix.
+	 * @param tema
+	 */
 
 	public static void afegirTematica(String tema) {
+		
+		if (!comprovarTema(tema)) {
+			String[] aux = new String[temes.length + 1];
 
+			// Copiem tot el contingut de la llista en l'auxiliar
+			for (int i = 0; i < temes.length; i++) {
+				aux[i] = temes[i];
+			}
+			aux[aux.length - 1] = tema;
+			temes = aux;
+		}
+		
 	}
 }
