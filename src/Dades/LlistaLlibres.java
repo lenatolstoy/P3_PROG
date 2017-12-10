@@ -204,7 +204,7 @@ public class LlistaLlibres {
 						llistallibres[i].setAutor(aux);
 						aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
 						p = f + 2;
-					}while(!aux.equals('/'));
+					}while(!aux.equals("/"));
 					aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
 					p = f + 2;
 					llistallibres[i].setTema(aux);

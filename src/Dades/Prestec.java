@@ -149,7 +149,7 @@ public class Prestec {
 	 *         passat dels dies
 	 */
 	public boolean enTermini(Llibre llibre, Date data_fi) {
-		int diesPrestec = 15;
+		int diesPrestec = llibre.getDIES_RESERVA();
 		long diferencia = getDifferenceDays(data_ini, data_fi);
 		// Si la diferencia es negativa l'usuari anula el prestec abans de que aquest
 		// sigui efectiu
