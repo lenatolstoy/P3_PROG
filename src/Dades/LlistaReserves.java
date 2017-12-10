@@ -131,52 +131,59 @@ public class LlistaReserves {
 	public void EstatReserves() throws IOException {
 
 		int i;
+		LlistaSocis llistasocis = null;
 
-		// Comprovarem l'estat de la reserva, si està activa o no, per totes les de la
-		// llista de reserves
-		/*
-		 * for (i=0; i<numreserves; i++){
-		 *
-		 * //Si no és soci la reserva estarà activa dos hores a partir de l'hora donada
-		 * en la data if(!EsSoci(llistareserves[i].getDNI())){
-		 *
-		 *
-		 * //Comprovem si ens trobem en la data i en l'interval de dos hores
-		 * if(llistareserves[i].getData().getDay() == new Date().getDay() &&
-		 * llistareserves[i].getData().getMonth() == new Date().getMonth() &&
-		 * llistareserves[i].getData().getYear() == new Date().getYear() &&
-		 * llistareserves[i].getData().getHours() <= new Date().getHours() &&
-		 * (llistareserves[i].getData().getHours()+2) >= new Date().getHours()){
-		 *
-		 *
-		 * //Quan l'hora sigui dos hores més s'acabarà el termini en els minuts i segons
-		 * que toca if ((llistareserves[i].getData().getHours()+2) == new
-		 * Date().getHours() && llistareserves[i].getData().getMinutes() <= new
-		 * Date().getMinutes() && llistareserves[i].getData().getSeconds() <= new
-		 * Date().getSeconds()){
-		 *
-		 * llistareserves[i].setActiva(false);
-		 *
-		 * } else{
-		 *
-		 * llistareserves[i].setActiva(true); }
-		 *
-		 * } }
-		 *
-		 * //Si és soci la reserva estarà activa tot el dia else{
-		 *
-		 * if(llistareserves[i].getData().getDay() == new Date().getDay() &&
-		 * llistareserves[i].getData().getMonth() == new Date().getMonth() &&
-		 * llistareserves[i].getData().getYear() == new Date().getYear()){
-		 *
-		 * llistareserves[i].setActiva(true);
-		 *
-		 * } }
-		 *
-		 * }
-		 */
+		// Comprovarem l'estat de la reserva, si està activa o no, per totes les de la llista de reserves
 
+		//Llegim la llista de socis
+		llistasocis.leer();
+
+		  for (i=0; i<numreserves; i++){
+
+		  //Si no és soci la reserva estarà activa dos hores a partir de l'hora donadaen la data
+		  if(llistasocis.existeix(llistareserves[i].getDNI()) == false){
+
+
+		  //Comprovem si ens trobem en la data i en l'interval de dos hores
+		  if(llistareserves[i].getData().getDay() == new Date().getDay() &&
+		  llistareserves[i].getData().getMonth() == new Date().getMonth() &&
+		  llistareserves[i].getData().getYear() == new Date().getYear() &&
+		  llistareserves[i].getData().getHours() <= new Date().getHours() &&
+		  (llistareserves[i].getData().getHours()+2) >= new Date().getHours()){
+
+
+		  //Quan l'hora sigui dos hores més s'acabarà el termini en els minuts i segons que toca
+			  if ((llistareserves[i].getData().getHours()+2) == new
+					  Date().getHours() && llistareserves[i].getData().getMinutes() <= new
+					  Date().getMinutes() && llistareserves[i].getData().getSeconds() <= new
+					  Date().getSeconds()){
+
+				  llistareserves[i].setActiva(false);
+
+			  }
+			  else{
+
+				  llistareserves[i].setActiva(true); }
+
+		  		}
+		  }
+
+		  //Si és soci la reserva estarà activa tot el dia
+		  else{
+			  if(llistareserves[i].getData().getDay() == new Date().getDay() &&
+					  llistareserves[i].getData().getMonth() == new Date().getMonth() &&
+					  llistareserves[i].getData().getYear() == new Date().getYear()){
+
+				  llistareserves[i].setActiva(true);
+
+			  }
+		  }
 	}
+
+}
+
+
+
 
 	/**
 	 * Mètode que ens retorna una llista amb les reserves que estan actives en
@@ -486,18 +493,28 @@ public class LlistaReserves {
 	 *            està disponible
 	 * @return disponible del tipus booleà que serà cert si el llibre està
 	 *         disponible i fals si no ho està
+	 * @throws ClassNotFoundException
 	 */
 
-	public boolean LlibreDisponible(String codillibre, Date data) throws IOException {
+	public boolean LlibreDisponible(String codillibre, Date data) throws IOException, ClassNotFoundException {
 
 		boolean disponible = false;
+		LlistaPrestecs llistaprestecs = null;
+		String fitxer = null;
+
+		//Passem la data a String perquè per cridar enPrestec ho necessitem en String
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		String datastring = sdf.format(new Date(data.getTime()));
+		System.out.println(datastring);
+
+		llistaprestecs.llegirFitxer(fitxer);
 
 		// Si el llibre no està reservat ni en préstec aquell dia està disponible
-		/*
-		 * if(!ReservaDia(codillibre, data) && !PréstecDia(codillibre, data)){
-		 *
-		 * disponible=true; }
-		 */
+		 if(ReservaDia(codillibre, data)==false && llistaprestecs.enPrestec(codillibre, datastring)==false){
+
+			 	disponible=true;
+		  }
+
 
 		return disponible;
 	}
@@ -639,6 +656,3 @@ public class LlistaReserves {
 	}
 
 }
-
-}
-
