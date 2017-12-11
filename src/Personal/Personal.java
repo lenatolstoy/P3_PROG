@@ -48,8 +48,12 @@ public class Personal {
 				break;
 			case 3:
 				System.out.println("\nHa escollit: afegir tematica");
-				afegirTematica(biblioteca, lector);
-				System.out.println("Tema afegit");
+				if(afegirTematica(biblioteca, lector)) {
+					System.out.println("Tema afegit");
+				}else {
+					System.out.println("Aquest tema ja esta a la llista");
+
+				}
 				break;
 			case 4:
 				System.out.println("\nHa escollit: donar d'alta un soci");
@@ -154,9 +158,9 @@ public class Personal {
 		biblioteca.eliminaLlibre(lector.nextLine());
 	}
 
-	private static void afegirTematica(BibliotecaPersonal biblioteca, Scanner lector) {
+	private static boolean afegirTematica(BibliotecaPersonal biblioteca, Scanner lector) {
 		System.out.println("Introdueixi una tematica nova: ");
-		biblioteca.afegirTema(lector.nextLine());
+		return biblioteca.afegirTema(lector.nextLine());
 	}
 
 	private static void altaSoci(BibliotecaPersonal biblioteca, Scanner lector) {

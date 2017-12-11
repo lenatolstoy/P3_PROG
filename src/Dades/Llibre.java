@@ -9,7 +9,7 @@ public class Llibre {
 	protected String titol;
 	protected String[] autors;
 	protected String tema;
-	protected static String[] temes = null;
+	protected static String[] temes;
 	protected int num_edicio;
 	protected int any_edicio;
 	protected String codi;
@@ -168,7 +168,9 @@ public class Llibre {
 
 		if (!comprovarTema(tema)) {
 			if(temes == null) {
-				temes[0] = tema;
+				String[] aux = new String[1];
+				aux[0] = tema;
+				temes = aux;
 			}else {
 				String[] aux = new String[temes.length + 1];
 
@@ -252,10 +254,14 @@ public class Llibre {
 
 		boolean hiEs = false;
 
-		for (int i = 0; (i < temes.length) && (hiEs == false); i++) {
+		if(temes != null) {
+			for (int i = 0; (i < temes.length) && (hiEs == false); i++) {
 
-			hiEs = (temes[i].equals(tema));
+				hiEs = (temes[i].equals(tema));
+
+			}	
 		}
+		
 		return hiEs;
 	}
 
@@ -299,12 +305,19 @@ public class Llibre {
 	 * @param tema
 	 */
 
-	public static void afegirTematica(String tema) {
+	public static boolean afegirTematica(String tema) {
+		
+		boolean todo_bien = false;
+		
+		todo_bien = !(comprovarTema(tema));
 		
 		if (!comprovarTema(tema)) {
 			if(temes == null) {
-				temes[0] = tema;
-			}else {
+				String[] aux = new String[1];
+				aux[0] = tema;
+				temes = aux;
+			}
+		}else {
 				String[] aux = new String[temes.length + 1];
 
 				// Copiem tot el contingut de la llista en l'auxiliar
@@ -313,8 +326,9 @@ public class Llibre {
 				}
 				aux[aux.length - 1] = tema;
 				temes = aux;
-			}
+			
 		}
+		return todo_bien;
 		
 	}
 }

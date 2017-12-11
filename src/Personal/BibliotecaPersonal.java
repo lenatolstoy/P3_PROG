@@ -51,9 +51,10 @@ public class BibliotecaPersonal extends Biblioteca {
 	 * 
 	 * @param tema
 	 *            tema a afegir
+	 * @return 
 	 */
-	public void afegirTema(String tema) {
-		Llibre.afegirTematica(tema);
+	public boolean afegirTema(String tema) {
+		return Llibre.afegirTematica(tema);
 	}
 
 	/**
