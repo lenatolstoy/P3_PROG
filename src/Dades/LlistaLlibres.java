@@ -78,7 +78,7 @@ public class LlistaLlibres {
 				
 				if (llistallibres[i].comprovaAlfabetic(codi)){
 					trobat=true;
-					pos = i - 2;
+					pos = i;
 				}
 				
 				i++;
@@ -247,20 +247,25 @@ public class LlistaLlibres {
 			String titol;
 			String[] autors;
 			String tema;
-			String[] temes;
+			String[] temes = null;
 			int num_edicio;
 			int any_edicio;
 			String codi;			
 		
 			BufferedWriter fitxer = new BufferedWriter(new FileWriter("Llibres.txt"));
 			
-			temes = llistallibres[0].getTemes();
-			
-			for(int z = 0; z < temes.length; z++) {
-				fitxer.write(temes[z]);
-				fitxer.write("*");
+			if(llistallibres[0].getTemes() != null) {
+				temes = llistallibres[0].getTemes();
 			}
-			fitxer.newLine();
+			
+			if(temes != null) {
+				for(int z = 0; z < temes.length; z++) {
+					fitxer.write(temes[z]);
+					fitxer.write("*");
+				}
+				fitxer.newLine();
+			}
+			
 			//Recorrem totes les reserves per anar posant els atributs en variables
 			//I escriure reserva per reserva al fitxer
 			for (int i = 0; i<numllibres; i++) {
