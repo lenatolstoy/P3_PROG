@@ -34,6 +34,26 @@ public class BibliotecaPersonal extends Biblioteca {
 	public void afegirLlibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio) {
 		llibres.afegirLlibre(new Llibre(titol, autors, tema, num_edicio, any_edicio));
 	}
+	
+	/**
+	 * Metode que afegeix un llibre a la llista dels llibres
+	 * 
+	 * @param titol
+	 *            String amb el titol del llibre
+	 * @param autors
+	 *            array de Strings amb els autors del llibre
+	 * @param tema
+	 *            String del tema
+	 * @param num_edicio
+	 *            enter amb el numero d'edicio del llibre
+	 * @param any_edicio
+	 *            enter amb l'any d'edicio del llibre
+	 * @param dies_prestec
+	 * 			  enter amb els dies de prestec
+	 */
+	public void afegirLlibreCientific(String titol, String[] autors, String tema, int num_edicio, int any_edicio, int dies_prestec) {
+		llibres.afegirLlibreCientific(new Llibre_Cientific(titol, autors, tema, num_edicio, any_edicio, dies_prestec));
+	}
 
 	/**
 	 * Metode que permet eliminar un llibre de la biblioteca, com que volem manteir

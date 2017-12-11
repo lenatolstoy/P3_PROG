@@ -37,4 +37,19 @@ public class Llibre_Cientific extends Llibre {
 	public String toString() {
 		return (super.toString() + "Dies de prestec: " + this.dies_prestec+ "\n");
 	}
+	
+	/**
+	 * Mètode que duplica la instància del llibre cientific
+	 * 
+	 * @return duplicat
+	 */
+
+	/*
+	 * Creem un nou objecte perque si nomes copiem la referencia si en modifiquem un
+	 * l'altre tambe es modificara perque son el mateix.
+	 */
+	public Llibre_Cientific Duplicat() {
+		Llibre_Cientific aux = new Llibre_Cientific(this.titol, this.autors, this.tema, this.num_edicio, this.any_edicio, this.dies_prestec);
+		return (aux);
+	}
 }

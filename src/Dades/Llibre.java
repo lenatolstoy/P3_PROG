@@ -43,6 +43,7 @@ public class Llibre {
 		this.titol = titol;
 		this.autors = autors;
 		this.tema = tema;
+		afegirTematica(tema);
 		this.num_edicio = num_edicio;
 		this.any_edicio = any_edicio;
 		comptador++;

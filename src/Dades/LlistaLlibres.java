@@ -156,6 +156,69 @@ public class LlistaLlibres {
 			
 		}
 		
+		/**
+		 * Mètode per afegir un llibre a la biblioteca
+		 * @param llibre del tipus Llibres que ens donarà la informació del llibre que es vol afegir
+		 */
+		
+		public void afegirLlibreCientific (Llibre_Cientific llibre_cientific){
+			
+			int i, j;
+			
+			//Comprovem que el llibre tingui lloc a la llista
+			//Si té lloc l'afegim directament
+			if(numllibres < llistallibres.length){
+				
+				//Agafem la posició on ha d'anar el llibre amb una funció auxiliar
+				i = ordreCodis(llibre_cientific.getCodi());
+				
+				//Movem tots els llibres a partir de la posició un endavant
+				for(j=i; j<numllibres; j++){
+					
+					llistallibres[j+1] = llistallibres[j];
+				}
+					
+				//Afegim el nou llibre a la posició trobada
+				llistallibres[i] = llibre_cientific.Duplicat();
+				//Actualitzem el número de llibres
+				numllibres++;
+				
+			}
+			//Si no té lloc ampliem la llista
+			else{
+				
+				Llibre[] aux = new Llibre[numllibres+1];
+				
+				//Copiem tot el contingut de la llista en l'auxiliar
+				for(i=0; i<numllibres; i++){
+					
+					aux[i] = llistallibres[i];
+				}
+				
+				//Volem afegir el llibre de manera ordenada a la llista
+				//Agafem la posició on ha d'anar el llibre amb una funció auxiliar
+				i = ordreCodis(llibre_cientific.getCodi());
+				
+				//Movem tots els llibres a partir de la posició un endavant
+				for(j=i; j<numllibres; j++){
+					
+					aux[j+1] = aux[j];
+				}
+				
+				
+				//Finalment afegim el nou llibre a la llista ampliada a la posició que li toca
+				aux[i] = llibre_cientific.Duplicat();
+				
+				//Actualitzem el número de llibres
+				numllibres++;
+				
+				//Retornem la direcció de la nova llista a la vella
+				llistallibres = aux;
+				
+			}			
+			
+		}
+		
 				
 		/**
 		 * Mètode per llegir d'un fitxer de llibres
@@ -286,7 +349,7 @@ public class LlistaLlibres {
 				
 				fitxer.write(titol);
 				fitxer.write("*");
-				for(int z = 0; z < autors.length; z++) {
+				for(int z = 0; autors[z] != null; z++) {
 					fitxer.write(autors[z]);
 					fitxer.write("*");
 				}
