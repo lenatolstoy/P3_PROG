@@ -38,17 +38,7 @@ public class Personal {
 			switch (op) {
 			case 1:
 				System.out.println("\nHa escollit: afegir un llibre");
-				System.out.println("Quin llibre vols guardar? (Normal -> 1 | Cientific -> 2)");
-				char f = 'c';
-				do {
-					f = lector.nextLine().charAt(0);
-					if (f != '1' && f != '2')
-						System.out.println("Introdueixi 1 o 2: ");
-				} while (f != '1' && f != '2');
-				if (f == '1') {
-					afegirLlibre(biblioteca, lector);
-				}else afegirLlibreCientific(biblioteca, lector);
-				
+				afegirLlibre(biblioteca, lector);
 				System.out.println("Llibre afegit");
 				break;
 			case 2:
@@ -160,7 +150,7 @@ public class Personal {
 		} catch (NumberFormatException e) {
 			System.out.println("No ha introduit un nombre, nombre d'edicio predefinit a 2017");
 		}
-		if (tema.equals("cientific")) {
+		if (tema.equals("Cientific") || tema.equals("cientific")) {
 			int dies_prestec = 15;
 			System.out.println("Introudeixi els dies maxims de prestec: ");
 			try {
