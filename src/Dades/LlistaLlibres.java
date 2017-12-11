@@ -71,7 +71,7 @@ public class LlistaLlibres {
 			int pos=0, i=0;
 			//Volem afegir el llibre a la llista ordenada per codi
 			//Anem recorrent la llista i busquem la posició on ha d'anar
-			
+			if(numllibres == 0) trobat = true;
 			
 			//Parem quan trobem la posició o arribem al final
 			while(i<numllibres || !trobat){
