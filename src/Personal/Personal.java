@@ -150,7 +150,18 @@ public class Personal {
 		} catch (NumberFormatException e) {
 			System.out.println("No ha introduit un nombre, nombre d'edicio predefinit a 2017");
 		}
-		biblioteca.afegirLlibre(titol, autors, tema, num_edicio, any_edicio);
+		if (tema.equals("cientific")) {
+			int dies_prestec = 15;
+			System.out.println("Introudeixi els dies maxims de prestec: ");
+			try {
+				dies_prestec = Integer.parseInt(lector.nextLine());
+			} catch (NumberFormatException e) {
+				System.out.println("No ha introduit un nombre, dies maxims de prestec predefinit a 15");
+			}
+			biblioteca.afegirLlibre(titol, autors, tema, num_edicio, any_edicio, dies_prestec);
+		}
+		else
+			biblioteca.afegirLlibre(titol, autors, tema, num_edicio, any_edicio);
 	}
 
 	private static void eliminarLlibre(BibliotecaPersonal biblioteca, Scanner lector) {
