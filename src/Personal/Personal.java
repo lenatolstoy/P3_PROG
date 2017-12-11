@@ -168,7 +168,7 @@ public class Personal {
 			} catch (NumberFormatException e) {
 				System.out.println("No ha introduit un nombre, dies maxims de prestec predefinit a 15");
 			}
-			biblioteca.afegirLlibre(titol, autors, tema, num_edicio, any_edicio, dies_prestec);
+			biblioteca.afegirLlibreCientific(titol, autors, tema, num_edicio, any_edicio, dies_prestec);
 		}
 		else
 			biblioteca.afegirLlibre(titol, autors, tema, num_edicio, any_edicio);
