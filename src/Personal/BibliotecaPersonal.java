@@ -9,7 +9,6 @@ import java.util.Date;
 import Dades.*;
 
 public class BibliotecaPersonal extends Biblioteca {
-
 	/**
 	 * Constructor Incicialitza totes les llistes a mida 20
 	 */

@@ -1,6 +1,10 @@
+
 package Personal;
 
 import java.util.Scanner;
+
+
+
 
 public class Personal {
 

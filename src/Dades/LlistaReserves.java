@@ -1,3 +1,14 @@
+/** 
+ * Practica 3. Classe LlistaReserves.
+ * 
+ * 
+ * @author Ivan Grima
+ * @author Cristina Llort
+ * @author Magdalena Tolstoy
+ * @author Antonio Torres
+ *
+ */
+
 package Dades;
 
 import java.io.BufferedWriter;
@@ -14,11 +25,6 @@ import java.util.Scanner;
 import Exceptions.LlibreNoDisponible;
 import Exceptions.ReservesDiaSuperior30;
 
-/**
- *
- * @author Cristina
- *
- */
 
 public class LlistaReserves {
 

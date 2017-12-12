@@ -1,3 +1,14 @@
+/** 
+ * Practica 3. Classe LlistaSocis.
+ * 
+ * 
+ * @author Ivan Grima
+ * @author Cristina Llort
+ * @author Magdalena Tolstoy
+ * @author Antonio Torres
+ *
+ */
+
 package Dades;
 
 import java.io.BufferedWriter;

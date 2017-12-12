@@ -1,11 +1,17 @@
+/** 
+ * Practica 3. Classe Reserva.
+ * 
+ * 
+ * @author Ivan Grima
+ * @author Cristina Llort
+ * @author Magdalena Tolstoy
+ * @author Antonio Torres
+ *
+ */
+
 package Dades;
 import java.util.Date;
 
-/**
- * 
- * @author Cristina
- *
- */
 
 public class Reserva {
 

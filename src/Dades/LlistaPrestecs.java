@@ -2,10 +2,13 @@
  * Practica 3. Classe LlistaPrestecs.
  * 
  * 
+ * @author Ivan Grima
+ * @author Cristina Llort
  * @author Magdalena Tolstoy
- * 
+ * @author Antonio Torres
  *
  */
+
 package Dades;
 
 import java.text.DateFormat;
@@ -15,7 +18,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.io.*;
 
-public class LlistaPrestecs {
+public class LlistaPrestecs implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private int nprestecs;
 	private Prestec[] llista;
 
