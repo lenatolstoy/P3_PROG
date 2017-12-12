@@ -8,7 +8,7 @@ public class Personal {
 		Scanner lector = new Scanner(System.in);
 		int op = 14;
 		BibliotecaPersonal biblioteca = new BibliotecaPersonal();
-		// biblioteca.llegir();
+		biblioteca.llegir();
 		do {
 			System.out.println("\n---------MENU---------");
 			System.out.println("1. Afegir llibre a la biblioteca");

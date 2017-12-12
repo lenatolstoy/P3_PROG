@@ -84,42 +84,46 @@ public class LlistaSocis {
 	}
 
 	public void leer() throws FileNotFoundException {
-		Scanner scan = new Scanner(new File("user.txt"));
-		String dni;
-		String nom;
-		Date data_naixement;
-		Date data_alta;
-		int incidencias;
-		int num_prestec;
-		String punts = null;
-		scan.useDelimiter("\\*");
-		while (scan.hasNext()) {
-			dni = scan.next();
-			dni = dni.replaceAll("[\n\r]", "");
-			nom = scan.next();
-			data_naixement = new Date(scan.next());
-			data_alta = new Date(scan.next());
-			incidencias = Integer.parseInt(scan.next());
-			num_prestec = Integer.parseInt(scan.next());
-			if (scan.hasNextInt()) {
-				punts = scan.next();
-			} else {
-				punts = null;
-			}
+		File f = new File("user.txt");
+		if (f.exists() && !f.isDirectory()) {
+			Scanner scan = new Scanner(f);
+			String dni;
+			String nom;
+			Date data_naixement;
+			Date data_alta;
+			int incidencias;
+			int num_prestec;
+			String punts = null;
+			scan.useDelimiter("\\*");
+			while (scan.hasNext()) {
+				dni = scan.next();
+				dni = dni.replaceAll("[\n\r]", "");
+				nom = scan.next();
+				data_naixement = new Date(scan.next());
+				data_alta = new Date(scan.next());
+				incidencias = Integer.parseInt(scan.next());
+				num_prestec = Integer.parseInt(scan.next());
+				if (scan.hasNextInt()) {
+					punts = scan.next();
+				} else {
+					punts = null;
+				}
 
-			if (punts != null) {
-				int p = Integer.parseInt(punts);
-				NoEstudiant nuevo = new NoEstudiant(dni, nom, data_naixement, data_alta, incidencias, num_prestec, p);
-				afegeix(nuevo);
-			} else {
-				Soci nuevo = new Soci(dni, nom, data_naixement, data_alta, incidencias, num_prestec);
-				afegeix(nuevo);
-			}
+				if (punts != null) {
+					int p = Integer.parseInt(punts);
+					NoEstudiant nuevo = new NoEstudiant(dni, nom, data_naixement, data_alta, incidencias, num_prestec,
+							p);
+					afegeix(nuevo);
+				} else {
+					Soci nuevo = new Soci(dni, nom, data_naixement, data_alta, incidencias, num_prestec);
+					afegeix(nuevo);
+				}
 
+			}
+			scan.close();
 		}
-		scan.close();
 	}
-	
+
 	public Soci retornaSoci(String dni) {
 		for (int i = 0; i < lineas; i++) {
 			if (lista[i].getDNI().equals(dni)) {
@@ -128,7 +132,6 @@ public class LlistaSocis {
 		}
 		return null;
 	}
-	
 
 	public Soci[] getLista() {
 		return lista;
@@ -145,7 +148,6 @@ public class LlistaSocis {
 		return r;
 	}
 
-	
 	public void eliminar(String dni) {
 		int i = 0;
 		int posicion;
@@ -164,6 +166,5 @@ public class LlistaSocis {
 			i++;
 		} while (i < lineas && !trobat);
 	}
-
 
 }
