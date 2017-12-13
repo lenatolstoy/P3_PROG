@@ -13,7 +13,6 @@ public class Personal {
 		Scanner lector = new Scanner(System.in);
 		int op = 14;
 		BibliotecaPersonal biblioteca = new BibliotecaPersonal();
-<<<<<<< HEAD
 		//biblioteca.llegir();
 		try {
 			biblioteca.llegirFitxerLlibres();
@@ -21,9 +20,6 @@ public class Personal {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-=======
-		biblioteca.llegir();
->>>>>>> 3e9bb9723b406c79347e7154c3ee66fa7e483ef3
 		do {
 			System.out.println("\n---------MENU---------");
 			System.out.println("1. Afegir llibre a la biblioteca");
@@ -179,52 +175,6 @@ public class Personal {
 			biblioteca.afegirLlibre(titol, autors, tema, num_edicio, any_edicio);
 	}
 	
-<<<<<<< HEAD
-/*	private static void afegirLlibreCientific(BibliotecaPersonal biblioteca, Scanner lector) {
-		String[] autors = new String[10];
-		int i = 0;
-		char op = 'N';
-		System.out.println("Introdueixi el titol del llibre: ");
-		String titol = lector.nextLine();
-		do {
-			System.out.println("Introdueixi autor del llibre: ");
-			autors[i] = lector.nextLine();
-			i++;
-			if (i == 10)
-				System.out.println("Nombre maxim d'autors assolit");
-			else {
-				System.out.println(
-						"Vol continuar afegint autors? En cas afirmatiu introdueixi 'Y', si no introdueixi un altre caracter: ");
-				op = lector.nextLine().charAt(0);
-			}
-		} while (op == 'Y' && i < 10);
-		int num_edicio = 1;
-		System.out.println("Introudeixi el numero d'edicio: ");
-		try {
-			num_edicio = Integer.parseInt(lector.nextLine());
-		} catch (NumberFormatException e) {
-			System.out.println("No ha introduit un nombre, nombre d'edicio predefinit a 1");
-		}
-		System.out.println("Introdueixi l'any d'edicio: ");
-		int any_edicio = 2017;
-		try {
-			any_edicio = Integer.parseInt(lector.nextLine());
-		} catch (NumberFormatException e) {
-			System.out.println("No ha introduit un nombre, nombre d'edicio predefinit a 2017");
-		}
-		int dies_prestec = 1;
-		System.out.println("Introudeixi els dies de prestec que te el llibre: ");
-		try {
-			dies_prestec = Integer.parseInt(lector.nextLine());
-		} catch (NumberFormatException e) {
-			System.out.println("No ha introduit un nombre, nombre d'edicio predefinit a 1");
-		}
-		biblioteca.afegirLlibreCientific(titol, autors, "Cientific", num_edicio, any_edicio, dies_prestec);
-	}
-*/
-=======
-
->>>>>>> 3e9bb9723b406c79347e7154c3ee66fa7e483ef3
 	private static void eliminarLlibre(BibliotecaPersonal biblioteca, Scanner lector) {
 		System.out.println("Introdueixi el codi del llibre a eliminar ");
 		biblioteca.eliminaLlibre(lector.nextLine());

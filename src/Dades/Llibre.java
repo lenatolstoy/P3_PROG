@@ -55,14 +55,9 @@ public class Llibre {
 		this.tema = tema;
 		this.num_edicio = num_edicio;
 		this.any_edicio = any_edicio;
-<<<<<<< HEAD
 		comptador++;
 		this.codi = generarCodi(titol, autors[0]);
-
-=======
-		this.codi = generarCodi(titol, autors[0], comptador);
 		comptador++;
->>>>>>> 3e9bb9723b406c79347e7154c3ee66fa7e483ef3
 		// Quan s'elimina un llibre simplement s'inactiva (o es posa com a no disponible
 		// -> tenerlo en cuenta a la hora de hacer reservas -> CRIS)
 		actiu = true;
