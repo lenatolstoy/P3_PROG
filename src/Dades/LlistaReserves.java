@@ -1,7 +1,7 @@
-/** 
+/**
  * Practica 3. Classe LlistaReserves.
- * 
- * 
+ *
+ *
  * @author Ivan Grima
  * @author Cristina Llort
  * @author Magdalena Tolstoy
@@ -145,7 +145,7 @@ public class LlistaReserves {
 	public void EstatReserves() throws IOException {
 
 		int i;
-		LlistaSocis llistasocis = null;
+		LlistaSocis llistasocis = new LlistaSocis(10);
 
 		// Comprovarem l'estat de la reserva, si està activa o no, per totes les de la
 		// llista de reserves
@@ -190,6 +190,10 @@ public class LlistaReserves {
 
 					llistareserves[i].setActiva(true);
 
+				}
+				else{
+
+					llistareserves[i].setActiva(false);
 				}
 			}
 		}
@@ -512,13 +516,13 @@ public class LlistaReserves {
 	public boolean LlibreDisponible(String codillibre, Date data) throws IOException, ClassNotFoundException {
 
 		boolean disponible = false;
-		LlistaPrestecs llistaprestecs = null;
-		String fitxer = null;
+		LlistaPrestecs llistaprestecs = new LlistaPrestecs(10);
+		String fitxer = "prestecsactius.dat";
 
 		// Passem la data a String perquè per cridar enPrestec ho necessitem en String
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		String datastring = sdf.format(new Date(data.getTime()));
-		System.out.println(datastring);
+
 
 		llistaprestecs.llegirFitxer(fitxer);
 
@@ -534,7 +538,7 @@ public class LlistaReserves {
 	/**
 	 * Mètode per anul·lar una reserva (eliminar-la de la llista) a partir de les
 	 * seves dades (codi del llibre, DNI de l'usuari i data de la reserva)
-	 * 
+	 *
 	 * @param codillibre
 	 *            del tipus String on s'indica el codi del llibre de la reserva a
 	 *            anul·lar
@@ -597,7 +601,7 @@ public class LlistaReserves {
 			// Creem les variables on aniran els atributs
 			String codillibre;
 			String DNI;
-			Date data;
+			String data;
 			boolean activa;
 
 			Scanner fitxer = new Scanner(f);
@@ -613,12 +617,21 @@ public class LlistaReserves {
 				// Afegim aquesta línia perquè no salti de línia la primera vegada
 				codillibre = codillibre.replaceAll("[\n\r]", "");
 				DNI = fitxer.next();
-				data = new Date(fitxer.next());
+				data = fitxer.next();
+				Date data2 = null;
+				// Passem la data en string a tipus Date
+				DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+				try {
+					data2 = format.parse(data);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+
 				activa = fitxer.nextBoolean();
 
 				// Creem una reserva auxiliar on passarem els altributs i l'afegirem a
 				// llistareserves
-				Reserva aux = new Reserva(codillibre, DNI, data, activa);
+				Reserva aux = new Reserva(codillibre, DNI, data2, activa);
 				AfegirReserva(aux);
 
 			}
