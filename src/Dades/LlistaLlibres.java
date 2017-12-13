@@ -264,10 +264,7 @@ public class LlistaLlibres {
 					}else {
 		
 						titol = (aux);
-					}	
-					
-					titol.replaceAll("\n", ""); 
-					System.out.println(titol);
+					}
 
 					aux = fitxer.next();
 					int z = 0;
