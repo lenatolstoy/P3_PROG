@@ -266,10 +266,11 @@ public class Llibre {
 	public String toString() {
 		int z = 0;
 		String aux = "";
-		while(autors[z] != (null)) {
+		while(autors[z] != (null) && z < 10) {
 			aux = aux + autors[z] + ", ";
 			z++;
 		}
+
 		aux = aux.substring(0, aux.length()-2);
 		
 		return ("Titol: " + titol + "\n" + "Autors: " + aux + "\n" + "Tema: " + tema + "\n"

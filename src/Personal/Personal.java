@@ -13,7 +13,6 @@ public class Personal {
 		Scanner lector = new Scanner(System.in);
 		int op = 14;
 		BibliotecaPersonal biblioteca = new BibliotecaPersonal();
-		//biblioteca.llegir();
 		try {
 			biblioteca.llegirFitxerLlibres();
 		} catch (FileNotFoundException e1) {

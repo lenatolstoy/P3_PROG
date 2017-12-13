@@ -61,6 +61,7 @@ public class LlistaLlibres {
 	*/
 		public String toString(){
 			String aux="";
+			
 			aux = aux +"LLIBRE: Número de llibres = "+numllibres+"\n\n\n";
 			for(int i=0; i<numllibres; i++){
 				if(llistallibres[i] instanceof Llibre) {
@@ -90,7 +91,7 @@ public class LlistaLlibres {
 			trobat = true;
 
 		// Parem quan trobem la posició o arribem al final
-		while (i < numllibres || !trobat) {
+		while (i < numllibres && !trobat) {
 
 			if (llistallibres[i].comprovaAlfabetic(codi)) {
 				trobat = true;
@@ -265,11 +266,9 @@ public class LlistaLlibres {
 		
 						titol = (aux);
 					}	
-					int j = 0;
-					while(titol.charAt(j) == '\n') {
-						titol = titol.substring(1, titol.length());
-						j++;
-					}
+					
+					titol.replaceAll("\n", ""); 
+					System.out.println(titol);
 
 					aux = fitxer.next();
 					int z = 0;
@@ -363,6 +362,7 @@ public class LlistaLlibres {
 				fitxer.write(codi);
 				fitxer.write("*");
 				fitxer.write(""+any_edicio);
+				fitxer.write("*");
 				fitxer.newLine();
 		}
 		fitxer.close();
