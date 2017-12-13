@@ -137,7 +137,6 @@ public class Personal {
 			System.out.println("Introdueixi autor del llibre: ");
 			autors[i] = lector.nextLine();
 			i++;
-			System.out.println("Nombre maxim d'autors assolit");
 			System.out.println(
 					"Vol continuar afegint autors? En cas afirmatiu introdueixi 'Y', si no introdueixi un altre caracter: ");
 			op = lector.nextLine().charAt(0);

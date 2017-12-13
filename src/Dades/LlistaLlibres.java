@@ -56,22 +56,24 @@ public class LlistaLlibres {
 	// Mètodes
 
 	/**
-	* Mètode per imprimir la llista de reserves
-	* @return aux 
-	*/
-		public String toString(){
-			String aux="";
-			
-			aux = aux +"LLIBRE: Número de llibres = "+numllibres+"\n\n\n";
-			for(int i=0; i<numllibres; i++){
-				if(llistallibres[i] instanceof Llibre) {
-					aux = aux +llistallibres[i]+ "\n";
-				}else {
-					aux = aux +(Llibre_Cientific)llistallibres[i]+ "\n";
-				}
-			}	
-			return aux;
+	 * Mètode per imprimir la llista de reserves
+	 * 
+	 * @return aux
+	 */
+	public String toString() {
+		String aux = "";
+
+		aux = aux + "LLIBRE: Número de llibres = " + numllibres + "\n\n\n";
+		for (int i = 0; i < numllibres; i++) {
+			if (llistallibres[i] instanceof Llibre) {
+				aux = aux + llistallibres[i] + "\n";
+			} else {
+				aux = aux + (Llibre_Cientific) llistallibres[i] + "\n";
+			}
 		}
+		return aux;
+	}
+
 	/**
 	 * Mètode per comprovar l'ordre dels codis (alfabèticament)
 	 * 
@@ -171,7 +173,6 @@ public class LlistaLlibres {
 		}
 	}
 
-
 	/**
 	 * Mètode per afegir un llibre a la biblioteca
 	 * 
@@ -233,15 +234,17 @@ public class LlistaLlibres {
 			llistallibres = aux;
 		}
 	}
-				
-		/**
-		 * Mètode per llegir d'un fitxer de llibres
-		 * @return llistallibres del tipus Llibres[] per tenir ja en una llista de llibres tots els llibres
-		 * @throws FileNotFoundException 
-		 */
-		public void llegirFitxer() throws FileNotFoundException {
-			File f = new File("Llibres.txt");
-			if (f.exists() && !f.isDirectory()) {
+
+	/**
+	 * Mètode per llegir d'un fitxer de llibres
+	 * 
+	 * @return llistallibres del tipus Llibres[] per tenir ja en una llista de
+	 *         llibres tots els llibres
+	 * @throws FileNotFoundException
+	 */
+	public void llegirFitxer() throws FileNotFoundException {
+		File f = new File("Llibres.txt");
+		if (f.exists() && !f.isDirectory()) {
 			String aux = "";
 			int dies_prestec = -1;
 			String titol;
@@ -250,118 +253,114 @@ public class LlistaLlibres {
 			int num_edicio;
 			int any_edicio;
 			String codi;
-				Scanner fitxer = new Scanner(f);
-				// Llegim fins * (i tenim cada atribut separat per *)
-				fitxer.useDelimiter("\\*");
-				
-				// Fins que no arribem al final del fitxer
-				while (fitxer.hasNext()) {
-					
-					aux = fitxer.next();
-					if(aux.contentEquals("100tifiko")) {
-						dies_prestec = (Integer.parseInt(fitxer.next()));
-						titol = (fitxer.next());
-					}else {
-		
-						titol = (aux);
-					}
+			Scanner fitxer = new Scanner(f);
+			// Llegim fins * (i tenim cada atribut separat per *)
+			fitxer.useDelimiter("\\*");
 
-					aux = fitxer.next();
-					int z = 0;
-					do {
-						autors[z] = aux;
-						aux = fitxer.next();
-					}while(!(aux.equals("/")));
-					
-					tema = (fitxer.next());
-					num_edicio = Integer.parseInt(fitxer.next());
-					codi = fitxer.next();
-					any_edicio = Integer.parseInt(fitxer.next());	
-					
-					if(dies_prestec == -1) {
-						Llibre libro = new Llibre(titol, autors, tema, num_edicio, any_edicio, codi);
-						afegirLlibre(libro);	
+			// Fins que no arribem al final del fitxer
+			while (fitxer.hasNext()) {
 
-					}else {
-						Llibre_Cientific libro100tifico = new Llibre_Cientific(titol, autors, tema, num_edicio, codi, any_edicio, dies_prestec);
-						afegirLlibreCientific(libro100tifico);	
-					}
-					dies_prestec = -1;
-					
+				aux = fitxer.next();
+				if (aux.contentEquals("100tifiko")) {
+					dies_prestec = (Integer.parseInt(fitxer.next()));
+					titol = (fitxer.next());
+				} else {
+
+					titol = (aux);
 				}
-				fitxer.close();
-				
+
+				aux = fitxer.next();
+				int z = 0;
+				do {
+					autors[z] = aux;
+					aux = fitxer.next();
+				} while (!(aux.equals("/")));
+
+				tema = (fitxer.next());
+				num_edicio = Integer.parseInt(fitxer.next());
+				codi = fitxer.next();
+				any_edicio = Integer.parseInt(fitxer.next());
+
+				if (dies_prestec == -1) {
+					Llibre libro = new Llibre(titol, autors, tema, num_edicio, any_edicio, codi);
+					afegirLlibre(libro);
+
+				} else {
+					Llibre_Cientific libro100tifico = new Llibre_Cientific(titol, autors, tema, num_edicio, codi,
+							any_edicio, dies_prestec);
+					afegirLlibreCientific(libro100tifico);
+				}
+				dies_prestec = -1;
+
 			}
+			fitxer.close();
+
+		}
 	}
 
-		
-		/**
-		 * Mètode per escriure al fitxer la llista de llibres
-		 * @throws IOException
+	/**
+	 * Mètode per escriure al fitxer la llista de llibres
+	 * 
+	 * @throws IOException
+	 */
+	public void escriureFitxer() throws IOException {
+
+		// Creem les variables (que són els atributs) que anirem escrivint al fitxer
+
+		String titol;
+		String[] autors;
+		String tema;
+		int num_edicio;
+		int any_edicio;
+		String codi;
+
+		BufferedWriter fitxer = new BufferedWriter(new FileWriter("Llibres.txt"));
+
+		/*
+		 * if(llistallibres[0].getTemes() != null) { temes =
+		 * llistallibres[0].getTemes(); int z = 0; while(z < temes.length) {
+		 * fitxer.write(temes[z]); fitxer.write("*"); z++; } fitxer.newLine(); }
 		 */
-		public void escriureFitxer() throws IOException{
-			
-			//Creem les variables (que són els atributs) que anirem escrivint al fitxer
-			
-			String titol;
-			String[] autors;
-			String tema;
-			int num_edicio;
-			int any_edicio;
-			String codi;			
-		
-			BufferedWriter fitxer = new BufferedWriter(new FileWriter("Llibres.txt"));
-			
-			/*if(llistallibres[0].getTemes() != null) {
-				temes = llistallibres[0].getTemes();
-				int z = 0;
-				while(z < temes.length) {
-					fitxer.write(temes[z]);
-					fitxer.write("*");
-					z++;
-				}
-				fitxer.newLine();
-			}*/
-			
-			//Recorrem totes les reserves per anar posant els atributs en variables
-			//I escriure reserva per reserva al fitxer
-			for (int i = 0; i<numllibres; i++) {
-				//Guardem en variables
-				titol = llistallibres[i].getTitol();
-				autors = llistallibres[i].getAutors();
-				tema = llistallibres[i].getTema();
-				num_edicio = llistallibres[i].getNumEdicio();
-				codi = llistallibres[i].getCodi();
-				any_edicio = llistallibres[i].getAnyEdicio();
-		
-				//Ho escrivim al fitxer separat per *
-				if(llistallibres[i] instanceof Llibre_Cientific) {
-					fitxer.write("100tifico*");
-					fitxer.write(((Llibre_Cientific)llistallibres[i]).getDiesPrestec());
-					fitxer.write("*");
-				}
-				
-				fitxer.write(titol);
+
+		// Recorrem totes les reserves per anar posant els atributs en variables
+		// I escriure reserva per reserva al fitxer
+		for (int i = 0; i < numllibres; i++) {
+			// Guardem en variables
+			titol = llistallibres[i].getTitol();
+			autors = llistallibres[i].getAutors();
+			tema = llistallibres[i].getTema();
+			num_edicio = llistallibres[i].getNumEdicio();
+			codi = llistallibres[i].getCodi();
+			any_edicio = llistallibres[i].getAnyEdicio();
+
+			// Ho escrivim al fitxer separat per *
+			if (llistallibres[i] instanceof Llibre_Cientific) {
+				fitxer.write("100tifico*");
+				fitxer.write(((Llibre_Cientific) llistallibres[i]).getDiesPrestec());
 				fitxer.write("*");
-				for(int z = 0; autors[z] != null; z++) {
-					fitxer.write(autors[z]);
-					fitxer.write("*");
-				}
-				fitxer.write("/");
+			}
+
+			fitxer.write(titol);
+			fitxer.write("*");
+			for (int z = 0; autors[z] != null; z++) {
+				fitxer.write(autors[z]);
 				fitxer.write("*");
-				fitxer.write(tema);
-				fitxer.write("*");
-				fitxer.write(""+num_edicio);
-				fitxer.write("*");
-				fitxer.write(codi);
-				fitxer.write("*");
-				fitxer.write(""+any_edicio);
-				fitxer.write("*");
+			}
+			fitxer.write("/");
+			fitxer.write("*");
+			fitxer.write(tema);
+			fitxer.write("*");
+			fitxer.write("" + num_edicio);
+			fitxer.write("*");
+			fitxer.write(codi);
+			fitxer.write("*");
+			fitxer.write("" + any_edicio);
+			fitxer.write("*");
+			if (i + 1 != numllibres)
 				fitxer.newLine();
 		}
 		fitxer.close();
 	}
-
 
 	/**
 	 * Funcio la qual busca tots els llibres que tenen el nom o part del nom que has
