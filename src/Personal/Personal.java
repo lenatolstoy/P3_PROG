@@ -1,7 +1,11 @@
+
 package Personal;
 
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
+
+
 
 public class Personal {
 
@@ -9,6 +13,7 @@ public class Personal {
 		Scanner lector = new Scanner(System.in);
 		int op = 14;
 		BibliotecaPersonal biblioteca = new BibliotecaPersonal();
+<<<<<<< HEAD
 		//biblioteca.llegir();
 		try {
 			biblioteca.llegirFitxerLlibres();
@@ -16,6 +21,9 @@ public class Personal {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+=======
+		biblioteca.llegir();
+>>>>>>> 3e9bb9723b406c79347e7154c3ee66fa7e483ef3
 		do {
 			System.out.println("\n---------MENU---------");
 			System.out.println("1. Afegir llibre a la biblioteca");
@@ -171,6 +179,7 @@ public class Personal {
 			biblioteca.afegirLlibre(titol, autors, tema, num_edicio, any_edicio);
 	}
 	
+<<<<<<< HEAD
 /*	private static void afegirLlibreCientific(BibliotecaPersonal biblioteca, Scanner lector) {
 		String[] autors = new String[10];
 		int i = 0;
@@ -213,6 +222,9 @@ public class Personal {
 		biblioteca.afegirLlibreCientific(titol, autors, "Cientific", num_edicio, any_edicio, dies_prestec);
 	}
 */
+=======
+
+>>>>>>> 3e9bb9723b406c79347e7154c3ee66fa7e483ef3
 	private static void eliminarLlibre(BibliotecaPersonal biblioteca, Scanner lector) {
 		System.out.println("Introdueixi el codi del llibre a eliminar ");
 		biblioteca.eliminaLlibre(lector.nextLine());

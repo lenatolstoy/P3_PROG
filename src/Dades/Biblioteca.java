@@ -1,3 +1,14 @@
+/** 
+ * Practica 3. Classe Biblioteca.
+ * 
+ * 
+ * @author Ivan Grima
+ * @author Cristina Llort
+ * @author Magdalena Tolstoy
+ * @author Antonio Torres
+ *
+ */
+
 package Dades;
 
 import java.io.FileNotFoundException;
@@ -73,7 +84,6 @@ public abstract class Biblioteca {
 	 * Metode que ens permet llegir els fitxers de dades
 	 */
 	public void llegir() {
-		
 		try {
 			llibres.llegirFitxer();
 		} catch (IOException e1) {
@@ -114,23 +124,26 @@ public abstract class Biblioteca {
 			e.printStackTrace();
 		}
 
-
 	}
 
 	/**
 	 * Metode que ens permet sobreescriure tots els fitxers de dades
 	 */
 	public void guardar() {
-		try {
-			llibres.escriureFitxer();
-		} catch (IOException e) {
-			System.out.println("Fitxer de llibres no trobat: " + e.toString());
+		if (llibres.getNumllibres() > 0) {
+			try {
+				llibres.escriureFitxer();
+			} catch (IOException e) {
+				System.out.println("Fitxer de llibres no trobat: " + e.toString());
+			}
 		}
 
-		try {
-			socis.guardar();
-		} catch (IOException e) {
-			System.out.println("Fitxer de socis no trobat: " + e.toString());
+		if (socis.getLineas() > 0) {
+			try {
+				socis.guardar();
+			} catch (IOException e) {
+				System.out.println("Fitxer de socis no trobat: " + e.toString());
+			}
 		}
 
 		try {
@@ -145,10 +158,12 @@ public abstract class Biblioteca {
 			System.out.println("Fitxer de prestecs inactius no trobat: " + e.toString());
 		}
 
-		try {
-			reserves.EscriureFitxerReserves();
-		} catch (IOException e) {
-			System.out.println("Fitxer de reserves actives no trobat: " + e.toString());
+		if (reserves.getNumreserves() > 0) {
+			try {
+				reserves.EscriureFitxerReserves();
+			} catch (IOException e) {
+				System.out.println("Fitxer de reserves actives no trobat: " + e.toString());
+			}
 		}
 
 	}

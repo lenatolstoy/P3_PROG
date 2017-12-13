@@ -1,3 +1,14 @@
+/** 
+ * Practica 3. Classe Llibre.
+ * 
+ * 
+ * @author Ivan Grima
+ * @author Cristina Llort
+ * @author Magdalena Tolstoy
+ * @author Antonio Torres
+ *
+ */
+
 package Dades;
 
 
@@ -12,7 +23,7 @@ public class Llibre {
 	protected int num_edicio;
 	protected int any_edicio;
 	protected String codi;
-	protected static int comptador = 0;
+	protected static int comptador = 1;
 	protected boolean actiu;
 
 	/**
@@ -44,9 +55,14 @@ public class Llibre {
 		this.tema = tema;
 		this.num_edicio = num_edicio;
 		this.any_edicio = any_edicio;
+<<<<<<< HEAD
 		comptador++;
 		this.codi = generarCodi(titol, autors[0]);
 
+=======
+		this.codi = generarCodi(titol, autors[0], comptador);
+		comptador++;
+>>>>>>> 3e9bb9723b406c79347e7154c3ee66fa7e483ef3
 		// Quan s'elimina un llibre simplement s'inactiva (o es posa com a no disponible
 		// -> tenerlo en cuenta a la hora de hacer reservas -> CRIS)
 		actiu = true;

@@ -1,3 +1,14 @@
+/** 
+ * Practica 3. Classe LlistaReserves.
+ * 
+ * 
+ * @author Ivan Grima
+ * @author Cristina Llort
+ * @author Magdalena Tolstoy
+ * @author Antonio Torres
+ *
+ */
+
 package Dades;
 
 import java.io.BufferedWriter;
@@ -14,11 +25,6 @@ import java.util.Scanner;
 import Exceptions.LlibreNoDisponible;
 import Exceptions.ReservesDiaSuperior30;
 
-/**
- *
- * @author Cristina
- *
- */
 
 public class LlistaReserves {
 
@@ -54,6 +60,14 @@ public class LlistaReserves {
 	}
 
 	// Mètodes
+
+	public Reserva[] getLlistareserves() {
+		return llistareserves;
+	}
+
+	public int getNumreserves() {
+		return numreserves;
+	}
 
 	/**
 	 * Mètode que ens ordena la llista de reserves
@@ -133,57 +147,54 @@ public class LlistaReserves {
 		int i;
 		LlistaSocis llistasocis = null;
 
-		// Comprovarem l'estat de la reserva, si està activa o no, per totes les de la llista de reserves
+		// Comprovarem l'estat de la reserva, si està activa o no, per totes les de la
+		// llista de reserves
 
-		//Llegim la llista de socis
+		// Llegim la llista de socis
 		llistasocis.leer();
 
-		  for (i=0; i<numreserves; i++){
+		for (i = 0; i < numreserves; i++) {
 
-		  //Si no és soci la reserva estarà activa dos hores a partir de l'hora donadaen la data
-		  if(llistasocis.existeix(llistareserves[i].getDNI()) == false){
+			// Si no és soci la reserva estarà activa dos hores a partir de l'hora donadaen
+			// la data
+			if (llistasocis.existeix(llistareserves[i].getDNI()) == false) {
 
+				// Comprovem si ens trobem en la data i en l'interval de dos hores
+				if (llistareserves[i].getData().getDay() == new Date().getDay()
+						&& llistareserves[i].getData().getMonth() == new Date().getMonth()
+						&& llistareserves[i].getData().getYear() == new Date().getYear()
+						&& llistareserves[i].getData().getHours() <= new Date().getHours()
+						&& (llistareserves[i].getData().getHours() + 2) >= new Date().getHours()) {
 
-		  //Comprovem si ens trobem en la data i en l'interval de dos hores
-		  if(llistareserves[i].getData().getDay() == new Date().getDay() &&
-		  llistareserves[i].getData().getMonth() == new Date().getMonth() &&
-		  llistareserves[i].getData().getYear() == new Date().getYear() &&
-		  llistareserves[i].getData().getHours() <= new Date().getHours() &&
-		  (llistareserves[i].getData().getHours()+2) >= new Date().getHours()){
+					// Quan l'hora sigui dos hores més s'acabarà el termini en els minuts i segons
+					// que toca
+					if ((llistareserves[i].getData().getHours() + 2) == new Date().getHours()
+							&& llistareserves[i].getData().getMinutes() <= new Date().getMinutes()
+							&& llistareserves[i].getData().getSeconds() <= new Date().getSeconds()) {
 
+						llistareserves[i].setActiva(false);
 
-		  //Quan l'hora sigui dos hores més s'acabarà el termini en els minuts i segons que toca
-			  if ((llistareserves[i].getData().getHours()+2) == new
-					  Date().getHours() && llistareserves[i].getData().getMinutes() <= new
-					  Date().getMinutes() && llistareserves[i].getData().getSeconds() <= new
-					  Date().getSeconds()){
+					} else {
 
-				  llistareserves[i].setActiva(false);
+						llistareserves[i].setActiva(true);
+					}
 
-			  }
-			  else{
+				}
+			}
 
-				  llistareserves[i].setActiva(true); }
+			// Si és soci la reserva estarà activa tot el dia
+			else {
+				if (llistareserves[i].getData().getDay() == new Date().getDay()
+						&& llistareserves[i].getData().getMonth() == new Date().getMonth()
+						&& llistareserves[i].getData().getYear() == new Date().getYear()) {
 
-		  		}
-		  }
+					llistareserves[i].setActiva(true);
 
-		  //Si és soci la reserva estarà activa tot el dia
-		  else{
-			  if(llistareserves[i].getData().getDay() == new Date().getDay() &&
-					  llistareserves[i].getData().getMonth() == new Date().getMonth() &&
-					  llistareserves[i].getData().getYear() == new Date().getYear()){
+				}
+			}
+		}
 
-				  llistareserves[i].setActiva(true);
-
-			  }
-		  }
 	}
-
-}
-
-
-
 
 	/**
 	 * Mètode que ens retorna una llista amb les reserves que estan actives en
@@ -457,7 +468,9 @@ public class LlistaReserves {
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			data = format.parse(string_data);
-		} catch (ParseException e) {e.printStackTrace();}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 
 		Date datafinal = SumarDies(data, periode);
 		int i = 0;
@@ -502,7 +515,7 @@ public class LlistaReserves {
 		LlistaPrestecs llistaprestecs = null;
 		String fitxer = null;
 
-		//Passem la data a String perquè per cridar enPrestec ho necessitem en String
+		// Passem la data a String perquè per cridar enPrestec ho necessitem en String
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		String datastring = sdf.format(new Date(data.getTime()));
 		System.out.println(datastring);
@@ -510,61 +523,64 @@ public class LlistaReserves {
 		llistaprestecs.llegirFitxer(fitxer);
 
 		// Si el llibre no està reservat ni en préstec aquell dia està disponible
-		 if(ReservaDia(codillibre, data)==false && llistaprestecs.enPrestec(codillibre, datastring)==false){
+		if (ReservaDia(codillibre, data) == false && llistaprestecs.enPrestec(codillibre, datastring) == false) {
 
-			 	disponible=true;
-		  }
-
+			disponible = true;
+		}
 
 		return disponible;
 	}
 
-
-
-
-		/**
-	 * Mètode per anul·lar una reserva (eliminar-la de la llista) a partir de les seves dades (codi del llibre, DNI de l'usuari i data de la reserva)
-	 * @param codillibre del tipus String on s'indica el codi del llibre de la reserva a anul·lar
-	 * @param DNI del tipus String on s'indica el DNI de l'usuari de la reserva a anul·lar
-	 * @param data del tipus Date on s'indica la data de la reserva a anul·lar
+	/**
+	 * Mètode per anul·lar una reserva (eliminar-la de la llista) a partir de les
+	 * seves dades (codi del llibre, DNI de l'usuari i data de la reserva)
+	 * 
+	 * @param codillibre
+	 *            del tipus String on s'indica el codi del llibre de la reserva a
+	 *            anul·lar
+	 * @param DNI
+	 *            del tipus String on s'indica el DNI de l'usuari de la reserva a
+	 *            anul·lar
+	 * @param data
+	 *            del tipus Date on s'indica la data de la reserva a anul·lar
 	 */
 
-	public void AnularReserva(String codillibre, String DNI, Date data){
+	public void AnularReserva(String codillibre, String DNI, Date data) {
 
-		int i=0, pos = 0, j;
-		boolean trobat=false;
-		//Recorrem la llista fins trobar la reserva a anul·lar o fins que s'acabi si no hi és
-		while (i<numreserves && !trobat){
+		int i = 0, pos = 0, j;
+		boolean trobat = false;
+		// Recorrem la llista fins trobar la reserva a anul·lar o fins que s'acabi si no
+		// hi és
+		while (i < numreserves && !trobat) {
 
-			//Si la reserva de la posició de la llista que estem mirant té el mateix DNI, data i codi l'hem trobat
-					if(llistareserves[i].getCodillibre().equals(codillibre) &&
-							llistareserves[i].getDNI().equals(DNI) &&
-							llistareserves[i].getData().equals(data)){
+			// Si la reserva de la posició de la llista que estem mirant té el mateix DNI,
+			// data i codi l'hem trobat
+			if (llistareserves[i].getCodillibre().equals(codillibre) && llistareserves[i].getDNI().equals(DNI)
+					&& llistareserves[i].getData().equals(data)) {
 
-						trobat=true;
-						//Guardem la posició
-						pos= i;
-					}
-
-					i++;
-		}
-		//Si no estem en el cas que no hem trobat la reserva
-		//tenint en compte que pot ser que l'hagim trobat i sigui l'última de la llista
-		if (i != numreserves || (trobat && i == numreserves)){
-
-			//Eliminem aquesta reserva sobreescrivint la posició corrent totes les reserves un lloc anterior
-
-			for(j=pos; j<numreserves-1; j++){
-
-				llistareserves[j] = llistareserves[j+1];
+				trobat = true;
+				// Guardem la posició
+				pos = i;
 			}
 
-			//Actualitzem el número de reserves
+			i++;
+		}
+		// Si no estem en el cas que no hem trobat la reserva
+		// tenint en compte que pot ser que l'hagim trobat i sigui l'última de la llista
+		if (i != numreserves || (trobat && i == numreserves)) {
+
+			// Eliminem aquesta reserva sobreescrivint la posició corrent totes les reserves
+			// un lloc anterior
+
+			for (j = pos; j < numreserves - 1; j++) {
+
+				llistareserves[j] = llistareserves[j + 1];
+			}
+
+			// Actualitzem el número de reserves
 			numreserves--;
 		}
 	}
-
-
 
 	/**
 	 * Mètode per llegir d'un fitxer de reserves
@@ -576,39 +592,40 @@ public class LlistaReserves {
 	 */
 	public void LlegirFitxerReserves()
 			throws ClassNotFoundException, LlibreNoDisponible, ReservesDiaSuperior30, IOException {
+		File f = new File("Reserves.txt");
+		if (f.exists() && !f.isDirectory()) {
+			// Creem les variables on aniran els atributs
+			String codillibre;
+			String DNI;
+			Date data;
+			boolean activa;
 
-		// Creem les variables on aniran els atributs
-		String codillibre;
-		String DNI;
-		Date data;
-		boolean activa;
+			Scanner fitxer = new Scanner(f);
 
-		Scanner fitxer = new Scanner(new File("Reserves.txt"));
+			// Llegim fins * (i tenim cada atribut separat per *)
+			fitxer.useDelimiter("\\*");
 
-		// Llegim fins * (i tenim cada atribut separat per *)
-		fitxer.useDelimiter("\\*");
+			// Fins que no arribem al final del fitxer
+			while (fitxer.hasNext()) {
 
-		// Fins que no arribem al final del fitxer
-		while (fitxer.hasNext()) {
+				// Anem llegint fins al * i agafant cada atribut
+				codillibre = fitxer.next();
+				// Afegim aquesta línia perquè no salti de línia la primera vegada
+				codillibre = codillibre.replaceAll("[\n\r]", "");
+				DNI = fitxer.next();
+				data = new Date(fitxer.next());
+				activa = fitxer.nextBoolean();
 
-			// Anem llegint fins al * i agafant cada atribut
-			codillibre = fitxer.next();
-			// Afegim aquesta línia perquè no salti de línia la primera vegada
-			codillibre = codillibre.replaceAll("[\n\r]", "");
-			DNI = fitxer.next();
-			data = new Date(fitxer.next());
-			activa = fitxer.nextBoolean();
+				// Creem una reserva auxiliar on passarem els altributs i l'afegirem a
+				// llistareserves
+				Reserva aux = new Reserva(codillibre, DNI, data, activa);
+				AfegirReserva(aux);
 
-			// Creem una reserva auxiliar on passarem els altributs i l'afegirem a
-			// llistareserves
-			Reserva aux = new Reserva(codillibre, DNI, data, activa);
-			AfegirReserva(aux);
+			}
 
+			// Tanquem el fitxer
+			fitxer.close();
 		}
-
-		// Tanquem el fitxer
-		fitxer.close();
-
 	}
 
 	/**

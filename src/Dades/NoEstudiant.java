@@ -1,3 +1,14 @@
+/** 
+ * Practica 3. Classe NoEstudiant.
+ * 
+ * 
+ * @author Ivan Grima
+ * @author Cristina Llort
+ * @author Magdalena Tolstoy
+ * @author Antonio Torres
+ *
+ */
+
 package Dades;
 import java.util.Date;
 

@@ -2,10 +2,13 @@
  * Practica 3. Classe LlistaPrestecs.
  * 
  * 
+ * @author Ivan Grima
+ * @author Cristina Llort
  * @author Magdalena Tolstoy
- * 
+ * @author Antonio Torres
  *
  */
+
 package Dades;
 
 import java.text.DateFormat;
@@ -15,7 +18,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.io.*;
 
-public class LlistaPrestecs {
+public class LlistaPrestecs implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private int nprestecs;
 	private Prestec[] llista;
 
@@ -357,19 +361,40 @@ public class LlistaPrestecs {
 	}
 
 	/* METODES FITXERS */
-
+	/**
+	 * Metode que permet llegir un fitxer binari amb els prestecs i emmagatzemar les
+	 * d ades en una LlistaPrestecs
+	 * 
+	 * @param fitxer
+	 *            nom del fitxer que volem llegir
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public void llegirFitxer(String fitxer) throws IOException, ClassNotFoundException {
-		ObjectInputStream f = new ObjectInputStream(new FileInputStream(fitxer));
-		
-		LlistaPrestecs aux = ((LlistaPrestecs) f.readObject());
-		llista = aux.getLlista();
-		nprestecs = aux.getNprestecs();
-		f.close();
+		File fitx = new File(fitxer);
+		if (fitx.exists() && !fitx.isDirectory()) {
+			ObjectInputStream f = new ObjectInputStream(new FileInputStream(fitxer));
+
+			LlistaPrestecs aux = ((LlistaPrestecs) f.readObject());
+			llista = aux.getLlista();
+			nprestecs = aux.getNprestecs();
+			f.close();
+		}
 	}
 
+	/**
+	 * Metode que permet emmagatzemar les dades d'una LlistaPrestecs en un fitxer
+	 * binari
+	 * 
+	 * @param fitxer
+	 *            titol del fitxer on volem emmagatzemar les dades
+	 * @throws IOException
+	 */
 	public void guardarFitxer(String fitxer) throws IOException {
-		ObjectOutputStream f = new ObjectOutputStream(new FileOutputStream(fitxer));
-		f.writeObject(this);
-		f.close();
+		if (nprestecs > 0) {
+			ObjectOutputStream f = new ObjectOutputStream(new FileOutputStream(fitxer));
+			f.writeObject(this);
+			f.close();
+		}
 	}
 }

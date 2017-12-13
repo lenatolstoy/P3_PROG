@@ -1,9 +1,11 @@
 /** 
- * Practica 3. Classe Prestecs.
+ * Practica 3. Classe Prestec.
  * 
  * 
+ * @author Ivan Grima
+ * @author Cristina Llort
  * @author Magdalena Tolstoy
- * 
+ * @author Antonio Torres
  *
  */
 
@@ -13,10 +15,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import java.text.SimpleDateFormat;
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 
-public class Prestec {
+public class Prestec implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String id_llibre;
 	private String dni;
 	private Date data_ini, data_fi;
@@ -36,7 +40,7 @@ public class Prestec {
 		this.dni = dni;
 		data_fi = null; // Fem una data final nul.la
 		// Passem el string a tipus data
-		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		try {
 			data_ini = format.parse(data);
 		} catch (ParseException e) {
@@ -75,8 +79,11 @@ public class Prestec {
 	public Prestec(String id_llibre, String dni, Date data_ini, Date data_fi) {
 		this.id_llibre = id_llibre;
 		this.dni = dni;
-		this.data_ini = (Date) data_ini.clone();
-		this.data_fi = (Date) data_fi.clone();
+		this.data_ini = new Date(data_ini.getTime());
+		if (data_fi != null)
+			this.data_fi = new Date(data_fi.getTime());
+		else
+			this.data_fi = null;
 	}
 
 	/**
@@ -174,10 +181,10 @@ public class Prestec {
 	 * @return String
 	 */
 	public String toString() {
-		DateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		String resultat = "Codi del llibre: " + id_llibre + ", DNI de qui fa el prestec: " + dni
 				+ ", data inici del prestec: " + formato.format(data_ini);
-		if (data_fi == null)
+		if (data_fi != null)
 			resultat = resultat + ", data finalitzacio prestec: " + formato.format(data_fi);
 		else
 			resultat = resultat + ", prestec no finalitzat";
