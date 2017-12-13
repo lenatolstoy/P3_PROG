@@ -9,6 +9,11 @@ public class Llibre_Cientific extends Llibre {
 		super(titol, autors, tema, num_edicio, any_edicio);
 		this.dies_prestec = dies_prestec;
 	}
+	
+	public Llibre_Cientific(String titol, String[] autors, String tema, int num_edicio, String codi, int any_edicio, int dies_prestec) {
+		super(titol, autors, tema, num_edicio, any_edicio, codi);
+		this.dies_prestec = dies_prestec;
+	}
 
 	/**
 	 * Getters Retorna el nombre de dies maxim en el qual es pot tenir en prestec el llibre cientific

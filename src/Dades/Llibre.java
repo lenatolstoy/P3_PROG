@@ -1,6 +1,5 @@
 package Dades;
 
-import java.util.Arrays;
 
 public class Llibre {
 
@@ -43,15 +42,49 @@ public class Llibre {
 		this.titol = titol;
 		this.autors = autors;
 		this.tema = tema;
-		afegirTematica(tema);
 		this.num_edicio = num_edicio;
 		this.any_edicio = any_edicio;
 		comptador++;
-		this.codi = generarCodi(titol, autors[0], comptador);
+		this.codi = generarCodi(titol, autors[0]);
 
 		// Quan s'elimina un llibre simplement s'inactiva (o es posa com a no disponible
 		// -> tenerlo en cuenta a la hora de hacer reservas -> CRIS)
 		actiu = true;
+	}
+	
+	/**
+	 * @param DIES_RESERVA
+	 *            (int) Constant que ens indica els dies de reserva d'un llibre.
+	 * @param titol
+	 *            (String) Titol del llibre.
+	 * @param autors
+	 *            (Vector de Strings) Autor o autors del llibre.
+	 * @param tema
+	 *            (String) Tematica del llibre.
+	 * @param temes
+	 *            (Vector de Strings) Llista de temes que pot tenir un llibre.
+	 * @param num_edicio
+	 *            (int) Quina edició es la del llibre.
+	 * @param any_edicio
+	 *            (int) En quin any es va editar el llibre.
+	 * @param codi
+	 *            (String) Codi identificatiu del llibre.
+	 * @param disponible
+	 *            (Boolean) Ens indica si el llibre esta disponible o no.
+	 * @param comptador
+	 *            (int) s'utilitza per implementar el codi.
+	 */
+	public Llibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio, String codi) {
+
+		this.titol = titol;
+		this.autors = autors;
+		this.tema = tema;
+		this.num_edicio = num_edicio;
+		this.any_edicio = any_edicio;
+		this.codi = codi;
+
+		// Quan s'elimina un llibre simplement s'inactiva (o es posa com a no disponible
+		// -> tenerlo en cuenta a la hora de hacer reservas -> CRIS)
 	}
 
 	public void setActiu(boolean actiu) {
@@ -209,7 +242,7 @@ public class Llibre {
 	 * l'altre tambe es modificara perque son el mateix.
 	 */
 	public Llibre Duplicat() {
-		Llibre aux = new Llibre(this.titol, this.autors, this.tema, this.num_edicio, this.any_edicio);
+		Llibre aux = new Llibre(this.titol, this.autors, this.tema, this.num_edicio, this.any_edicio, this.codi);
 		return (aux);
 	}
 
@@ -220,8 +253,16 @@ public class Llibre {
 	 */
 
 	public String toString() {
-		return ("Titol: " + titol + "\n" + "Autors: " + Arrays.toString(autors) + "\n" + "Tema: " + tema + "\n"
-				+ "Numero d'edició: " + num_edicio + "\n" + "Any d'edició: " + any_edicio + "\n" + "Codi: " + codi);
+		int z = 0;
+		String aux = "";
+		while(autors[z] != (null)) {
+			aux = aux + autors[z] + ", ";
+			z++;
+		}
+		aux = aux.substring(0, aux.length()-2);
+		
+		return ("Titol: " + titol + "\n" + "Autors: " + aux + "\n" + "Tema: " + tema + "\n"
+				+ "Numero d'edició: " + num_edicio + "\n" + "Any d'edició: " + any_edicio + "\n" + "Codi: " + codi +"\n");
 	}
 
 	/**
@@ -238,10 +279,11 @@ public class Llibre {
 	 * @return codi
 	 */
 
-	private String generarCodi(String titol, String autors, int comptador) {
+	private String generarCodi(String titol, String autors) {
 		String codi = new String("");
 		codi = codi + titol.charAt(0) + titol.charAt(1) + titol.charAt(2) + autors.charAt(0) + autors.charAt(1)
 				+ autors.charAt(2) + comptador;
+		comptador++;
 		return (codi);
 	}
 

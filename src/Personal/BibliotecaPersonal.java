@@ -1,5 +1,6 @@
 package Personal;
 
+import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -99,6 +100,10 @@ public class BibliotecaPersonal extends Biblioteca {
 		}
 
 		socis.afegeix(new Soci(DNI, nom, dnaixement));
+	}
+	
+	public void llegirFitxerLlibres()  throws FileNotFoundException {
+		llibres.llegirFitxer();
 	}
 
 	/**

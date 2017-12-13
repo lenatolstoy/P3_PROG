@@ -2,10 +2,12 @@ package Dades;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class LlistaLlibres {
 	
@@ -51,7 +53,12 @@ public class LlistaLlibres {
 			String aux="";
 			aux = aux +"LLIBRE: Número de llibres = "+numllibres+"\n\n\n";
 			for(int i=0; i<numllibres; i++){
-				aux = aux +llistallibres[i]+ "\n";
+				if(llistallibres[i] instanceof Llibre) {
+					aux = aux +llistallibres[i]+ "\n";
+				}else {
+					aux = aux +(Llibre_Cientific)llistallibres[i]+ "\n";
+				}
+				
 			}
 			return (aux);
 		}
@@ -101,14 +108,14 @@ public class LlistaLlibres {
 		public void afegirLlibre (Llibre llibre){
 			
 			int i, j;
-			
+
+			llibre.afegirTematica(llibre.getTema());
 			//Comprovem que el llibre tingui lloc a la llista
 			//Si té lloc l'afegim directament
 			if(numllibres < llistallibres.length){
 				
 				//Agafem la posició on ha d'anar el llibre amb una funció auxiliar
 				i = ordreCodis(llibre.getCodi());
-				
 				//Movem tots els llibres a partir de la posició un endavant
 				for(j=i; j<numllibres; j++){
 					
@@ -117,6 +124,7 @@ public class LlistaLlibres {
 					
 				//Afegim el nou llibre a la posició trobada
 				llistallibres[i] = llibre.Duplicat();
+
 				//Actualitzem el número de llibres
 				numllibres++;
 				
@@ -151,9 +159,7 @@ public class LlistaLlibres {
 				
 				//Retornem la direcció de la nova llista a la vella
 				llistallibres = aux;
-				
-			}			
-			
+			}
 		}
 		
 		/**
@@ -225,75 +231,67 @@ public class LlistaLlibres {
 		 * @return llistallibres del tipus Llibres[] per tenir ja en una llista de llibres tots els llibres
 		 * @throws FileNotFoundException 
 		 */
-		public Llibre[] llegirFitxer() throws FileNotFoundException, IOException {
+		public Llibre[] llegirFitxer() throws FileNotFoundException {
 			
-			String fileToString = "";
 			String aux = "";
+			int dies_prestec = -1;
+			String titol;
+			String[] autors = new String[10];
+			String tema;
+			int num_edicio;
+			int any_edicio;
+			String codi;
 			
 		    try {
-				BufferedReader llibres = new BufferedReader(new FileReader("Llibres.txt"));
-				fileToString = llibres.readLine();
+				Scanner fitxer = new Scanner(new File("Llibres.txt"));
+				// Llegim fins * (i tenim cada atribut separat per *)
+				fitxer.useDelimiter("\\*");
 				
-				/* ara tenim tot el fitxer a fileToString */
-				
-				int p = 0;
-				int f = 0;
-				int i = 0;
-				
-				
-				
-				
-				do {
-					aux = (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
-					p = f + 2;
+				// Fins que no arribem al final del fitxer
+				while (fitxer.hasNext()) {
+					
+					aux = fitxer.next();
 					if(aux.contentEquals("100tifiko")) {
-						aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
-						p = f + 2;
-						((Llibre_Cientific)llistallibres[i]).setDiesPrestec(Integer.parseInt(aux));
-						aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
-						p = f + 2;
+						dies_prestec = (Integer.parseInt(fitxer.next()));
+						titol = (fitxer.next());
+					}else {
+		
+						titol = (aux);
+					}	
+					int j = 0;
+					while(titol.charAt(j) == '\n') {
+						titol = titol.substring(1, titol.length());
+						j++;
 					}
-			
-					llistallibres[i].setTitol(aux);
-					
-					/* subsequence et fa una string desde la posicio p fins la f que en aquest cas es
-					 * fins abans del asterisc, despres li sumem 2 per saltar-nos'el <- (O.o)
-					 */
-			
-					
-					aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
-					p = f + 2;
-					do {
-						llistallibres[i].setAutor(aux);
-						aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
-						p = f + 2;
-					}while(!aux.equals("/"));
-					aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
-					p = f + 2;
-					llistallibres[i].setTema(aux);
-					aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
-					p = f + 2;
-					llistallibres[i].setNum_edicio((Integer.parseInt(aux)));
-					aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
-					p = f + 2;
-					/* Aqui tenim al aux el date en forma de String */
-					llistallibres[i].setAnyEdicio(Integer.parseInt(aux));
-					aux =  (String) fileToString.subSequence(p, f = fileToString.indexOf('*') - 1);
-					p = f + 2;
-				
-					/* A partir d'aqui ya sería el següent */
-					fileToString = llibres.readLine();
-					
 
-				}while(fileToString != null);
-				llibres.close();
+					aux = fitxer.next();
+					int z = 0;
+					do {
+						autors[z] = aux;
+						aux = fitxer.next();
+					}while(!(aux.equals("/")));
+					
+					tema = (fitxer.next());
+					num_edicio = Integer.parseInt(fitxer.next());
+					codi = fitxer.next();
+					any_edicio = Integer.parseInt(fitxer.next());	
+					
+					if(dies_prestec == -1) {
+						Llibre libro = new Llibre(titol, autors, tema, num_edicio, any_edicio, codi);
+						afegirLlibre(libro);	
+
+					}else {
+						Llibre_Cientific libro100tifico = new Llibre_Cientific(titol, autors, tema, num_edicio, codi, any_edicio, dies_prestec);
+						afegirLlibreCientific(libro100tifico);	
+					}
+					dies_prestec = -1;
+					
+				}
+				fitxer.close();
 				
 			}
 			catch (FileNotFoundException e) {
 				System.out.println("No s'ha trobat el fitxer amb les dades de les mesures de Cobertura");
-			}
-			catch (IOException e) {
-				System.out.println("S'ha produit un error al llegir el fitxer amb les dades de les mesures de Cobertura");
 			}
 		    return llistallibres;
 		    
@@ -310,24 +308,22 @@ public class LlistaLlibres {
 			String titol;
 			String[] autors;
 			String tema;
-			String[] temes = null;
 			int num_edicio;
 			int any_edicio;
 			String codi;			
 		
 			BufferedWriter fitxer = new BufferedWriter(new FileWriter("Llibres.txt"));
 			
-			if(llistallibres[0].getTemes() != null) {
+			/*if(llistallibres[0].getTemes() != null) {
 				temes = llistallibres[0].getTemes();
-			}
-			
-			if(temes != null) {
-				for(int z = 0; z < temes.length; z++) {
+				int z = 0;
+				while(z < temes.length) {
 					fitxer.write(temes[z]);
 					fitxer.write("*");
+					z++;
 				}
 				fitxer.newLine();
-			}
+			}*/
 			
 			//Recorrem totes les reserves per anar posant els atributs en variables
 			//I escriure reserva per reserva al fitxer
@@ -357,11 +353,11 @@ public class LlistaLlibres {
 				fitxer.write("*");
 				fitxer.write(tema);
 				fitxer.write("*");
-				fitxer.write(num_edicio);
+				fitxer.write(""+num_edicio);
 				fitxer.write("*");
 				fitxer.write(codi);
 				fitxer.write("*");
-				fitxer.write(any_edicio);
+				fitxer.write(""+any_edicio);
 				fitxer.write("*");
 				
 				//Saltem de línia al fitxer per escriure la nova reserva
