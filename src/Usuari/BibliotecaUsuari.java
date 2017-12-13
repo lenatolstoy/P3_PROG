@@ -1,3 +1,14 @@
+/** 
+ * Practica 3. Classe Biblioteca.
+ * 
+ * 
+ * @author Ivan Grima
+ * @author Cristina Llort
+ * @author Magdalena Tolstoy
+ * @author Antonio Torres
+ *
+ */
+
 package Usuari;
 
 import java.io.IOException;

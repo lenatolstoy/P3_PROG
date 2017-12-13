@@ -239,7 +239,8 @@ public class LlistaLlibres {
 		 * @throws FileNotFoundException 
 		 */
 		public void llegirFitxer() throws FileNotFoundException {
-			
+			File f = new File("Llibres.txt");
+			if (f.exists() && !f.isDirectory()) {
 			String aux = "";
 			int dies_prestec = -1;
 			String titol;
@@ -248,9 +249,7 @@ public class LlistaLlibres {
 			int num_edicio;
 			int any_edicio;
 			String codi;
-			
-		    try {
-				Scanner fitxer = new Scanner(new File("Llibres.txt"));
+				Scanner fitxer = new Scanner(f);
 				// Llegim fins * (i tenim cada atribut separat per *)
 				fitxer.useDelimiter("\\*");
 				
@@ -296,8 +295,6 @@ public class LlistaLlibres {
 				}
 				fitxer.close();
 				
-			}
-			catch (FileNotFoundException e) {
 			}
 	}
 

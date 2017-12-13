@@ -1,11 +1,17 @@
+/** 
+ * Practica 3. Classe Biblioteca.
+ * 
+ * 
+ * @author Ivan Grima
+ * @author Cristina Llort
+ * @author Magdalena Tolstoy
+ * @author Antonio Torres
+ *
+ */
 
 package Personal;
 
-import java.io.FileNotFoundException;
 import java.util.Scanner;
-
-
-
 
 public class Personal {
 
@@ -13,13 +19,7 @@ public class Personal {
 		Scanner lector = new Scanner(System.in);
 		int op = 14;
 		BibliotecaPersonal biblioteca = new BibliotecaPersonal();
-		//biblioteca.llegir();
-		try {
-			biblioteca.llegirFitxerLlibres();
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		biblioteca.llegir();
 		do {
 			System.out.println("\n---------MENU---------");
 			System.out.println("1. Afegir llibre a la biblioteca");
@@ -59,9 +59,9 @@ public class Personal {
 				break;
 			case 3:
 				System.out.println("\nHa escollit: afegir tematica");
-				if(afegirTematica(biblioteca, lector)) {
+				if (afegirTematica(biblioteca, lector)) {
 					System.out.println("Tema afegit");
-				}else {
+				} else {
 					System.out.println("Aquest tema ja esta a la llista");
 
 				}
@@ -137,14 +137,11 @@ public class Personal {
 			System.out.println("Introdueixi autor del llibre: ");
 			autors[i] = lector.nextLine();
 			i++;
-			if (i == 10)
-				System.out.println("Nombre maxim d'autors assolit");
-			else {
-				System.out.println(
-						"Vol continuar afegint autors? En cas afirmatiu introdueixi 'Y', si no introdueixi un altre caracter: ");
-				op = lector.nextLine().charAt(0);
-			}
-		} while (op == 'Y' && i < 10);
+			System.out.println("Nombre maxim d'autors assolit");
+			System.out.println(
+					"Vol continuar afegint autors? En cas afirmatiu introdueixi 'Y', si no introdueixi un altre caracter: ");
+			op = lector.nextLine().charAt(0);
+		} while (op == 'Y');
 		System.out.println("Introdueixi el tema del llibre: ");
 		String tema = lector.nextLine();
 		int num_edicio = 1;
@@ -170,11 +167,10 @@ public class Personal {
 				System.out.println("No ha introduit un nombre, dies maxims de prestec predefinit a 15");
 			}
 			biblioteca.afegirLlibreCientific(titol, autors, tema, num_edicio, any_edicio, dies_prestec);
-		}
-		else
+		} else
 			biblioteca.afegirLlibre(titol, autors, tema, num_edicio, any_edicio);
 	}
-	
+
 	private static void eliminarLlibre(BibliotecaPersonal biblioteca, Scanner lector) {
 		System.out.println("Introdueixi el codi del llibre a eliminar ");
 		biblioteca.eliminaLlibre(lector.nextLine());

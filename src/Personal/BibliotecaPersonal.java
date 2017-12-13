@@ -1,3 +1,14 @@
+/** 
+ * Practica 3. Classe Biblioteca.
+ * 
+ * 
+ * @author Ivan Grima
+ * @author Cristina Llort
+ * @author Magdalena Tolstoy
+ * @author Antonio Torres
+ *
+ */
+
 package Personal;
 
 import java.io.FileNotFoundException;
@@ -99,10 +110,6 @@ public class BibliotecaPersonal extends Biblioteca {
 		}
 
 		socis.afegeix(new Soci(DNI, nom, dnaixement));
-	}
-	
-	public void llegirFitxerLlibres()  throws FileNotFoundException {
-		llibres.llegirFitxer();
 	}
 
 	/**
