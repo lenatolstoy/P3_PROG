@@ -1,7 +1,7 @@
-/** 
+/**
  * Practica 3. Classe LlistaSocis.
- * 
- * 
+ *
+ *
  * @author Ivan Grima
  * @author Cristina Llort
  * @author Magdalena Tolstoy
@@ -46,9 +46,20 @@ public class LlistaSocis {
 
 	/** HACERLO POR ORDEN ALFABETICO + LISTA DINAMICA */
 	public void afegeix(Soci nuevo) {
-		if (lineas <= lista.length) {
+		if (lineas < lista.length) {
 			lista[lineas] = nuevo;
 			lineas++;
+		}
+		else{
+			Soci[] aux = new Soci[lineas + 1];
+			for (int i = 0; i < lineas; i++) {
+
+				aux[i] = lista[i];
+			}
+
+			aux[lineas] = nuevo.Duplicat();
+			lineas++;
+			lista = aux;
 		}
 	}
 

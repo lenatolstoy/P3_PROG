@@ -1,7 +1,7 @@
-/** 
+/**
  * Practica 3. Classe Soci.
- * 
- * 
+ *
+ *
  * @author Ivan Grima
  * @author Cristina Llort
  * @author Magdalena Tolstoy
@@ -106,6 +106,21 @@ public class Soci {
 
 	public void incidenciaUP() {
 		incidencias++;
+	}
+
+    /**
+	 * Mètode per duplicar un soci
+	 * @return soci
+	 */
+
+	public Soci Duplicat (){
+
+		Soci aux= new Soci(this.getDNI(), this.getNom(), this.getData_naixement());
+		aux.data_alta = this.data_alta;
+		aux.incidencias = this.incidencias;
+		aux.num_prestec = this.num_prestec;
+
+		return aux;
 	}
 
 }// final de clase
