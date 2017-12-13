@@ -1,7 +1,7 @@
-/** 
+/**
  * Practica 3. Classe Biblioteca.
- * 
- * 
+ *
+ *
  * @author Ivan Grima
  * @author Cristina Llort
  * @author Magdalena Tolstoy
@@ -29,7 +29,7 @@ public class BibliotecaPersonal extends Biblioteca {
 
 	/**
 	 * Metode que afegeix un llibre a la llista dels llibres
-	 * 
+	 *
 	 * @param titol
 	 *            String amb el titol del llibre
 	 * @param autors
@@ -44,10 +44,10 @@ public class BibliotecaPersonal extends Biblioteca {
 	public void afegirLlibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio) {
 		llibres.afegirLlibre(new Llibre(titol, autors, tema, num_edicio, any_edicio));
 	}
-	
+
 	/**
 	 * Metode que afegeix un llibre a la llista dels llibres
-	 * 
+	 *
 	 * @param titol
 	 *            String amb el titol del llibre
 	 * @param autors
@@ -69,7 +69,7 @@ public class BibliotecaPersonal extends Biblioteca {
 	/**
 	 * Metode que permet eliminar un llibre de la biblioteca, com que volem manteir
 	 * l'historial dels llibres simplement els posem com a inactius
-	 * 
+	 *
 	 * @param id_llibre
 	 *            String que indica l'identificador del llibre
 	 */
@@ -79,7 +79,7 @@ public class BibliotecaPersonal extends Biblioteca {
 
 	/**
 	 * Metode que ens permet afegir un nou tema
-	 * 
+	 *
 	 * @param tema
 	 *            tema a afegir
 	 * @return
@@ -90,7 +90,7 @@ public class BibliotecaPersonal extends Biblioteca {
 
 	/**
 	 * Afegim soci a la llista de socis
-	 * 
+	 *
 	 * @param DNI
 	 *            DNI del soci a afegir
 	 * @param nom
@@ -114,7 +114,7 @@ public class BibliotecaPersonal extends Biblioteca {
 	/**
 	 * Metode que permet donar de baixa un soci sense mantenir les seves dades en
 	 * historic
-	 * 
+	 *
 	 * @param dni
 	 *            dni del soci que volem eliminar
 	 */
@@ -128,7 +128,7 @@ public class BibliotecaPersonal extends Biblioteca {
 	/**
 	 * Metode que retorna tots els llibres en prestec amb les dades del soci que el
 	 * te
-	 * 
+	 *
 	 * @return
 	 */
 	public String llibresEnPrestec() {
@@ -150,7 +150,7 @@ public class BibliotecaPersonal extends Biblioteca {
 
 	/**
 	 * Metode que retorna el tema del qual hi ha mes prestecs actius
-	 * 
+	 *
 	 * @return String amb el tema
 	 */
 	public String temaAmbMesPrestecs() {
@@ -168,7 +168,7 @@ public class BibliotecaPersonal extends Biblioteca {
 
 	/**
 	 * Metode que compta quants prestecs actius hi ha d'un tema en concret
-	 * 
+	 *
 	 * @param tema
 	 *            tema del qual es vol saber el nombre de prestecs
 	 * @return int amb el nombre de prestecs
@@ -198,7 +198,8 @@ public class BibliotecaPersonal extends Biblioteca {
 		return prestecsInactius.toString();
 	}
 
-	public String consultaReserves() {
+	public String consultaReserves() throws IOException {
+		reserves.EstatReserves();
 		return reserves.toString();
 	}
 
