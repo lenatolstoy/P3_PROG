@@ -198,9 +198,9 @@ public class BibliotecaPersonal extends Biblioteca {
 		return prestecsInactius.toString();
 	}
 
-	public String consultaReserves() throws IOException {
+	/*public String consultaReserves() throws IOException {
 		reserves.EstatReserves();
 		return reserves.toString();
-	}
+	}*/
 
 }
