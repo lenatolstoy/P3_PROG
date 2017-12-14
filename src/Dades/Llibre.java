@@ -82,6 +82,8 @@ public class Llibre {
 	 *            (Boolean) Ens indica si el llibre esta disponible o no.
 	 * @param comptador
 	 *            (int) s'utilitza per implementar el codi.
+	 * @param actiu
+	 * 			  (boolean) et diu si el llibre esta aciu o no
 	 */
 	public Llibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio, String codi, boolean actiu) {
 
@@ -91,27 +93,19 @@ public class Llibre {
 		this.num_edicio = num_edicio;
 		this.any_edicio = any_edicio;
 		this.codi = codi;
-<<<<<<< HEAD
 
-=======
->>>>>>> 5c36f476f2cc35667fd58a5969415ca72bd9bc2c
 		if(actiu) {
 			this.actiu = true;
 		}else {
 			this.actiu = false;
 		}
-<<<<<<< HEAD
+
 		this.actiu = actiu;
-=======
->>>>>>> 5c36f476f2cc35667fd58a5969415ca72bd9bc2c
 
 		// Quan s'elimina un llibre simplement s'inactiva (o es posa com a no disponible
 		// -> tenerlo en cuenta a la hora de hacer reservas -> CRIS)
 	}
 
-	public void setActiu(boolean actiu) {
-		this.actiu = actiu;
-	}
 
 	/**
 	 * Getters
@@ -243,7 +237,12 @@ public class Llibre {
 			}
 		}
 	}
+	
 
+	public void setActiu(boolean actiu) {
+		this.actiu = actiu;
+	}
+	
 	public static void setTemes(String[] temes) {
 		Llibre.temes = temes;
 	}
@@ -333,7 +332,6 @@ public class Llibre {
 		if(temes != null) {
 			for (int i = 0; (i < temes.length) && (hiEs == false); i++) {
 				hiEs = (temes[i].equals(tema));
-
 			}	
 		}
 		
@@ -391,8 +389,7 @@ public class Llibre {
 				String[] aux = new String[1];
 				aux[0] = tema;
 				temes = aux;
-			}
-		}else {
+			}else {
 				String[] aux = new String[temes.length + 1];
 
 				// Copiem tot el contingut de la llista en l'auxiliar
@@ -402,6 +399,7 @@ public class Llibre {
 				aux[aux.length - 1] = tema;
 				temes = aux;
 			
+			}
 		}
 		return todo_bien;
 		

@@ -441,6 +441,12 @@ public class LlistaLlibres {
 
 		return hiEs;
 	}
+	
+	/**
+	 * Et diu quins llibres tenen aquest tema
+	 * @param tema
+	 * @return String amb els llibres que tenen aquest tema
+	 */
 
 	public String buscaPerTematica(String tema) {
 
