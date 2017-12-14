@@ -83,7 +83,7 @@ public class Llibre {
 	 * @param comptador
 	 *            (int) s'utilitza per implementar el codi.
 	 */
-	public Llibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio, String codi) {
+	public Llibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio, String codi, boolean actiu) {
 
 		this.titol = titol;
 		this.autors = autors;
@@ -91,6 +91,7 @@ public class Llibre {
 		this.num_edicio = num_edicio;
 		this.any_edicio = any_edicio;
 		this.codi = codi;
+		this.actiu = actiu;
 
 		// Quan s'elimina un llibre simplement s'inactiva (o es posa com a no disponible
 		// -> tenerlo en cuenta a la hora de hacer reservas -> CRIS)
@@ -251,7 +252,7 @@ public class Llibre {
 	 * l'altre tambe es modificara perque son el mateix.
 	 */
 	public Llibre Duplicat() {
-		Llibre aux = new Llibre(this.titol, this.autors, this.tema, this.num_edicio, this.any_edicio, this.codi);
+		Llibre aux = new Llibre(this.titol, this.autors, this.tema, this.num_edicio, this.any_edicio, this.codi, this.actiu);
 		return (aux);
 	}
 
