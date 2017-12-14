@@ -594,7 +594,7 @@ public class LlistaReserves {
 				data = fitxer.next();
 				Date data2 = null;
 				// Passem la data en string a tipus Date
-				DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+				DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 				try {
 					data2 = format.parse(data);
 				} catch (ParseException e) {
