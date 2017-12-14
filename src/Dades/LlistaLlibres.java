@@ -245,6 +245,7 @@ public class LlistaLlibres {
 	public void llegirFitxer() throws FileNotFoundException {
 		File f = new File("Llibres.txt");
 		if (f.exists() && !f.isDirectory()) {
+			boolean actiu=false;
 			String aux = "";
 			int dies_prestec = -1;
 			String titol;

@@ -61,7 +61,7 @@ public class Prestec implements Serializable{
 		// Mirem que el llibre es trobi a la nostra llista de llibres
 		this.id_llibre = id_llibre;
 		this.dni = dni;
-		data_fi = new Date(0); // Emmagatzemem una data final de prestec "nul.la"
+		data_fi = null; //Fem una data final nul.la
 		data_ini = Calendar.getInstance().getTime();
 
 	}
