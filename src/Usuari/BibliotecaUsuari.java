@@ -1,7 +1,7 @@
-/** 
+/**
  * Practica 3. Classe Biblioteca.
- * 
- * 
+ *
+ *
  * @author Ivan Grima
  * @author Cristina Llort
  * @author Magdalena Tolstoy
@@ -32,7 +32,7 @@ public class BibliotecaUsuari extends Biblioteca {
 
 	/**
 	 * Ens indica si el DNI es troba a la llista de socis
-	 * 
+	 *
 	 * @param dni
 	 *            String en el qual es troba el DNI a buscar
 	 * @return boolea que indica si s'ha torbat o no el DNI a la llista
@@ -44,7 +44,7 @@ public class BibliotecaUsuari extends Biblioteca {
 	/**
 	 * Metode que consulta les dades dels llibres amb un titol o part d'un titol i
 	 * ens indica si esta disponible o no
-	 * 
+	 *
 	 * @param titol
 	 *            String amb el titol o part del titol a buscar
 	 * @return String amb les dades dels llibres i si es troben disponibles o no per
@@ -82,7 +82,7 @@ public class BibliotecaUsuari extends Biblioteca {
 	/**
 	 * Metode que ens permet saber les dades dels llibres que tenen un tema en
 	 * concret
-	 * 
+	 *
 	 * @param tema
 	 *            String que ens indica el tema del qual volem saber els llibres
 	 * @return String amb les dades de tots els llibres
@@ -93,7 +93,7 @@ public class BibliotecaUsuari extends Biblioteca {
 
 	/**
 	 * Metode que permet a un soci fer el prestec d'un llibre
-	 * 
+	 *
 	 * @param id_llibre
 	 *            String que indica el codi del llibre
 	 * @param dni
@@ -134,7 +134,7 @@ public class BibliotecaUsuari extends Biblioteca {
 				num_dies = ((Llibre_Cientific) llibre).getDiesPrestec();
 			else
 				num_dies = 15;
-			
+
 			// Mirarem que el llibre no estigui en reserva o prestec
 			if (!prestecsActius.enPrestec(id_llibre, data_ini, num_dies)
 					&& !reserves.ReservaPeriode(id_llibre, data_ini, num_dies)) {
@@ -150,7 +150,7 @@ public class BibliotecaUsuari extends Biblioteca {
 
 	/**
 	 * Metode que permet retornar un llibre en prestec
-	 * 
+	 *
 	 * @param id_llibre
 	 *            String amb el codi del llibre
 	 * @param dni
@@ -195,7 +195,7 @@ public class BibliotecaUsuari extends Biblioteca {
 
 	/**
 	 * Metode que li permet a l'usuari fer la reserva d'un llibre
-	 * 
+	 *
 	 * @param id_llibre
 	 * @param dni
 	 * @param dia
@@ -212,13 +212,13 @@ public class BibliotecaUsuari extends Biblioteca {
 		try {
 			// Afegim la reserva a la llista
 			reserves.AfegirReserva(new Reserva(id_llibre, dni, data));
-		} catch (ClassNotFoundException | LlibreNoDisponible | ReservesDiaSuperior30 | IOException e) {
+		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * 
+	 *
 	 * @param id_llibre
 	 * @param dni
 	 */
@@ -229,7 +229,7 @@ public class BibliotecaUsuari extends Biblioteca {
 	/**
 	 * Metode que ens permet veure els prestecs (en cas de que el dni sigui d'un
 	 * soci) i les reserves d'un usuari
-	 * 
+	 *
 	 * @param dni
 	 *            dni de la persona de la qual volem saber les reserves i els
 	 *            prestecs
