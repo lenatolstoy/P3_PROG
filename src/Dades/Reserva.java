@@ -1,7 +1,7 @@
-/** 
+/**
  * Practica 3. Classe Reserva.
- * 
- * 
+ *
+ *
  * @author Ivan Grima
  * @author Cristina Llort
  * @author Magdalena Tolstoy
@@ -21,7 +21,7 @@ public class Reserva {
 	//El tipus Date inclou també l'hora
 	private Date data;
 	private boolean activa;
-	
+
 	/**
 	 * Constructor
 	 * @param nomllibre String on guardem el nom del llibre que es vol reservar
@@ -29,30 +29,30 @@ public class Reserva {
 	 * @param data del tipus Date on guardem la data en la qual es vol fer la reserva
 	 */
 	public Reserva(String codillibre, String DNI, Date data){
-		
+
 		this.codillibre = codillibre;
 		this.DNI = DNI;
 		this.data = data;
 		activa = false;
-		
+
 	}
-	
-	
+
+
 	/**
 	 * Constructor per poder utilitzar per a LlegirFitxerReserves
 	 * @param nomllibre String on guardem el nom del llibre que es vol reservar
 	 * @param DNI String on guardem el DNI de l'usuari que vol reservar el llibre
 	 * @param data del tipus Date on guardem la data en la qual es vol fer la reserva
 	 * @param activa del tipus booleà ens indica si la reserva està activa o no (si ja s'ha acabat el termini en el que tens el llibre reservat)
-	 */	
+	 */
 public Reserva(String codillibre, String DNI, Date data, boolean activa){
-		
+
 		this.codillibre = codillibre;
 		this.DNI = DNI;
 		this.data = data;
 		this.activa = activa;
 	}
-	
+
 	//Getters i setters
 
 	/**
@@ -69,7 +69,7 @@ public Reserva(String codillibre, String DNI, Date data, boolean activa){
 	public void setCodillibre(String codillibre) {
 		this.codillibre = codillibre;
 	}
-	
+
 	/**
 	 * Retorna el DNI de l'usuari que vol reservar el llibre
 	 * @return DNI
@@ -84,7 +84,7 @@ public Reserva(String codillibre, String DNI, Date data, boolean activa){
 	public void setDNI(String dNI) {
 		DNI = dNI;
 	}
-	
+
 	/**
 	 * Retorna la data en la qual es vol reservar el llibre
 	 * @return data
@@ -114,10 +114,10 @@ public Reserva(String codillibre, String DNI, Date data, boolean activa){
 	public void setActiva(boolean activa) {
 		this.activa = activa;
 	}
-	
-	
+
+
 	//toString
-	
+
 	/**
 	 * Mètode toString
 	 * @return String
@@ -125,21 +125,21 @@ public Reserva(String codillibre, String DNI, Date data, boolean activa){
 	public String toString() {
 		return "Reserva: [Codi del llibre: " + codillibre + "    DNI: " + DNI + "    Data reserva: " + data + "    Reserva activa: " +activa+ "]";
 	}
-	
-	
+
+
 	/**
 	 * Mètode per duplicar una reserva
-	 * @return reserva
+	 * @return aux del tipus Reserva amb la reserva duplicada
 	 */
-	
+
 	public Reserva Duplicat (){
-		
+
 		Reserva aux= new Reserva(this.getCodillibre(), this.getDNI(), this.getData());
 		aux.activa = this.activa;
-		
-		return aux;	
+
+		return aux;
 	}
 
-	
-	
+
+
 }
