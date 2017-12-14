@@ -1,7 +1,7 @@
-/** 
+/**
  * Practica 3. Classe Biblioteca.
- * 
- * 
+ *
+ *
  * @author Ivan Grima
  * @author Cristina Llort
  * @author Magdalena Tolstoy
@@ -37,7 +37,7 @@ public abstract class Biblioteca {
 
 	/**
 	 * Getter de la llista de llibres
-	 * 
+	 *
 	 * @return LlistaLlibres
 	 */
 	public LlistaLlibres getLlibres() {
@@ -46,7 +46,7 @@ public abstract class Biblioteca {
 
 	/**
 	 * Getter de la llista de socis
-	 * 
+	 *
 	 * @return LlistaSocis
 	 */
 	public LlistaSocis getSocis() {
@@ -55,7 +55,7 @@ public abstract class Biblioteca {
 
 	/**
 	 * Getter de la llista de prestecs que estiguin actius
-	 * 
+	 *
 	 * @return LlistaPrestecs amb els prestecs actius
 	 */
 	public LlistaPrestecs getPrestecsActius() {
@@ -64,7 +64,7 @@ public abstract class Biblioteca {
 
 	/**
 	 * Getter de la llista de prestecs que ja no estiguin actius
-	 * 
+	 *
 	 * @return LlistaPrestecs amb els prestecs inactius
 	 */
 	public LlistaPrestecs getPrestecsInactius() {
@@ -73,7 +73,7 @@ public abstract class Biblioteca {
 
 	/**
 	 * Getter de les reserves actives
-	 * 
+	 *
 	 * @return LlistaReserves amb les reserves actives
 	 */
 	public LlistaReserves getReserves() {
@@ -115,10 +115,6 @@ public abstract class Biblioteca {
 		try {
 			reserves.LlegirFitxerReserves();
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (LlibreNoDisponible e) {
-			e.printStackTrace();
-		} catch (ReservesDiaSuperior30 e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();

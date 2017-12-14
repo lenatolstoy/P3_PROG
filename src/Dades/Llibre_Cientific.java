@@ -21,8 +21,8 @@ public class Llibre_Cientific extends Llibre {
 		this.dies_prestec = dies_prestec;
 	}
 	
-	public Llibre_Cientific(String titol, String[] autors, String tema, int num_edicio, String codi, int any_edicio, int dies_prestec) {
-		super(titol, autors, tema, num_edicio, any_edicio, codi);
+	public Llibre_Cientific(String titol, String[] autors, String tema, int num_edicio, String codi, int any_edicio, int dies_prestec, boolean actiu) {
+		super(titol, autors, tema, num_edicio, any_edicio, codi, actiu);
 		this.dies_prestec = dies_prestec;
 	}
 

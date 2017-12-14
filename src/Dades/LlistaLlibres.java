@@ -249,27 +249,44 @@ public class LlistaLlibres {
 			String aux = "";
 			int dies_prestec = -1;
 			String titol;
-			String[] autors = new String[10];
 			String tema;
 			int num_edicio;
 			int any_edicio;
 			String codi;
+			boolean actiu;
+			int comptador;
+			String[] temes = new String[20];
 			Scanner fitxer = new Scanner(f);
 			// Llegim fins * (i tenim cada atribut separat per *)
 			fitxer.useDelimiter("\\*");
-
+			int j = 0;
+			aux = fitxer.next();
+			do{
+				if(j == (temes.length-1)) {
+					String[] nou_temes = new String[temes.length + 1];
+					nou_temes = temes;
+					temes = nou_temes;
+				}
+				temes[j] = aux;
+				aux = fitxer.next();
+				j++;
+			}while (fitxer.hasNext() && aux.equals("/")); 
+			comptador = Integer.parseInt(aux);
 			// Fins que no arribem al final del fitxer
 			while (fitxer.hasNext()) {
 
 				aux = fitxer.next();
-				if (aux.contentEquals("100tifiko")) {
+				
+				aux = aux.replaceAll("(\r\n|\n)", "");
+				if (aux.contentEquals("100tifico") || aux.contentEquals("\n100tifico")) {
 					dies_prestec = (Integer.parseInt(fitxer.next()));
 					titol = (fitxer.next());
-				} else {
-
+				} else{
 					titol = (aux);
 				}
-
+				
+				
+				String[] autors = new String[10];
 				aux = fitxer.next();
 				int z = 0;
 				do {
@@ -281,21 +298,25 @@ public class LlistaLlibres {
 				num_edicio = Integer.parseInt(fitxer.next());
 				codi = fitxer.next();
 				any_edicio = Integer.parseInt(fitxer.next());
+				actiu = Boolean.valueOf(fitxer.next());
 
 				if (dies_prestec == -1) {
 					Llibre libro = new Llibre(titol, autors, tema, num_edicio, any_edicio, codi, actiu);
 					afegirLlibre(libro);
+					System.out.println(libro.toString());
 
 				} else {
 					Llibre_Cientific libro100tifico = new Llibre_Cientific(titol, autors, tema, num_edicio, codi,
-							any_edicio, dies_prestec);
+							any_edicio, dies_prestec, actiu);
 					afegirLlibreCientific(libro100tifico);
+					System.out.println(libro100tifico.toString());
 				}
 				dies_prestec = -1;
-
 			}
 			fitxer.close();
-
+			Llibre.setTemes(temes);
+			Llibre.setComptador(comptador);
+			
 		}
 	}
 
@@ -314,14 +335,25 @@ public class LlistaLlibres {
 		int num_edicio;
 		int any_edicio;
 		String codi;
-
+		String actiu;
+		String temes[];
+		int comptador;
 		BufferedWriter fitxer = new BufferedWriter(new FileWriter("Llibres.txt"));
 
-		/*
-		 * if(llistallibres[0].getTemes() != null) { temes =
-		 * llistallibres[0].getTemes(); int z = 0; while(z < temes.length) {
-		 * fitxer.write(temes[z]); fitxer.write("*"); z++; } fitxer.newLine(); }
-		 */
+		temes =llistallibres[0].getTemes(); 
+		if(temes[0] != null) {
+			int j = 0; 
+			while(j < temes.length) {
+				fitxer.write(temes[j]);
+				fitxer.write("*"); 
+				j++; 
+			 }
+		 }
+			 fitxer.write("/");
+			 comptador = llistallibres[0].getComptador();
+			 fitxer.write("*"+comptador+"*");
+			 fitxer.newLine(); 
+		 
 
 		// Recorrem totes les reserves per anar posant els atributs en variables
 		// I escriure reserva per reserva al fitxer
@@ -333,11 +365,14 @@ public class LlistaLlibres {
 			num_edicio = llistallibres[i].getNumEdicio();
 			codi = llistallibres[i].getCodi();
 			any_edicio = llistallibres[i].getAnyEdicio();
+			actiu = "false";
+			if(llistallibres[i].isActiu()) actiu = "true";
+			
 
 			// Ho escrivim al fitxer separat per *
 			if (llistallibres[i] instanceof Llibre_Cientific) {
 				fitxer.write("100tifico*");
-				fitxer.write(((Llibre_Cientific) llistallibres[i]).getDiesPrestec());
+				fitxer.write(""+((Llibre_Cientific) llistallibres[i]).getDiesPrestec());
 				fitxer.write("*");
 			}
 
@@ -356,6 +391,8 @@ public class LlistaLlibres {
 			fitxer.write(codi);
 			fitxer.write("*");
 			fitxer.write("" + any_edicio);
+			fitxer.write("*");
+			fitxer.write(""+actiu);
 			fitxer.write("*");
 			if (i + 1 != numllibres)
 				fitxer.newLine();
