@@ -121,12 +121,12 @@ public class LlistaPrestecs implements Serializable{
 	 * @return false si l'eliminacio no s'ha pogut fer perque no s'ha trobat el
 	 *         prestec, i true si s'ha pogut fer correctament
 	 */
-	public boolean fiPrestec(String id_llibre, String dni, LlistaPrestecs Inactius) {
+	public boolean fiPrestec(String id_llibre, String dni, LlistaPrestecs inactius) {
 		int pos = posicio(id_llibre, dni);
 		if (pos == -1)
 			return false;
 		// Afegim el prestec a inactius
-		Inactius.afegirPrestec(retornaPrestec(posicio(id_llibre, dni)));
+		inactius.afegirPrestec(retornaPrestec(posicio(id_llibre, dni)));
 		// Eliminem el prestec d'actius
 		eliminaPrestec(pos);
 		return true;

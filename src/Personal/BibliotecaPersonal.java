@@ -11,6 +11,7 @@
 
 package Personal;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -129,7 +130,7 @@ public class BibliotecaPersonal extends Biblioteca {
 	 * Metode que retorna tots els llibres en prestec amb les dades del soci que el
 	 * te
 	 *
-	 * @return
+	 * @return String amb els llibres que es troben en prestec
 	 */
 	public String llibresEnPrestec() {
 		LlistaPrestecs prestecsActuals = prestecsActius.enPrestecAvui();

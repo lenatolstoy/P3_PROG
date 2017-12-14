@@ -236,11 +236,6 @@ public class Llibre {
 		this.codi = codi;
 	}
 
-	public void setNouTema(String tema) {
-
-		// Exception comrpova tema
-	}
-
 	/**
 	 * Mètode que duplica la instància del llibre
 	 * 
