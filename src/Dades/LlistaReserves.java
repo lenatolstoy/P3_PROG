@@ -232,48 +232,24 @@ public class LlistaReserves {
 	}
 
 	/**
-	 * Mètode per afegir una reserva (si es pot)
+	 * Mètode per afegir una reserva
 	 *
 	 * @param reserva
 	 *            del tipus Reserves que ens donarà la informació de la reserva que
 	 *            es vol afegir
-	 * @throws LlibreNoDisponible
-	 *             excepció que s'activa si el llibre no es troba disponible
-	 * @throws ReservesDiaSuperior30
-	 *             excepció que s'activa si el número de reserves d'aquell dia ja és
-	 *             superior a 30
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
 
 	public void AfegirReserva(Reserva reserva)
-			throws LlibreNoDisponible, ReservesDiaSuperior30, IOException, ClassNotFoundException {
+			throws IOException, ClassNotFoundException {
 
 		int i;
 
-		// Controlo l'excepció del cas en el que no podem afegir la reserva perquè
-		// el llibre que es vol reservar no es troba disponible
-		if (!LlibreDisponible(reserva.getCodillibre(), reserva.getData())) {
-
-			throw new LlibreNoDisponible(reserva.getCodillibre());
-		}
-		// Controlo l'excepció del cas en el que no podem afegir la reserva perquè
-		// el número de reserves d'aquell dia ja és superior a 30
-		if (NumRerservesDia(reserva.getData()) >= 30) {
-
-			throw new ReservesDiaSuperior30(reserva.getData());
-
-		}
-		// Si no és que el llibre està disponible i aquell dia es pot reservar
-		// Per tant anem a fer la reserva
-		else {
-
-			// Afegim la reserva
-			// Mirem si la llista està plena
-			if (numreserves < llistareserves.length) {
+		// Mirem si la llista està plena
+		if (numreserves < llistareserves.length) {
 
 				// Si no ho està afegim la reserva directament
-
 				// Afegim la reserva en la posició següent
 				llistareserves[numreserves] = reserva.Duplicat();
 
@@ -281,8 +257,8 @@ public class LlistaReserves {
 				numreserves++;
 			}
 
-			// Si ho està ampliem la llista i afegim la reserva
-			else {
+		// Si ho està ampliem la llista i afegim la reserva
+		else {
 
 				// Creem una llista auxiliar amb una posició més
 				Reserva[] aux = new Reserva[numreserves + 1];
@@ -305,13 +281,13 @@ public class LlistaReserves {
 			// Ara ordenem la reserva que hem afegit
 			// Si només hi ha una reserva la col·loquem la primera de la llista i és
 			// correcte
-			if (numreserves != 1) {
+		if (numreserves != 1) {
 
 				OrdenarReserves();
-			}
-
 		}
+
 	}
+
 
 	/**
 	 * Mètode per eliminar una reserva a partir d'un DNI
@@ -513,18 +489,16 @@ public class LlistaReserves {
 	 * @throws ClassNotFoundException
 	 */
 
-	public boolean LlibreDisponible(String codillibre, Date data) throws IOException, ClassNotFoundException {
+	public boolean LlibreDisponible(String codillibre, Date data, LlistaPrestecs llistaprestecs) throws IOException, ClassNotFoundException {
 
 		boolean disponible = false;
-		LlistaPrestecs llistaprestecs = new LlistaPrestecs(10);
-		String fitxer = "prestecsactius.dat";
 
 		// Passem la data a String perquè per cridar enPrestec ho necessitem en String
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		String datastring = sdf.format(new Date(data.getTime()));
 
 
-		llistaprestecs.llegirFitxer(fitxer);
+
 
 		// Si el llibre no està reservat ni en préstec aquell dia està disponible
 		if (ReservaDia(codillibre, data) == false && llistaprestecs.enPrestec(codillibre, datastring) == false) {
@@ -595,7 +569,7 @@ public class LlistaReserves {
 	 * @throws ClassNotFoundException
 	 */
 	public void LlegirFitxerReserves()
-			throws ClassNotFoundException, LlibreNoDisponible, ReservesDiaSuperior30, IOException {
+			throws ClassNotFoundException, IOException {
 		File f = new File("Reserves.txt");
 		if (f.exists() && !f.isDirectory()) {
 			// Creem les variables on aniran els atributs
