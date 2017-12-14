@@ -91,15 +91,13 @@ public class Llibre {
 		this.num_edicio = num_edicio;
 		this.any_edicio = any_edicio;
 		this.codi = codi;
-<<<<<<< HEAD
+
 		if(actiu) {
 			this.actiu = true;
 		}else {
 			this.actiu = false;
 		}
-=======
 		this.actiu = actiu;
->>>>>>> 7d1c8139a21c718d081668d0da3a71a40ac787d5
 
 		// Quan s'elimina un llibre simplement s'inactiva (o es posa com a no disponible
 		// -> tenerlo en cuenta a la hora de hacer reservas -> CRIS)
@@ -328,7 +326,6 @@ public class Llibre {
 
 		if(temes != null) {
 			for (int i = 0; (i < temes.length) && (hiEs == false); i++) {
-
 				hiEs = (temes[i].equals(tema));
 
 			}	

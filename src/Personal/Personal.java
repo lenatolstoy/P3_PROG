@@ -143,6 +143,7 @@ public class Personal {
 		} while (op == 'Y');
 		System.out.println("Introdueixi el tema del llibre: ");
 		String tema = lector.nextLine();
+		biblioteca.afegirTema(tema);
 		int num_edicio = 1;
 		System.out.println("Introudeixi el numero d'edicio: ");
 		try {

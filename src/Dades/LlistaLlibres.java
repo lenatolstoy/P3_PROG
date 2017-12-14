@@ -245,7 +245,6 @@ public class LlistaLlibres {
 	public void llegirFitxer() throws FileNotFoundException {
 		File f = new File("Llibres.txt");
 		if (f.exists() && !f.isDirectory()) {
-			boolean actiu=false;
 			String aux = "";
 			int dies_prestec = -1;
 			String titol;
@@ -255,23 +254,27 @@ public class LlistaLlibres {
 			String codi;
 			boolean actiu;
 			int comptador;
-			String[] temes = new String[20];
+			String[] temes = new String[1];
 			Scanner fitxer = new Scanner(f);
 			// Llegim fins * (i tenim cada atribut separat per *)
 			fitxer.useDelimiter("\\*");
 			int j = 0;
 			aux = fitxer.next();
 			do{
-				if(j == (temes.length-1)) {
+				if(j == (temes.length)) {
 					String[] nou_temes = new String[temes.length + 1];
-					nou_temes = temes;
+
+					// Copiem tot el contingut de la llista en l'auxiliar
+					for (int i = 0; i < temes.length; i++) {
+						nou_temes[i] = temes[i];
+					}
 					temes = nou_temes;
 				}
 				temes[j] = aux;
 				aux = fitxer.next();
 				j++;
-			}while (fitxer.hasNext() && aux.equals("/")); 
-			comptador = Integer.parseInt(aux);
+			}while (fitxer.hasNext() && !(aux.equals("/")));
+			comptador = Integer.parseInt(fitxer.next());
 			// Fins que no arribem al final del fitxer
 			while (fitxer.hasNext()) {
 
@@ -303,13 +306,10 @@ public class LlistaLlibres {
 				if (dies_prestec == -1) {
 					Llibre libro = new Llibre(titol, autors, tema, num_edicio, any_edicio, codi, actiu);
 					afegirLlibre(libro);
-					System.out.println(libro.toString());
-
 				} else {
 					Llibre_Cientific libro100tifico = new Llibre_Cientific(titol, autors, tema, num_edicio, codi,
 							any_edicio, dies_prestec, actiu);
 					afegirLlibreCientific(libro100tifico);
-					System.out.println(libro100tifico.toString());
 				}
 				dies_prestec = -1;
 			}
@@ -340,7 +340,7 @@ public class LlistaLlibres {
 		int comptador;
 		BufferedWriter fitxer = new BufferedWriter(new FileWriter("Llibres.txt"));
 
-		temes =llistallibres[0].getTemes(); 
+		temes =llistallibres[0].getTemes();
 		if(temes[0] != null) {
 			int j = 0; 
 			while(j < temes.length) {
