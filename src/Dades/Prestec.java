@@ -11,7 +11,6 @@
 
 package Dades;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import java.text.SimpleDateFormat;
@@ -48,23 +47,6 @@ public class Prestec implements Serializable{
 		}
 	}
 
-	/**
-	 * Constructor de la classe Prestecs que marca el dia actual com a data inicial
-	 * del prestec
-	 * 
-	 * @param id_llibre:
-	 *            numero identificador del llibre en prestec
-	 * @param dni:
-	 *            dni de qui realitza el prestec
-	 */
-	public Prestec(String id_llibre, String dni) {
-		// Mirem que el llibre es trobi a la nostra llista de llibres
-		this.id_llibre = id_llibre;
-		this.dni = dni;
-		data_fi = null; //Fem una data final nul.la
-		data_ini = Calendar.getInstance().getTime();
-
-	}
 
 	/**
 	 * Constructor de la classe Prestecs amb una data inicial i final predefinides

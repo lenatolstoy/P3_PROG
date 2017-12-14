@@ -91,13 +91,19 @@ public class Llibre {
 		this.num_edicio = num_edicio;
 		this.any_edicio = any_edicio;
 		this.codi = codi;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5c36f476f2cc35667fd58a5969415ca72bd9bc2c
 		if(actiu) {
 			this.actiu = true;
 		}else {
 			this.actiu = false;
 		}
+<<<<<<< HEAD
 		this.actiu = actiu;
+=======
+>>>>>>> 5c36f476f2cc35667fd58a5969415ca72bd9bc2c
 
 		// Quan s'elimina un llibre simplement s'inactiva (o es posa com a no disponible
 		// -> tenerlo en cuenta a la hora de hacer reservas -> CRIS)
@@ -246,6 +252,7 @@ public class Llibre {
 		this.codi = codi;
 	}
 
+
 	public void setNouTema(String tema) {
 
 		afegirTematica(tema);
@@ -256,7 +263,6 @@ public class Llibre {
 		comptador = comptadoh;
 	}
 	
-
 	/**
 	 * Mètode que duplica la instància del llibre
 	 * 

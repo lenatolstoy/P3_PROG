@@ -16,6 +16,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
@@ -75,7 +77,7 @@ public class LlistaSocis {
 		for (int i = 0; i < lineas; i++) {
 			dni = lista[i].getDNI();
 			nom = lista[i].getNom();
-			SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			data_naixement = sdf.format(lista[i].getData_naixement());
 			data_alta = sdf.format(lista[i].getData_alta());
 			incidencias = String.valueOf(lista[i].getIncidencias());
@@ -111,8 +113,8 @@ public class LlistaSocis {
 			Scanner scan = new Scanner(f);
 			String dni;
 			String nom;
-			Date data_naixement;
-			Date data_alta;
+			String data_naixement;
+			String data_alta;
 			int incidencias;
 			int num_prestec;
 			String punts = null;
@@ -121,8 +123,21 @@ public class LlistaSocis {
 				dni = scan.next();
 				dni = dni.replaceAll("[\n\r]", "");
 				nom = scan.next();
-				data_naixement = new Date(scan.next());
-				data_alta = new Date(scan.next());
+				data_naixement = scan.next();
+				Date data_n = null;
+				DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+				try {
+					data_n = format.parse(data_naixement);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				data_alta = scan.next();
+				Date data_a = null;
+				try {
+					data_a = format.parse(data_alta);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
 				incidencias = Integer.parseInt(scan.next());
 				num_prestec = Integer.parseInt(scan.next());
 				if (scan.hasNextInt()) {
@@ -133,17 +148,19 @@ public class LlistaSocis {
 
 				if (punts != null) {
 					int p = Integer.parseInt(punts);
-					NoEstudiant nuevo = new NoEstudiant(dni, nom, data_naixement, data_alta, incidencias, num_prestec,
+					NoEstudiant nuevo = new NoEstudiant(dni, nom, data_n, data_a, incidencias, num_prestec,
 							p);
 					afegeix(nuevo);
+
 				} else {
-					Soci nuevo = new Soci(dni, nom, data_naixement, data_alta, incidencias, num_prestec);
+					Soci nuevo = new Soci(dni, nom, data_n, data_a, incidencias, num_prestec);
 					afegeix(nuevo);
 				}
 
 			}
 			scan.close();
 		}
+
 	}
 
 	public Soci retornaSoci(String dni) {
