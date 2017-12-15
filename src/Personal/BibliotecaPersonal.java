@@ -98,8 +98,11 @@ public class BibliotecaPersonal extends Biblioteca {
 	 *            Nom del soci a afegir
 	 * @param data_naixement
 	 *            Data de naixement del soci a fegir
+	 * @return sociafegit
+	 * 				booleà que ens retornà cert si s'ha pogut afegir el soci i fals si no
 	 */
-	public void afegirSoci(String DNI, String nom, String data_naixement) {
+	public boolean afegirSoci(String DNI, String nom, String data_naixement) {
+		boolean sociafegit=false;
 		Date dnaixement = null;
 		// Passem el string a tipus data
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -108,8 +111,14 @@ public class BibliotecaPersonal extends Biblioteca {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
-		socis.afegeix(new Soci(DNI, nom, dnaixement));
+		//Només afegim el soci si aquest no existeix ja a la llista
+		if(!socis.existeix(DNI)){
+			socis.afegeix(new Soci(DNI, nom, dnaixement));
+			//Actualitzem l'estat de sociafegit
+			sociafegit=true;
+		}
+		//Retornem si ha estat possible afegir el soci o no
+	return sociafegit;
 	}
 
 	/**

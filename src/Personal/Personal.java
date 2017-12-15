@@ -1,7 +1,7 @@
-/** 
+/**
  * Practica 3. Classe Biblioteca.
- * 
- * 
+ *
+ *
  * @author Ivan Grima
  * @author Cristina Llort
  * @author Magdalena Tolstoy
@@ -66,10 +66,12 @@ public class Personal {
 
 				}
 				break;
-			case 4:
+		case 4:
 				System.out.println("\nHa escollit: donar d'alta un soci");
-				altaSoci(biblioteca, lector);
+				//Només mostrem missatge de que s'ha afegit el soci si aquest no estava afegit ja
+				if(altaSoci(biblioteca, lector)){
 				System.out.println("Soci donat d'alta");
+				}
 				break;
 			case 5:
 				System.out.println("\nHa escollit: donar de baixa un soci");
@@ -181,7 +183,9 @@ public class Personal {
 		return biblioteca.afegirTema(lector.nextLine());
 	}
 
-	private static void altaSoci(BibliotecaPersonal biblioteca, Scanner lector) {
+	private static boolean altaSoci(BibliotecaPersonal biblioteca, Scanner lector) {
+
+		boolean sociafegit;
 		String dni, nom, data_naixement;
 		System.out.println("Afegeixi el DNI del soci: ");
 		dni = lector.nextLine();
@@ -189,7 +193,11 @@ public class Personal {
 		nom = lector.nextLine();
 		System.out.println("Afegeixi la data de naixement (en format dd/MM/yyyy)");
 		data_naixement = lector.nextLine();
-		biblioteca.afegirSoci(dni, nom, data_naixement);
+		//AfegirSoci retorna un booleà per saber si s'ha pogut afegir o no
+		//no es pot afegir quan aquest soci ja es troba a la llista
+		sociafegit = biblioteca.afegirSoci(dni, nom, data_naixement);
+		//retornem si s'ha pogut afegir o no
+		return sociafegit;
 	}
 
 	private static void baixaSoci(BibliotecaPersonal biblioteca, Scanner lector) {
