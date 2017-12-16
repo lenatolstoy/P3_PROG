@@ -110,9 +110,10 @@ public class BibliotecaUsuari extends Biblioteca {
 	 * @throws PrestecJaExisteix
 	 *             si l'usuari te un prestec actiu del mateix llibre no pot fer un
 	 *             altre prestec
+	 * @throws ErrorComprovarCodi 
 	 */
 	public void ferPrestec(String id_llibre, String dni, String data_ini)
-			throws LlibreNoTrobat, SociInexistent, MaximPrestecs, PrestecJaExisteix, LlibreNoDisponible {
+			throws LlibreNoTrobat, SociInexistent, MaximPrestecs, PrestecJaExisteix, LlibreNoDisponible, ErrorComprovarCodi {
 		Soci soci = socis.retornaSoci(dni);
 		Llibre llibre = llibres.retornaLlibre(id_llibre);
 		// Comprovem que el llibre es troba a la llista de llibres
@@ -160,9 +161,10 @@ public class BibliotecaUsuari extends Biblioteca {
 	 *             en el cas de que el llibre a retornar no existeixi
 	 * @throws SociInexistent
 	 *             en el cas de que el dni no sigui d'un usuari
+	 * @throws ErrorComprovarCodi 
 	 */
 	public void finalitzarPrestec(String id_llibre, String dni)
-			throws LlibreNoTrobat, SociInexistent, PrestecInexistent {
+			throws LlibreNoTrobat, SociInexistent, PrestecInexistent, ErrorComprovarCodi {
 		Prestec prestec = prestecsActius.retornaPrestec(prestecsActius.posicio(id_llibre, dni));
 		Soci soci = socis.retornaSoci(dni);
 		Llibre llibre = llibres.retornaLlibre(id_llibre);
