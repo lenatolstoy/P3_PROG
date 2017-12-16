@@ -13,11 +13,12 @@ package Personal;
 
 import java.util.Scanner;
 
+import Exceptions.ErrorComprovarCodi;
 import Exceptions.ErrorGenerarCodi;
 
 public class Personal {
 
-	public static void main(String[] args) throws ErrorGenerarCodi {
+	public static void main(String[] args) throws ErrorGenerarCodi, ErrorComprovarCodi {
 		Scanner lector = new Scanner(System.in);
 		int op = 14;
 		BibliotecaPersonal biblioteca = new BibliotecaPersonal();
@@ -178,7 +179,7 @@ public class Personal {
 			biblioteca.afegirLlibre(titol, autors, tema, num_edicio, any_edicio);
 	}
 
-	private static void eliminarLlibre(BibliotecaPersonal biblioteca, Scanner lector) {
+	private static void eliminarLlibre(BibliotecaPersonal biblioteca, Scanner lector) throws ErrorComprovarCodi {
 		System.out.println("Introdueixi el codi del llibre a eliminar ");
 		biblioteca.eliminaLlibre(lector.nextLine());
 	}

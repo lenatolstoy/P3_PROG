@@ -18,6 +18,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import Exceptions.ErrorComprovarCodi;
 import Exceptions.ErrorGenerarCodi;
 
 public class LlistaLlibres {
@@ -34,13 +35,15 @@ public class LlistaLlibres {
 		return llistallibres;
 	}
 
-	public Llibre retornaLlibre(String codi) {
-		for (int i = 0; i < numllibres; i++) {
-			if (llistallibres[i].getCodi().equals(codi)) {
-				return llistallibres[i];
+	public Llibre retornaLlibre(String codi) throws ErrorComprovarCodi {
+		for (int i = 0; i < (numllibres); i++) {
+			if (llistallibres[i] instanceof Llibre_Cientific) {
+				if(((Llibre_Cientific)llistallibres[i]).getCodi().equals(codi)) return llistallibres[i];	
+			}else {
+				if(llistallibres[i].getCodi().equals(codi)) return llistallibres[i];
 			}
 		}
-		return null;
+		throw new ErrorComprovarCodi();
 	}
 
 	/**
@@ -321,7 +324,7 @@ public class LlistaLlibres {
 			fitxer.close();
 			Llibre.setTemes(temes);
 			Llibre.setComptador(comptador);
-			
+
 		}
 	}
 

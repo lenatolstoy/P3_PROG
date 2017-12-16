@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import Dades.*;
+import Exceptions.ErrorComprovarCodi;
 import Exceptions.ErrorGenerarCodi;
 
 public class BibliotecaPersonal extends Biblioteca {
@@ -76,8 +77,9 @@ public class BibliotecaPersonal extends Biblioteca {
 	 *
 	 * @param id_llibre
 	 *            String que indica l'identificador del llibre
+	 * @throws ErrorComprovarCodi 
 	 */
-	public void eliminaLlibre(String id_llibre) {
+	public void eliminaLlibre(String id_llibre) throws ErrorComprovarCodi {
 		llibres.retornaLlibre(id_llibre).setActiu(false);
 	}
 
@@ -143,8 +145,9 @@ public class BibliotecaPersonal extends Biblioteca {
 	 * te
 	 *
 	 * @return String amb els llibres que es troben en prestec
+	 * @throws ErrorComprovarCodi 
 	 */
-	public String llibresEnPrestec() {
+	public String llibresEnPrestec() throws ErrorComprovarCodi {
 		LlistaPrestecs prestecsActuals = prestecsActius.enPrestecAvui();
 		String resultat = "";
 		for (int i = 0; i < prestecsActuals.getNprestecs(); i++) {
