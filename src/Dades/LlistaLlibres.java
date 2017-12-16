@@ -318,7 +318,6 @@ public class LlistaLlibres {
 				} else {
 					Llibre_Cientific libro100tifico = new Llibre_Cientific(titol, autors, tema, num_edicio, codi,
 							any_edicio, dies_prestec, actiu);
-					System.out.println("peneeee"+actiu);
 					afegirLlibreCientific(libro100tifico);
 				}
 				dies_prestec = -1;
