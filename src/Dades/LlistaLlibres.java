@@ -191,7 +191,6 @@ public class LlistaLlibres {
 	public void afegirLlibreCientific(Llibre_Cientific llibre_cientific) throws ErrorGenerarCodi {
 
 		int i, j;
-
 		// Comprovem que el llibre tingui lloc a la llista
 		// Si té lloc l'afegim directament
 		if (numllibres < llistallibres.length) {
@@ -207,6 +206,8 @@ public class LlistaLlibres {
 
 			// Afegim el nou llibre a la posició trobada
 			llistallibres[i] = llibre_cientific.Duplicat();
+			llistallibres[i].setActiu(llibre_cientific.actiu);			
+
 			// Actualitzem el número de llibres
 			numllibres++;
 		}
@@ -317,6 +318,7 @@ public class LlistaLlibres {
 				} else {
 					Llibre_Cientific libro100tifico = new Llibre_Cientific(titol, autors, tema, num_edicio, codi,
 							any_edicio, dies_prestec, actiu);
+					System.out.println("peneeee"+actiu);
 					afegirLlibreCientific(libro100tifico);
 				}
 				dies_prestec = -1;

@@ -1,3 +1,3 @@
 Tema1*Tema2*Nuevo tema*fantasia*Tema3*Tema5*algo*cientific*/*8*
 Titol3*Autor4*/*Tema3*3*TitAut4*2001*false*
-100tifico*12*Autor6*Ups6*/*cientific*5*AutUps1*2010*true*
+100tifico*12*Autor6*Ups6*/*cientific*5*AutUps1*2010*false*
