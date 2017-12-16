@@ -13,9 +13,11 @@ package Personal;
 
 import java.util.Scanner;
 
+import Exceptions.ErrorGenerarCodi;
+
 public class Personal {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ErrorGenerarCodi {
 		Scanner lector = new Scanner(System.in);
 		int op = 14;
 		BibliotecaPersonal biblioteca = new BibliotecaPersonal();
@@ -129,7 +131,7 @@ public class Personal {
 		lector.close();
 	}
 
-	private static void afegirLlibre(BibliotecaPersonal biblioteca, Scanner lector) {
+	private static void afegirLlibre(BibliotecaPersonal biblioteca, Scanner lector) throws ErrorGenerarCodi {
 		String[] autors = new String[10];
 		int i = 0;
 		char op = 'N';

@@ -49,8 +49,9 @@ public class BibliotecaUsuari extends Biblioteca {
 	 *            String amb el titol o part del titol a buscar
 	 * @return String amb les dades dels llibres i si es troben disponibles o no per
 	 *         a fer reserva avui
+	 * @throws ErrorGenerarCodi 
 	 */
-	public String consultaLlibresPerTitol(String titol) {
+	public String consultaLlibresPerTitol(String titol) throws ErrorGenerarCodi {
 		// Obtenim una llista amb els llibres que coincideixen amb part del titol
 		LlistaLlibres consulta = llibres.buscaLlibresNom(titol);
 

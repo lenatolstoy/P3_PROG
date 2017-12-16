@@ -18,6 +18,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import Exceptions.ErrorGenerarCodi;
+
 public class LlistaLlibres {
 
 	// Atributs
@@ -116,9 +118,10 @@ public class LlistaLlibres {
 	 * @param llibre
 	 *            del tipus Llibres que ens donarà la informació del llibre que es
 	 *            vol afegir
+	 * @throws ErrorGenerarCodi 
 	 */
 
-	public void afegirLlibre(Llibre llibre) {
+	public void afegirLlibre(Llibre llibre) throws ErrorGenerarCodi {
 
 		int i, j;
 
@@ -179,9 +182,10 @@ public class LlistaLlibres {
 	 * @param llibre
 	 *            del tipus Llibres que ens donarà la informació del llibre que es
 	 *            vol afegir
+	 * @throws ErrorGenerarCodi 
 	 */
 
-	public void afegirLlibreCientific(Llibre_Cientific llibre_cientific) {
+	public void afegirLlibreCientific(Llibre_Cientific llibre_cientific) throws ErrorGenerarCodi {
 
 		int i, j;
 
@@ -241,8 +245,9 @@ public class LlistaLlibres {
 	 * @return llistallibres del tipus Llibres[] per tenir ja en una llista de
 	 *         llibres tots els llibres
 	 * @throws FileNotFoundException
+	 * @throws ErrorGenerarCodi 
 	 */
-	public void llegirFitxer() throws FileNotFoundException {
+	public void llegirFitxer() throws FileNotFoundException, ErrorGenerarCodi {
 		File f = new File("Llibres.txt");
 		if (f.exists() && !f.isDirectory()) {
 			String aux = "";
@@ -403,9 +408,10 @@ public class LlistaLlibres {
 	/**
 	 * Funcio la qual busca tots els llibres que tenen el nom o part del nom que has
 	 * buscat
+	 * @throws ErrorGenerarCodi 
 	 * 
 	 */
-	public LlistaLlibres buscaLlibresNom(String nom) {
+	public LlistaLlibres buscaLlibresNom(String nom) throws ErrorGenerarCodi {
 
 		LlistaLlibres llibres = new LlistaLlibres(5);
 

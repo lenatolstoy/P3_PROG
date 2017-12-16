@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import Dades.*;
+import Exceptions.ErrorGenerarCodi;
 
 public class BibliotecaPersonal extends Biblioteca {
 	/**
@@ -41,8 +42,9 @@ public class BibliotecaPersonal extends Biblioteca {
 	 *            enter amb el numero d'edicio del llibre
 	 * @param any_edicio
 	 *            enter amb l'any d'edicio del llibre
+	 * @throws ErrorGenerarCodi 
 	 */
-	public void afegirLlibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio) {
+	public void afegirLlibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio) throws ErrorGenerarCodi {
 		llibres.afegirLlibre(new Llibre(titol, autors, tema, num_edicio, any_edicio));
 	}
 
@@ -61,9 +63,10 @@ public class BibliotecaPersonal extends Biblioteca {
 	 *            enter amb l'any d'edicio del llibre
 	 * @param dies_prestec
 	 *            enter amb els dies de prestec
+	 * @throws ErrorGenerarCodi 
 	 */
 	public void afegirLlibreCientific(String titol, String[] autors, String tema, int num_edicio, int any_edicio,
-			int dies_prestec) {
+			int dies_prestec) throws ErrorGenerarCodi {
 		llibres.afegirLlibreCientific(new Llibre_Cientific(titol, autors, tema, num_edicio, any_edicio, dies_prestec));
 	}
 

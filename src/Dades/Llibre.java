@@ -11,6 +11,7 @@
 
 package Dades;
 
+import Exceptions.ErrorGenerarCodi;
 
 public class Llibre {
 
@@ -48,7 +49,7 @@ public class Llibre {
 	 * @param comptador
 	 *            (int) s'utilitza per implementar el codi.
 	 */
-	public Llibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio) {
+	public Llibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio) throws ErrorGenerarCodi  {
 
 		this.titol = titol;
 		this.autors = autors;
@@ -266,13 +267,14 @@ public class Llibre {
 	 * Mètode que duplica la instància del llibre
 	 * 
 	 * @return duplicat
+	 * @throws ErrorGenerarCodi 
 	 */
 
 	/*
 	 * Creem un nou objecte perque si nomes copiem la referencia si en modifiquem un
 	 * l'altre tambe es modificara perque son el mateix.
 	 */
-	public Llibre Duplicat() {
+	public Llibre Duplicat() throws ErrorGenerarCodi {
 		Llibre aux = new Llibre(this.titol, this.autors, this.tema, this.num_edicio, this.any_edicio, this.codi, this.actiu);
 		return (aux);
 	}
@@ -311,10 +313,24 @@ public class Llibre {
 	 * @return codi
 	 */
 
-	private String generarCodi(String titol, String autors) {
+	private String generarCodi(String titol, String autors) throws ErrorGenerarCodi {
 		String codi = new String("");
-		codi = codi + titol.charAt(0) + titol.charAt(1) + titol.charAt(2) + autors.charAt(0) + autors.charAt(1)
-				+ autors.charAt(2) + comptador;
+		
+		if(titol.charAt(0) == ' ' || titol.charAt(1) == ' ' || titol.charAt(2) == ' ' ||
+				autors.charAt(0) == ' ' || autors.charAt(1) == ' ' || autors.charAt(2) == ' ') {
+			
+			/*String aux2 = new String (autors);
+			String aux1 = new String (titol);
+			aux1 = aux1.replaceAll(" ", "");
+			aux2 = aux2.replaceAll(" ", "");
+			codi = codi + aux1.charAt(0) + aux1.charAt(1) + aux1.charAt(2) + aux2.charAt(0) + aux2.charAt(1)
+			+ aux2.charAt(2) + comptador;*/
+			throw new ErrorGenerarCodi();
+		}else {
+			codi = codi + titol.charAt(0) + titol.charAt(1) + titol.charAt(2) + autors.charAt(0) + autors.charAt(1)
+			+ autors.charAt(2) + comptador;
+		}
+		
 		comptador++;
 		return (codi);
 	}
