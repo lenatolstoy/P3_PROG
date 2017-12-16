@@ -74,6 +74,9 @@ public class Personal {
 				if(altaSoci(biblioteca, lector)){
 				System.out.println("Soci donat d'alta");
 				}
+				else{
+					System.out.println("Aquest soci ja es troba registrat");
+				}
 				break;
 			case 5:
 				System.out.println("\nHa escollit: donar de baixa un soci");
