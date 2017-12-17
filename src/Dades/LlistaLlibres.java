@@ -356,10 +356,6 @@ public class LlistaLlibres {
 		String temes[];
 		int comptador;
 
-		for (int e = 0; e < numllibres; e++) {
-			// Guardem en variables
-			System.out.println("\npene" + llistallibres[e].toString());
-		}
 		if (llistallibres != null) {
 
 			BufferedWriter fitxer = new BufferedWriter(new FileWriter("Llibres.txt"));

@@ -43,7 +43,7 @@ public class BibliotecaUsuari extends Biblioteca {
 	 *            String amb el titol o part del titol a buscar
 	 * @return Llibre[] amb els llibres que coincideixen amb el tiotl
 	 */
-	public Llibre[] consultaLlibresPerTitol(String titol){
+	public Llibre[] consultaLlibresPerTitol(String titol) {
 		// Obtenim una llista amb els llibres que coincideixen amb part del titol
 		return llibres.buscaLlibresPerNom(titol);
 	}
@@ -168,12 +168,13 @@ public class BibliotecaUsuari extends Biblioteca {
 	 * @param id_llibre
 	 * @param dni
 	 * @param dia
-	 * @throws LlibreNoDisponible 
-	 * @throws IOException 
-	 * @throws ClassNotFoundException 
-	 * @throws ReservesDiaSuperior30 
+	 * @throws LlibreNoDisponible
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 * @throws ReservesDiaSuperior30
 	 */
-	public void ferReserva(Reserva reserva) throws ClassNotFoundException, IOException, LlibreNoDisponible, ReservesDiaSuperior30 {
+	public void ferReserva(Reserva reserva)
+			throws ClassNotFoundException, IOException, LlibreNoDisponible, ReservesDiaSuperior30 {
 		if (!reserves.LlibreDisponible(reserva.getCodillibre(), reserva.getData(), prestecsActius)) {
 
 			throw new LlibreNoDisponible(reserva.getCodillibre());
@@ -203,6 +204,10 @@ public class BibliotecaUsuari extends Biblioteca {
 	 * @return String amb totes les dades de les reserves i els prestecs
 	 */
 	public Prestec[] consultarPrestecs(String dni) {
-		return prestecsActius.prestecsUsuari(dni).getLlista();
+		LlistaPrestecs aux = prestecsActius.prestecsUsuari(dni);
+		if (aux == null)
+			return null;
+		else
+			return aux.getLlista();
 	}
 }

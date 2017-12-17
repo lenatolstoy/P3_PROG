@@ -38,20 +38,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import Dades.Biblioteca;
-import Dades.Llibre;
-import Dades.LlistaLlibres;
-import Dades.LlistaPrestecs;
-import Dades.LlistaReserves;
-import Dades.LlistaSocis;
-import Dades.Prestec;
-import Dades.Reserva;
-import Exceptions.LlibreNoDisponible;
-import Exceptions.LlibreNoTrobat;
-import Exceptions.MaximPrestecs;
-import Exceptions.PrestecJaExisteix;
-import Exceptions.ReservesDiaSuperior30;
-import Exceptions.SociInexistent;
+import Dades.*;
+import Exceptions.*;
 
 public class Usuari extends JFrame {
 	private static final long serialVersionUID = 1L;
