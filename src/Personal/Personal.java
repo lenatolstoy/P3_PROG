@@ -112,7 +112,7 @@ public class Personal {
 				break;
 			case 12:
 				System.out.println("\nHa escollit: consultar reserves");
-				//System.out.println(biblioteca.consultaReserves());
+				System.out.println(biblioteca.consultaReserves());
 				System.out.println("Fi reserves");
 				break;
 			case 13:

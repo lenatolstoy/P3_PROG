@@ -11,6 +11,7 @@
 
 package Personal;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -211,9 +212,13 @@ public class BibliotecaPersonal extends Biblioteca {
 		return prestecsInactius.toString();
 	}
 
-	/*public String consultaReserves() throws IOException {
-		reserves.EstatReserves();
+	public String consultaReserves(){
+		try {
+			reserves.EstatReserves();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return reserves.toString();
-	}*/
+	}
 
 }
