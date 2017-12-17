@@ -18,6 +18,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 import Dades.*;
+import Exceptions.ErrorComprovarCodi;
+import Exceptions.ErrorGenerarCodi;
 
 public class BibliotecaPersonal extends Biblioteca {
 	/**
@@ -40,8 +42,9 @@ public class BibliotecaPersonal extends Biblioteca {
 	 *            enter amb el numero d'edicio del llibre
 	 * @param any_edicio
 	 *            enter amb l'any d'edicio del llibre
+	 * @throws ErrorGenerarCodi 
 	 */
-	public void afegirLlibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio) {
+	public void afegirLlibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio) throws ErrorGenerarCodi {
 		llibres.afegirLlibre(new Llibre(titol, autors, tema, num_edicio, any_edicio));
 	}
 
@@ -60,9 +63,10 @@ public class BibliotecaPersonal extends Biblioteca {
 	 *            enter amb l'any d'edicio del llibre
 	 * @param dies_prestec
 	 *            enter amb els dies de prestec
+	 * @throws ErrorGenerarCodi 
 	 */
 	public void afegirLlibreCientific(String titol, String[] autors, String tema, int num_edicio, int any_edicio,
-			int dies_prestec) {
+			int dies_prestec) throws ErrorGenerarCodi {
 		llibres.afegirLlibreCientific(new Llibre_Cientific(titol, autors, tema, num_edicio, any_edicio, dies_prestec));
 	}
 
@@ -72,8 +76,9 @@ public class BibliotecaPersonal extends Biblioteca {
 	 *
 	 * @param id_llibre
 	 *            String que indica l'identificador del llibre
+	 * @throws ErrorComprovarCodi 
 	 */
-	public void eliminaLlibre(String id_llibre) {
+	public void eliminaLlibre(String id_llibre) throws ErrorComprovarCodi {
 		llibres.retornaLlibre(id_llibre).setActiu(false);
 	}
 
@@ -97,8 +102,11 @@ public class BibliotecaPersonal extends Biblioteca {
 	 *            Nom del soci a afegir
 	 * @param data_naixement
 	 *            Data de naixement del soci a fegir
+	 * @return sociafegit
+	 * 				booleà que ens retornà cert si s'ha pogut afegir el soci i fals si no
 	 */
-	public void afegirSoci(String DNI, String nom, String data_naixement) {
+	public boolean afegirSoci(String DNI, String nom, String data_naixement) {
+		boolean sociafegit=false;
 		Date dnaixement = null;
 		// Passem el string a tipus data
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -107,8 +115,14 @@ public class BibliotecaPersonal extends Biblioteca {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
-		socis.afegeix(new Soci(DNI, nom, dnaixement));
+		//Només afegim el soci si aquest no existeix ja a la llista
+		if(!socis.existeix(DNI)){
+			socis.afegeix(new Soci(DNI, nom, dnaixement));
+			//Actualitzem l'estat de sociafegit
+			sociafegit=true;
+		}
+		//Retornem si ha estat possible afegir el soci o no
+	return sociafegit;
 	}
 
 	/**
@@ -130,8 +144,9 @@ public class BibliotecaPersonal extends Biblioteca {
 	 * te
 	 *
 	 * @return String amb els llibres que es troben en prestec
+	 * @throws ErrorComprovarCodi 
 	 */
-	public String llibresEnPrestec() {
+	public String llibresEnPrestec() throws ErrorComprovarCodi {
 		LlistaPrestecs prestecsActuals = prestecsActius.enPrestecAvui();
 		String resultat = "";
 		for (int i = 0; i < prestecsActuals.getNprestecs(); i++) {

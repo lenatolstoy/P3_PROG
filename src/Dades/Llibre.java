@@ -11,6 +11,7 @@
 
 package Dades;
 
+import Exceptions.ErrorGenerarCodi;
 
 public class Llibre {
 
@@ -48,7 +49,7 @@ public class Llibre {
 	 * @param comptador
 	 *            (int) s'utilitza per implementar el codi.
 	 */
-	public Llibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio) {
+	public Llibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio) throws ErrorGenerarCodi  {
 
 		this.titol = titol;
 		this.autors = autors;
@@ -82,6 +83,8 @@ public class Llibre {
 	 *            (Boolean) Ens indica si el llibre esta disponible o no.
 	 * @param comptador
 	 *            (int) s'utilitza per implementar el codi.
+	 * @param actiu
+	 * 			  (boolean) et diu si el llibre esta aciu o no
 	 */
 	public Llibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio, String codi, boolean actiu) {
 
@@ -91,19 +94,19 @@ public class Llibre {
 		this.num_edicio = num_edicio;
 		this.any_edicio = any_edicio;
 		this.codi = codi;
+
 		if(actiu) {
 			this.actiu = true;
 		}else {
 			this.actiu = false;
 		}
 
+		this.actiu = actiu;
+
 		// Quan s'elimina un llibre simplement s'inactiva (o es posa com a no disponible
 		// -> tenerlo en cuenta a la hora de hacer reservas -> CRIS)
 	}
 
-	public void setActiu(boolean actiu) {
-		this.actiu = actiu;
-	}
 
 	/**
 	 * Getters
@@ -235,7 +238,12 @@ public class Llibre {
 			}
 		}
 	}
+	
 
+	public void setActiu(boolean actiu) {
+		this.actiu = actiu;
+	}
+	
 	public static void setTemes(String[] temes) {
 		Llibre.temes = temes;
 	}
@@ -259,13 +267,14 @@ public class Llibre {
 	 * Mètode que duplica la instància del llibre
 	 * 
 	 * @return duplicat
+	 * @throws ErrorGenerarCodi 
 	 */
 
 	/*
 	 * Creem un nou objecte perque si nomes copiem la referencia si en modifiquem un
 	 * l'altre tambe es modificara perque son el mateix.
 	 */
-	public Llibre Duplicat() {
+	public Llibre Duplicat() throws ErrorGenerarCodi {
 		Llibre aux = new Llibre(this.titol, this.autors, this.tema, this.num_edicio, this.any_edicio, this.codi, this.actiu);
 		return (aux);
 	}
@@ -304,10 +313,24 @@ public class Llibre {
 	 * @return codi
 	 */
 
-	private String generarCodi(String titol, String autors) {
+	private String generarCodi(String titol, String autors) throws ErrorGenerarCodi {
 		String codi = new String("");
-		codi = codi + titol.charAt(0) + titol.charAt(1) + titol.charAt(2) + autors.charAt(0) + autors.charAt(1)
-				+ autors.charAt(2) + comptador;
+		
+		if(titol.charAt(0) == ' ' || titol.charAt(1) == ' ' || titol.charAt(2) == ' ' ||
+				autors.charAt(0) == ' ' || autors.charAt(1) == ' ' || autors.charAt(2) == ' ') {
+			
+			/*String aux2 = new String (autors);
+			String aux1 = new String (titol);
+			aux1 = aux1.replaceAll(" ", "");
+			aux2 = aux2.replaceAll(" ", "");
+			codi = codi + aux1.charAt(0) + aux1.charAt(1) + aux1.charAt(2) + aux2.charAt(0) + aux2.charAt(1)
+			+ aux2.charAt(2) + comptador;*/
+			throw new ErrorGenerarCodi();
+		}else {
+			codi = codi + titol.charAt(0) + titol.charAt(1) + titol.charAt(2) + autors.charAt(0) + autors.charAt(1)
+			+ autors.charAt(2) + comptador;
+		}
+		
 		comptador++;
 		return (codi);
 	}
@@ -324,9 +347,7 @@ public class Llibre {
 
 		if(temes != null) {
 			for (int i = 0; (i < temes.length) && (hiEs == false); i++) {
-
 				hiEs = (temes[i].equals(tema));
-
 			}	
 		}
 		
@@ -384,8 +405,7 @@ public class Llibre {
 				String[] aux = new String[1];
 				aux[0] = tema;
 				temes = aux;
-			}
-		}else {
+			}else {
 				String[] aux = new String[temes.length + 1];
 
 				// Copiem tot el contingut de la llista en l'auxiliar
@@ -395,6 +415,7 @@ public class Llibre {
 				aux[aux.length - 1] = tema;
 				temes = aux;
 			
+			}
 		}
 		return todo_bien;
 		

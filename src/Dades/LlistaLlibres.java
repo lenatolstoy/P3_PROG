@@ -18,6 +18,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import Exceptions.ErrorComprovarCodi;
+import Exceptions.ErrorGenerarCodi;
+
 public class LlistaLlibres {
 
 	// Atributs
@@ -32,13 +35,15 @@ public class LlistaLlibres {
 		return llistallibres;
 	}
 
-	public Llibre retornaLlibre(String codi) {
-		for (int i = 0; i < numllibres; i++) {
-			if (llistallibres[i].getCodi().equals(codi)) {
-				return llistallibres[i];
+	public Llibre retornaLlibre(String codi) throws ErrorComprovarCodi {
+		for (int i = 0; i < (numllibres); i++) {
+			if (llistallibres[i] instanceof Llibre_Cientific) {
+				if(((Llibre_Cientific)llistallibres[i]).getCodi().equals(codi)) return llistallibres[i];	
+			}else {
+				if(llistallibres[i].getCodi().equals(codi)) return llistallibres[i];
 			}
 		}
-		return null;
+		throw new ErrorComprovarCodi();
 	}
 
 	/**
@@ -73,6 +78,16 @@ public class LlistaLlibres {
 		}
 		return aux;
 	}
+	
+	/**
+	 * 
+	 * @param len
+	 * @return retorna el llibre de la posicio len
+	 * @throws ErrorGenerarCodi 
+	 */
+	public Llibre return_libro(int len) throws ErrorGenerarCodi{
+		 return llistallibres[len].Duplicat();
+	 }
 
 	/**
 	 * Mètode per comprovar l'ordre dels codis (alfabèticament)
@@ -116,29 +131,30 @@ public class LlistaLlibres {
 	 * @param llibre
 	 *            del tipus Llibres que ens donarà la informació del llibre que es
 	 *            vol afegir
+	 * @throws ErrorGenerarCodi 
 	 */
 
-	public void afegirLlibre(Llibre llibre) {
+	public void afegirLlibre(Llibre llibre) throws ErrorGenerarCodi {
 
 		int i, j;
 
 		// Comprovem que el llibre tingui lloc a la llista
 		// Si té lloc l'afegim directament
-		if (numllibres < llistallibres.length) {
-
+		
+		if (numllibres < (llistallibres.length-1)) {
 			// Agafem la posició on ha d'anar el llibre amb una funció auxiliar
 			i = ordreCodis(llibre.getCodi());
-
-			// Movem tots els llibres a partir de la posició un endavant
-			for (j = i; j < numllibres; j++) {
-
-				llistallibres[j + 1] = llistallibres[j];
+			//El nou llibre va a i, tots els que el precedeixen van una posicio mes endevant
+			
+			for (j = 0; i != (numllibres-j); j++) {
+				llistallibres[numllibres-j] = llistallibres[numllibres-1-j];
 			}
-
-			// Afegim el nou llibre a la posició trobada
-			llistallibres[i] = llibre.Duplicat();
 			// Actualitzem el número de llibres
 			numllibres++;
+			// Afegim el nou llibre a la posició trobada
+			llistallibres[i] = llibre.Duplicat();
+			
+			
 
 		}
 		// Si no té lloc ampliem la llista
@@ -157,9 +173,8 @@ public class LlistaLlibres {
 			i = ordreCodis(llibre.getCodi());
 
 			// Movem tots els llibres a partir de la posició un endavant
-			for (j = i; j < numllibres; j++) {
-
-				aux[j + 1] = aux[j];
+			for (j = 0; i != (numllibres-j); j++) {
+				aux[numllibres-j] = aux[numllibres-1-j];
 			}
 
 			// Finalment afegim el nou llibre a la llista ampliada a la posició que li toca
@@ -171,6 +186,8 @@ public class LlistaLlibres {
 			// Retornem la direcció de la nova llista a la vella
 			llistallibres = aux;
 		}
+		
+		
 	}
 
 	/**
@@ -179,12 +196,12 @@ public class LlistaLlibres {
 	 * @param llibre
 	 *            del tipus Llibres que ens donarà la informació del llibre que es
 	 *            vol afegir
+	 * @throws ErrorGenerarCodi 
 	 */
 
-	public void afegirLlibreCientific(Llibre_Cientific llibre_cientific) {
+	public void afegirLlibreCientific(Llibre_Cientific llibre_cientific) throws ErrorGenerarCodi {
 
 		int i, j;
-
 		// Comprovem que el llibre tingui lloc a la llista
 		// Si té lloc l'afegim directament
 		if (numllibres < llistallibres.length) {
@@ -200,6 +217,8 @@ public class LlistaLlibres {
 
 			// Afegim el nou llibre a la posició trobada
 			llistallibres[i] = llibre_cientific.Duplicat();
+			llistallibres[i].setActiu(llibre_cientific.actiu);			
+
 			// Actualitzem el número de llibres
 			numllibres++;
 		}
@@ -241,11 +260,12 @@ public class LlistaLlibres {
 	 * @return llistallibres del tipus Llibres[] per tenir ja en una llista de
 	 *         llibres tots els llibres
 	 * @throws FileNotFoundException
+	 * @throws ErrorGenerarCodi 
 	 */
-	public void llegirFitxer() throws FileNotFoundException {
+	public void llegirFitxer() throws FileNotFoundException, ErrorGenerarCodi {
 		File f = new File("Llibres.txt");
+		
 		if (f.exists() && !f.isDirectory()) {
-			boolean actiu=false;
 			String aux = "";
 			int dies_prestec = -1;
 			String titol;
@@ -254,23 +274,27 @@ public class LlistaLlibres {
 			int any_edicio;
 			String codi;
 			int comptador;
-			String[] temes = new String[20];
+			String[] temes = new String[1];
 			Scanner fitxer = new Scanner(f);
 			// Llegim fins * (i tenim cada atribut separat per *)
 			fitxer.useDelimiter("\\*");
 			int j = 0;
 			aux = fitxer.next();
 			do{
-				if(j == (temes.length-1)) {
+				if(j == (temes.length)) {
 					String[] nou_temes = new String[temes.length + 1];
-					nou_temes = temes;
+
+					// Copiem tot el contingut de la llista en l'auxiliar
+					for (int i = 0; i < temes.length; i++) {
+						nou_temes[i] = temes[i];
+					}
 					temes = nou_temes;
 				}
 				temes[j] = aux;
 				aux = fitxer.next();
 				j++;
-			}while (fitxer.hasNext() && aux.equals("/")); 
-			comptador = Integer.parseInt(aux);
+			}while (fitxer.hasNext() && !(aux.equals("/")));
+			comptador = Integer.parseInt(fitxer.next());
 			// Fins que no arribem al final del fitxer
 			while (fitxer.hasNext()) {
 
@@ -283,7 +307,6 @@ public class LlistaLlibres {
 				} else{
 					titol = (aux);
 				}
-				
 				
 				String[] autors = new String[10];
 				aux = fitxer.next();
@@ -302,20 +325,16 @@ public class LlistaLlibres {
 				if (dies_prestec == -1) {
 					Llibre libro = new Llibre(titol, autors, tema, num_edicio, any_edicio, codi, actiu);
 					afegirLlibre(libro);
-					System.out.println(libro.toString());
-
 				} else {
 					Llibre_Cientific libro100tifico = new Llibre_Cientific(titol, autors, tema, num_edicio, codi,
 							any_edicio, dies_prestec, actiu);
 					afegirLlibreCientific(libro100tifico);
-					System.out.println(libro100tifico.toString());
 				}
 				dies_prestec = -1;
 			}
 			fitxer.close();
 			Llibre.setTemes(temes);
 			Llibre.setComptador(comptador);
-			
 		}
 	}
 
@@ -337,74 +356,85 @@ public class LlistaLlibres {
 		String actiu;
 		String temes[];
 		int comptador;
-		BufferedWriter fitxer = new BufferedWriter(new FileWriter("Llibres.txt"));
+		
+		for (int e = 0; e < numllibres; e++) {
+			// Guardem en variables
+				System.out.println("\npene"+llistallibres[e].toString());
+		}
+		if(llistallibres != null) {
+			
+			BufferedWriter fitxer = new BufferedWriter(new FileWriter("Llibres.txt"));
 
-		temes =llistallibres[0].getTemes(); 
-		if(temes[0] != null) {
-			int j = 0; 
-			while(j < temes.length) {
-				fitxer.write(temes[j]);
-				fitxer.write("*"); 
-				j++; 
-			 }
-		 }
-			 fitxer.write("/");
-			 comptador = llistallibres[0].getComptador();
-			 fitxer.write("*"+comptador+"*");
-			 fitxer.newLine(); 
+			temes =llistallibres[0].getTemes();
+			if(temes[0] != null) {
+				int j = 0; 
+				while(j < temes.length) {
+					fitxer.write(temes[j]);
+					fitxer.write("*"); 
+					j++; 
+				}
+			}
+			fitxer.write("/");
+			comptador = llistallibres[0].getComptador();
+			fitxer.write("*"+comptador+"*");
+			fitxer.newLine(); 
 		 
 
 		// Recorrem totes les reserves per anar posant els atributs en variables
 		// I escriure reserva per reserva al fitxer
-		for (int i = 0; i < numllibres; i++) {
+			for (int i = 0; i < numllibres; i++) {
 			// Guardem en variables
-			titol = llistallibres[i].getTitol();
-			autors = llistallibres[i].getAutors();
-			tema = llistallibres[i].getTema();
-			num_edicio = llistallibres[i].getNumEdicio();
-			codi = llistallibres[i].getCodi();
-			any_edicio = llistallibres[i].getAnyEdicio();
-			actiu = "false";
-			if(llistallibres[i].isActiu()) actiu = "true";
+				titol = llistallibres[i].getTitol();
+				autors = llistallibres[i].getAutors();
+				tema = llistallibres[i].getTema();
+				num_edicio = llistallibres[i].getNumEdicio();
+				codi = llistallibres[i].getCodi();
+				any_edicio = llistallibres[i].getAnyEdicio();
+				actiu = "false";
+				if(llistallibres[i].isActiu()) actiu = "true";
 			
 
-			// Ho escrivim al fitxer separat per *
-			if (llistallibres[i] instanceof Llibre_Cientific) {
-				fitxer.write("100tifico*");
-				fitxer.write(""+((Llibre_Cientific) llistallibres[i]).getDiesPrestec());
-				fitxer.write("*");
-			}
+				// Ho escrivim al fitxer separat per *
+				if (llistallibres[i] instanceof Llibre_Cientific) {
+					fitxer.write("100tifico*");
+					fitxer.write(""+((Llibre_Cientific) llistallibres[i]).getDiesPrestec());
+					fitxer.write("*");
+				}
 
-			fitxer.write(titol);
-			fitxer.write("*");
-			for (int z = 0; autors[z] != null; z++) {
-				fitxer.write(autors[z]);
+				fitxer.write(titol);
 				fitxer.write("*");
+				for (int z = 0; autors[z] != null; z++) {
+					fitxer.write(autors[z]);
+					fitxer.write("*");
+				}
+				fitxer.write("/");
+				fitxer.write("*");
+				fitxer.write(tema);
+				fitxer.write("*");
+				fitxer.write("" + num_edicio);
+				fitxer.write("*");
+				fitxer.write(codi);
+				fitxer.write("*");
+				fitxer.write("" + any_edicio);
+				fitxer.write("*");
+				fitxer.write(""+actiu);
+				fitxer.write("*");
+				if (i + 1 != numllibres)
+					fitxer.newLine();
 			}
-			fitxer.write("/");
-			fitxer.write("*");
-			fitxer.write(tema);
-			fitxer.write("*");
-			fitxer.write("" + num_edicio);
-			fitxer.write("*");
-			fitxer.write(codi);
-			fitxer.write("*");
-			fitxer.write("" + any_edicio);
-			fitxer.write("*");
-			fitxer.write(""+actiu);
-			fitxer.write("*");
-			if (i + 1 != numllibres)
-				fitxer.newLine();
-		}
 		fitxer.close();
+		}
 	}
 
 	/**
 	 * Funcio la qual busca tots els llibres que tenen el nom o part del nom que has
 	 * buscat
+	 * @return 
+	 * @return 
+	 * @throws ErrorGenerarCodi 
 	 * 
 	 */
-	public LlistaLlibres buscaLlibresNom(String nom) {
+	public LlistaLlibres buscaLlibresNom(String nom) throws ErrorGenerarCodi {
 
 		LlistaLlibres llibres = new LlistaLlibres(5);
 
@@ -414,7 +444,7 @@ public class LlistaLlibres {
 				llibres.afegirLlibre(llistallibres[i]);
 			}
 		}
-		return llibres;
+			return llibres;
 	}
 
 	/**
@@ -425,6 +455,7 @@ public class LlistaLlibres {
 	 * @param tema
 	 * @return hiEs un booleà
 	 */
+	
 	public boolean esDelTema(String codi, String tema) {
 
 		boolean hiEs = false;
@@ -440,6 +471,12 @@ public class LlistaLlibres {
 
 		return hiEs;
 	}
+	
+	/**
+	 * Et diu quins llibres tenen aquest tema
+	 * @param tema
+	 * @return String amb els llibres que tenen aquest tema
+	 */
 
 	public String buscaPerTematica(String tema) {
 
@@ -456,6 +493,43 @@ public class LlistaLlibres {
 		for (int j = 0; j < numllibres; j++) {
 			if (llistallibres[j].getTema().contains(tema)) {
 				llibres = llibres + llistallibres[j].toString() + "";
+			}
+		}
+		return llibres;
+	}
+	/**
+	 * Busca llibres amb el mateix nom que el passat per parametre
+	 * @param nom
+	 * @return Llibre[] amb els llibres
+	 */
+	public Llibre[] buscaLlibresPerNom(String nom) {
+
+		Llibre[] llibres = new Llibre[5];
+		int j = 0;
+		for (int i = 0; i < numllibres; i++) {
+
+			if (llistallibres[i].getTitol().contains(nom)) {
+				llibres[j] = llistallibres[i];
+				j++;
+			}
+		}
+		return llibres;
+	}
+	
+	/**
+	 * Busca llibres amb el mateix tema que el passat per parametre
+	 * @param nom
+	 * @return Llibre[] amb els llibres
+	 */
+	public Llibre[] PerTematica(String tema) {
+
+		Llibre[] llibres = new Llibre[5];
+		int j = 0;
+		for (int i = 0; i < numllibres; i++) {
+
+			if (llistallibres[i].getTema().contains(tema)) {
+				llibres[j] = llistallibres[i];
+				j++;
 			}
 		}
 		return llibres;

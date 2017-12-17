@@ -1,7 +1,7 @@
-/** 
+/**
  * Practica 3. Classe Biblioteca.
- * 
- * 
+ *
+ *
  * @author Ivan Grima
  * @author Cristina Llort
  * @author Magdalena Tolstoy
@@ -13,9 +13,12 @@ package Personal;
 
 import java.util.Scanner;
 
+import Exceptions.ErrorComprovarCodi;
+import Exceptions.ErrorGenerarCodi;
+
 public class Personal {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ErrorGenerarCodi, ErrorComprovarCodi {
 		Scanner lector = new Scanner(System.in);
 		int op = 14;
 		BibliotecaPersonal biblioteca = new BibliotecaPersonal();
@@ -66,10 +69,15 @@ public class Personal {
 
 				}
 				break;
-			case 4:
+		case 4:
 				System.out.println("\nHa escollit: donar d'alta un soci");
-				altaSoci(biblioteca, lector);
+				//Només mostrem missatge de que s'ha afegit el soci si aquest no estava afegit ja
+				if(altaSoci(biblioteca, lector)){
 				System.out.println("Soci donat d'alta");
+				}
+				else{
+					System.out.println("Aquest soci ja es troba registrat");
+				}
 				break;
 			case 5:
 				System.out.println("\nHa escollit: donar de baixa un soci");
@@ -127,7 +135,7 @@ public class Personal {
 		lector.close();
 	}
 
-	private static void afegirLlibre(BibliotecaPersonal biblioteca, Scanner lector) {
+	private static void afegirLlibre(BibliotecaPersonal biblioteca, Scanner lector) throws ErrorGenerarCodi {
 		String[] autors = new String[10];
 		int i = 0;
 		char op = 'N';
@@ -143,6 +151,7 @@ public class Personal {
 		} while (op == 'Y');
 		System.out.println("Introdueixi el tema del llibre: ");
 		String tema = lector.nextLine();
+		biblioteca.afegirTema(tema);
 		int num_edicio = 1;
 		System.out.println("Introudeixi el numero d'edicio: ");
 		try {
@@ -170,7 +179,7 @@ public class Personal {
 			biblioteca.afegirLlibre(titol, autors, tema, num_edicio, any_edicio);
 	}
 
-	private static void eliminarLlibre(BibliotecaPersonal biblioteca, Scanner lector) {
+	private static void eliminarLlibre(BibliotecaPersonal biblioteca, Scanner lector) throws ErrorComprovarCodi {
 		System.out.println("Introdueixi el codi del llibre a eliminar ");
 		biblioteca.eliminaLlibre(lector.nextLine());
 	}
@@ -180,7 +189,9 @@ public class Personal {
 		return biblioteca.afegirTema(lector.nextLine());
 	}
 
-	private static void altaSoci(BibliotecaPersonal biblioteca, Scanner lector) {
+	private static boolean altaSoci(BibliotecaPersonal biblioteca, Scanner lector) {
+
+		boolean sociafegit;
 		String dni, nom, data_naixement;
 		System.out.println("Afegeixi el DNI del soci: ");
 		dni = lector.nextLine();
@@ -188,7 +199,11 @@ public class Personal {
 		nom = lector.nextLine();
 		System.out.println("Afegeixi la data de naixement (en format dd/MM/yyyy)");
 		data_naixement = lector.nextLine();
-		biblioteca.afegirSoci(dni, nom, data_naixement);
+		//AfegirSoci retorna un booleà per saber si s'ha pogut afegir o no
+		//no es pot afegir quan aquest soci ja es troba a la llista
+		sociafegit = biblioteca.afegirSoci(dni, nom, data_naixement);
+		//retornem si s'ha pogut afegir o no
+		return sociafegit;
 	}
 
 	private static void baixaSoci(BibliotecaPersonal biblioteca, Scanner lector) {
