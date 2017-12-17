@@ -110,7 +110,7 @@ public class LlistaSocis {
 		 * @throws FileNotFoundException
 		 */
 	public void leer() throws FileNotFoundException {
-<<<<<<< HEAD
+
 		Scanner scan = new Scanner(new File("user.txt"));
 		String dni;
 		String nom;
@@ -133,7 +133,7 @@ public class LlistaSocis {
 			} else {
 				punts = null;
 			}
-=======
+		}
 		File f = new File("user.txt");
 		if (f.exists() && !f.isDirectory()) {
 			Scanner scan = new Scanner(f);
@@ -182,23 +182,18 @@ public class LlistaSocis {
 					Soci nuevo = new Soci(dni, nom, data_n, data_a, incidencias, num_prestec);
 					afegeix(nuevo);
 				}
->>>>>>> 6a4fa2da781d379ffb2c9a3ee0d91a82d5c447d2
 
-			if (punts != null) {
-				int p = Integer.parseInt(punts);
-				NoEstudiant nuevo = new NoEstudiant(dni, nom, data_naixement, data_alta, incidencias, num_prestec, p);
-				afegeix(nuevo);
-			} else {
-				Soci nuevo = new Soci(dni, nom, data_naixement, data_alta, incidencias, num_prestec);
-				afegeix(nuevo);
+				if (punts != null) {
+					int p = Integer.parseInt(punts);
+					NoEstudiant nuevo = new NoEstudiant(dni, nom, data_naixement, data_alta, incidencias, num_prestec, p);
+					afegeix(nuevo);
+				} else {
+					Soci nuevo = new Soci(dni, nom, data_naixement, data_alta, incidencias, num_prestec);
+					afegeix(nuevo);
+				}
 			}
-
+			scan.close();
 		}
-<<<<<<< HEAD
-		scan.close();
-=======
-
->>>>>>> 6a4fa2da781d379ffb2c9a3ee0d91a82d5c447d2
 	}
 	
 	/**
