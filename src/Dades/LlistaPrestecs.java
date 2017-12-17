@@ -223,7 +223,7 @@ public class LlistaPrestecs implements Serializable{
 	public LlistaPrestecs enPrestecAvui() {
 		LlistaPrestecs prestecsActuals = new LlistaPrestecs(10);
 		for (int i = 0; i < nprestecs; i++) {
-			if (llista[i].getData_ini().before(Calendar.getInstance().getTime()))
+			if (llista[i].getData_ini().before(Calendar.getInstance().getTime()) && llista[i].getData_fi() == null)
 				prestecsActuals.afegirPrestec(llista[i]);
 		}
 		return prestecsActuals;
@@ -328,7 +328,7 @@ public class LlistaPrestecs implements Serializable{
 	}
 
 	/**
-	 * Metode que ens indica si s1 > s2. Es a dir que si ordenem alfabeticament les
+	 * Metode que ens indica si s1 > s2. Es a dir que, si ordenem alfabeticament les
 	 * Strings de manera ascendent, el metode ens marca si s1 hauria de ser
 	 * posterior a s2
 	 * 

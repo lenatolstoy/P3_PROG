@@ -138,13 +138,13 @@ public class Prestec implements Serializable{
 	 *         passat dels dies
 	 */
 	public boolean enTermini(Llibre llibre, Date data_fi) {
-		int diesPrestec = llibre.getDIES_RESERVA();
 		long diferencia = getDifferenceDays(data_ini, data_fi);
 		// Si la diferencia es negativa l'usuari anula el prestec abans de que aquest
 		// sigui efectiu
 		if (diferencia < 0)
 			diferencia = 0;
 
+		int diesPrestec = llibre.getDIES_RESERVA();
 		// Si el llibre es cientific sobreescribim els dies de reserva
 		if (llibre instanceof Llibre_Cientific)
 			diesPrestec = ((Llibre_Cientific) llibre).getDiesPrestec();

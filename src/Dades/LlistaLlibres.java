@@ -253,7 +253,6 @@ public class LlistaLlibres {
 			int num_edicio;
 			int any_edicio;
 			String codi;
-			boolean actiu;
 			int comptador;
 			String[] temes = new String[20];
 			Scanner fitxer = new Scanner(f);

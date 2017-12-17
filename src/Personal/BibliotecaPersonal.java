@@ -11,7 +11,6 @@
 
 package Personal;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -157,12 +156,12 @@ public class BibliotecaPersonal extends Biblioteca {
 	public String temaAmbMesPrestecs() {
 		String temaMax = "";
 		int ntemaMax = 0;
-		String[] temes = llibres.getLlistallibres()[0].getTemes(); // Pte controlar el tamaño de la array pte afegir
-																	// tema de sr tono
+		String[] temes = llibres.getLlistallibres()[0].getTemes();
 		for (int i = 0; i < temes.length; i++) {
 			int j = comptaTema(temes[i]);
 			if (j > ntemaMax)
 				temaMax = temes[i];
+				ntemaMax = j;
 		}
 		return temaMax;
 	}
