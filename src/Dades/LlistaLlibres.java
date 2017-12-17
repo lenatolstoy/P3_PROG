@@ -78,6 +78,16 @@ public class LlistaLlibres {
 		}
 		return aux;
 	}
+	
+	/**
+	 * 
+	 * @param len
+	 * @return retorna el llibre de la posicio len
+	 * @throws ErrorGenerarCodi 
+	 */
+	public Llibre return_libro(int len) throws ErrorGenerarCodi{
+		 return llistallibres[len].Duplicat();
+	 }
 
 	/**
 	 * Mètode per comprovar l'ordre dels codis (alfabèticament)
@@ -420,6 +430,8 @@ public class LlistaLlibres {
 	/**
 	 * Funcio la qual busca tots els llibres que tenen el nom o part del nom que has
 	 * buscat
+	 * @return 
+	 * @return 
 	 * @throws ErrorGenerarCodi 
 	 * 
 	 */
@@ -433,7 +445,7 @@ public class LlistaLlibres {
 				llibres.afegirLlibre(llistallibres[i]);
 			}
 		}
-		return llibres;
+			return llibres;
 	}
 
 	/**
@@ -444,6 +456,7 @@ public class LlistaLlibres {
 	 * @param tema
 	 * @return hiEs un booleà
 	 */
+	
 	public boolean esDelTema(String codi, String tema) {
 
 		boolean hiEs = false;
@@ -481,6 +494,43 @@ public class LlistaLlibres {
 		for (int j = 0; j < numllibres; j++) {
 			if (llistallibres[j].getTema().contains(tema)) {
 				llibres = llibres + llistallibres[j].toString() + "";
+			}
+		}
+		return llibres;
+	}
+	/**
+	 * Busca llibres amb el mateix nom que el passat per parametre
+	 * @param nom
+	 * @return Llibre[] amb els llibres
+	 */
+	public Llibre[] buscaLlibresPerNom(String nom) {
+
+		Llibre[] llibres = new Llibre[5];
+		int j = 0;
+		for (int i = 0; i < numllibres; i++) {
+
+			if (llistallibres[i].getTitol().contains(nom)) {
+				llibres[j] = llistallibres[i];
+				j++;
+			}
+		}
+		return llibres;
+	}
+	
+	/**
+	 * Busca llibres amb el mateix tema que el passat per parametre
+	 * @param nom
+	 * @return Llibre[] amb els llibres
+	 */
+	public Llibre[] PerTematica(String tema) {
+
+		Llibre[] llibres = new Llibre[5];
+		int j = 0;
+		for (int i = 0; i < numllibres; i++) {
+
+			if (llistallibres[i].getTema().contains(tema)) {
+				llibres[j] = llistallibres[i];
+				j++;
 			}
 		}
 		return llibres;
