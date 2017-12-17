@@ -18,7 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.io.*;
 
-public class LlistaPrestecs implements Serializable{
+public class LlistaPrestecs implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int nprestecs;
 	private Prestec[] llista;
@@ -68,13 +68,11 @@ public class LlistaPrestecs implements Serializable{
 	}
 
 	/**
-	 * Metode que ens fa un get d'un prestec en especific donat el codi del llibre i
-	 * el dni del soci que fa el prestec
+	 * Metode que ens fa un get d'un prestec en especific donada la posicio a la
+	 * llista
 	 * 
-	 * @param id_llibre
-	 *            codi del llibre en prestec
-	 * @param dni
-	 *            dni del soci que fa el prestec
+	 * @param pos
+	 *            posicio a la llista
 	 * @return el Prestec que coincideix amb el id i el dni, si cap coincideix
 	 *         retorna null
 	 */

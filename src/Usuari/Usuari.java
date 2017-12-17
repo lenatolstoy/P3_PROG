@@ -171,8 +171,7 @@ public class Usuari extends JFrame {
 
 							} catch (ClassNotFoundException | IOException e) {
 								e.printStackTrace();
-							}
-							catch (LlibreNoDisponible e) {
+							} catch (LlibreNoDisponible e) {
 								JOptionPane.showMessageDialog(null, "El llibre no està disponible per aquesta data",
 										"AVÍS", JOptionPane.ERROR_MESSAGE);
 							} catch (ReservesDiaSuperior30 e) {
@@ -204,7 +203,8 @@ public class Usuari extends JFrame {
 								JOptionPane.showMessageDialog(null, "Ja te aquest llibre en prestec actualment", "AVÍS",
 										JOptionPane.ERROR_MESSAGE);
 							} catch (LlibreNoDisponible e) {
-								JOptionPane.showMessageDialog(null, "Per la data indicada el llibre no es  troba en prestec", "AVÍS",
+								JOptionPane.showMessageDialog(null,
+										"Per la data indicada el llibre no es  troba en prestec", "AVÍS",
 										JOptionPane.ERROR_MESSAGE);
 							}
 
@@ -234,8 +234,7 @@ public class Usuari extends JFrame {
 								biblio.ferReserva(reserva);
 							} catch (ClassNotFoundException | IOException e) {
 								e.printStackTrace();
-							}
-							catch (LlibreNoDisponible e) {
+							} catch (LlibreNoDisponible e) {
 								JOptionPane.showMessageDialog(null, "El llibre no està disponible per aquesta data",
 										"AVÍS", JOptionPane.ERROR_MESSAGE);
 							} catch (ReservesDiaSuperior30 e) {
@@ -325,8 +324,7 @@ public class Usuari extends JFrame {
 
 						} catch (ClassNotFoundException | IOException e) {
 							e.printStackTrace();
-						}
-						catch (LlibreNoDisponible e) {
+						} catch (LlibreNoDisponible e) {
 							JOptionPane.showMessageDialog(null, "El llibre no està disponible per aquesta data", "AVÍS",
 									JOptionPane.ERROR_MESSAGE);
 						} catch (ReservesDiaSuperior30 e) {
@@ -356,7 +354,8 @@ public class Usuari extends JFrame {
 								JOptionPane.showMessageDialog(null, "Ja te aquest llibre en prestec actualment", "AVÍS",
 										JOptionPane.ERROR_MESSAGE);
 							} catch (LlibreNoDisponible e) {
-								JOptionPane.showMessageDialog(null, "Per la data indicada el llibre no es  troba en prestec", "AVÍS",
+								JOptionPane.showMessageDialog(null,
+										"Per la data indicada el llibre no es  troba en prestec", "AVÍS",
 										JOptionPane.ERROR_MESSAGE);
 							}
 						}
@@ -387,10 +386,9 @@ public class Usuari extends JFrame {
 
 							} catch (ClassNotFoundException | IOException e) {
 								e.printStackTrace();
-							}
-							catch (LlibreNoDisponible e) {
-								JOptionPane.showMessageDialog(null, "El llibre no està disponible per aquesta data", "AVÍS",
-										JOptionPane.ERROR_MESSAGE);
+							} catch (LlibreNoDisponible e) {
+								JOptionPane.showMessageDialog(null, "El llibre no està disponible per aquesta data",
+										"AVÍS", JOptionPane.ERROR_MESSAGE);
 							} catch (ReservesDiaSuperior30 e) {
 								JOptionPane.showMessageDialog(null, "Maxim de reserves per aquest dia", "AVÍS",
 										JOptionPane.ERROR_MESSAGE);

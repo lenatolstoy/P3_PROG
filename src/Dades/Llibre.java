@@ -49,14 +49,14 @@ public class Llibre {
 	 * @param comptador
 	 *            (int) s'utilitza per implementar el codi.
 	 */
-	public Llibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio){
+	public Llibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio) {
 
 		this.titol = titol;
 		this.autors = autors;
 		this.tema = tema;
 		this.num_edicio = num_edicio;
 		this.any_edicio = any_edicio;
-	    try {
+		try {
 			this.codi = generarCodi(titol, autors[0]);
 		} catch (ErrorGenerarCodi e) {
 			e.printStackTrace();
@@ -65,7 +65,7 @@ public class Llibre {
 		// -> tenerlo en cuenta a la hora de hacer reservas -> CRIS)
 		actiu = true;
 	}
-	
+
 	/**
 	 * @param DIES_RESERVA
 	 *            (int) Constant que ens indica els dies de reserva d'un llibre.
@@ -88,9 +88,10 @@ public class Llibre {
 	 * @param comptador
 	 *            (int) s'utilitza per implementar el codi.
 	 * @param actiu
-	 * 			  (boolean) et diu si el llibre esta aciu o no
+	 *            (boolean) et diu si el llibre esta aciu o no
 	 */
-	public Llibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio, String codi, boolean actiu) {
+	public Llibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio, String codi,
+			boolean actiu) {
 
 		this.titol = titol;
 		this.autors = autors;
@@ -99,9 +100,9 @@ public class Llibre {
 		this.any_edicio = any_edicio;
 		this.codi = codi;
 
-		if(actiu) {
+		if (actiu) {
 			this.actiu = true;
-		}else {
+		} else {
 			this.actiu = false;
 		}
 
@@ -110,7 +111,6 @@ public class Llibre {
 		// Quan s'elimina un llibre simplement s'inactiva (o es posa com a no disponible
 		// -> tenerlo en cuenta a la hora de hacer reservas -> CRIS)
 	}
-
 
 	/**
 	 * Getters
@@ -182,15 +182,15 @@ public class Llibre {
 	public String getCodi() {
 		return (codi);
 	}
-	
+
 	public int getDIES_RESERVA() {
-		return(DIES_RESERVA);
+		return (DIES_RESERVA);
 	}
-	
+
 	public int getComptador() {
-		return(comptador);
+		return (comptador);
 	}
-	
+
 	/**
 	 * Setters
 	 */
@@ -226,11 +226,11 @@ public class Llibre {
 		this.tema = tema;
 
 		if (!comprovarTema(tema)) {
-			if(temes == null) {
+			if (temes == null) {
 				String[] aux = new String[1];
 				aux[0] = tema;
 				temes = aux;
-			}else {
+			} else {
 				String[] aux = new String[temes.length + 1];
 
 				// Copiem tot el contingut de la llista en l'auxiliar
@@ -242,12 +242,11 @@ public class Llibre {
 			}
 		}
 	}
-	
 
 	public void setActiu(boolean actiu) {
 		this.actiu = actiu;
 	}
-	
+
 	public static void setTemes(String[] temes) {
 		Llibre.temes = temes;
 	}
@@ -256,17 +255,16 @@ public class Llibre {
 		this.codi = codi;
 	}
 
-
 	public void setNouTema(String tema) {
 
 		afegirTematica(tema);
 	}
-	
+
 	public static void setComptador(int comptadoh) {
 
 		comptador = comptadoh;
 	}
-	
+
 	/**
 	 * Mètode que duplica la instància del llibre
 	 * 
@@ -277,8 +275,9 @@ public class Llibre {
 	 * Creem un nou objecte perque si nomes copiem la referencia si en modifiquem un
 	 * l'altre tambe es modificara perque son el mateix.
 	 */
-	public Llibre Duplicat(){
-		Llibre aux = new Llibre(this.titol, this.autors, this.tema, this.num_edicio, this.any_edicio, this.codi, this.actiu);
+	public Llibre Duplicat() {
+		Llibre aux = new Llibre(this.titol, this.autors, this.tema, this.num_edicio, this.any_edicio, this.codi,
+				this.actiu);
 		return (aux);
 	}
 
@@ -291,15 +290,15 @@ public class Llibre {
 	public String toString() {
 		int z = 0;
 		String aux = "";
-		while(autors[z] != (null) && z < 10) {
+		while (autors[z] != (null) && z < 10) {
 			aux = aux + autors[z] + ", ";
 			z++;
 		}
 
-		aux = aux.substring(0, aux.length()-2);
-		
-		return ("Titol: " + titol + "\n" + "Autors: " + aux + "\n" + "Tema: " + tema + "\n"
-				+ "Numero d'edició: " + num_edicio + "\n" + "Any d'edició: " + any_edicio + "\n" + "Codi: " + codi +"\n");
+		aux = aux.substring(0, aux.length() - 2);
+
+		return ("Titol: " + titol + "\n" + "Autors: " + aux + "\n" + "Tema: " + tema + "\n" + "Numero d'edició: "
+				+ num_edicio + "\n" + "Any d'edició: " + any_edicio + "\n" + "Codi: " + codi + "\n");
 	}
 
 	/**
@@ -318,22 +317,22 @@ public class Llibre {
 
 	private String generarCodi(String titol, String autors) throws ErrorGenerarCodi {
 		String codi = new String("");
-		
-		if(titol.charAt(0) == ' ' || titol.charAt(1) == ' ' || titol.charAt(2) == ' ' ||
-				autors.charAt(0) == ' ' || autors.charAt(1) == ' ' || autors.charAt(2) == ' ') {
-			
-			/*String aux2 = new String (autors);
-			String aux1 = new String (titol);
-			aux1 = aux1.replaceAll(" ", "");
-			aux2 = aux2.replaceAll(" ", "");
-			codi = codi + aux1.charAt(0) + aux1.charAt(1) + aux1.charAt(2) + aux2.charAt(0) + aux2.charAt(1)
-			+ aux2.charAt(2) + comptador;*/
+
+		if (titol.charAt(0) == ' ' || titol.charAt(1) == ' ' || titol.charAt(2) == ' ' || autors.charAt(0) == ' '
+				|| autors.charAt(1) == ' ' || autors.charAt(2) == ' ') {
+
+			/*
+			 * String aux2 = new String (autors); String aux1 = new String (titol); aux1 =
+			 * aux1.replaceAll(" ", ""); aux2 = aux2.replaceAll(" ", ""); codi = codi +
+			 * aux1.charAt(0) + aux1.charAt(1) + aux1.charAt(2) + aux2.charAt(0) +
+			 * aux2.charAt(1) + aux2.charAt(2) + comptador;
+			 */
 			throw new ErrorGenerarCodi();
-		}else {
+		} else {
 			codi = codi + titol.charAt(0) + titol.charAt(1) + titol.charAt(2) + autors.charAt(0) + autors.charAt(1)
-			+ autors.charAt(2) + comptador;
+					+ autors.charAt(2) + comptador;
 		}
-		
+
 		comptador++;
 		return (codi);
 	}
@@ -348,12 +347,12 @@ public class Llibre {
 
 		boolean hiEs = false;
 
-		if(temes != null) {
+		if (temes != null) {
 			for (int i = 0; (i < temes.length) && (hiEs == false); i++) {
 				hiEs = (temes[i].equals(tema));
-			}	
+			}
 		}
-		
+
 		return hiEs;
 	}
 
@@ -391,24 +390,25 @@ public class Llibre {
 		}
 		return trobat;
 	}
-	
+
 	/**
 	 * Afegeix un tema a la llista de temas, si esta repetit no l'afegeix.
+	 * 
 	 * @param tema
 	 */
 
 	public static boolean afegirTematica(String tema) {
-		
+
 		boolean todo_bien = false;
-		
+
 		todo_bien = !(comprovarTema(tema));
-		
+
 		if (!comprovarTema(tema)) {
-			if(temes == null) {
+			if (temes == null) {
 				String[] aux = new String[1];
 				aux[0] = tema;
 				temes = aux;
-			}else {
+			} else {
 				String[] aux = new String[temes.length + 1];
 
 				// Copiem tot el contingut de la llista en l'auxiliar
@@ -417,10 +417,10 @@ public class Llibre {
 				}
 				aux[aux.length - 1] = tema;
 				temes = aux;
-			
+
 			}
 		}
 		return todo_bien;
-		
+
 	}
 }

@@ -14,7 +14,6 @@ package Dades;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-
 public abstract class Biblioteca {
 	protected LlistaLlibres llibres;
 	protected LlistaSocis socis;
@@ -81,7 +80,7 @@ public abstract class Biblioteca {
 	/**
 	 * Metode que ens permet llegir els fitxers de dades
 	 */
-	public void llegir(){
+	public void llegir() {
 		try {
 			llibres.llegirFitxer();
 		} catch (IOException e1) {

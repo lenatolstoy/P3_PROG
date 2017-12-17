@@ -18,7 +18,7 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 
-public class Prestec implements Serializable{
+public class Prestec implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String id_llibre;
 	private String dni;
@@ -46,7 +46,6 @@ public class Prestec implements Serializable{
 			e.printStackTrace();
 		}
 	}
-
 
 	/**
 	 * Constructor de la classe Prestecs amb una data inicial i final predefinides

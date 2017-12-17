@@ -31,16 +31,15 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
 public class login extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField textField;
 	private JLabel lblNewLabel;
-	 private int x;
-     private int y;
-     private JButton btnNewButton_1;
+	private int x;
+	private int y;
+	private JButton btnNewButton_1;
 
 	/**
 	 * Launch the application.
@@ -66,20 +65,20 @@ public class login extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				x = e.getX();
-                y = e.getY();
+				y = e.getY();
 			}
 		});
-		
+
 		addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				 Point point = MouseInfo.getPointerInfo().getLocation();
-	             setLocation(point.x - x, point.y - y);
+				Point point = MouseInfo.getPointerInfo().getLocation();
+				setLocation(point.x - x, point.y - y);
 			}
 		});
 		setTitle("Login");
 		setUndecorated(true);
-		
+
 		setResizable(false);
 		setBackground(new Color(138, 43, 226));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,7 +88,7 @@ public class login extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JButton btnNewButton = new JButton("Acceder");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -111,7 +110,7 @@ public class login extends JFrame {
 		});
 		btnNewButton.setBounds(145, 130, 270, 48);
 		contentPane.add(btnNewButton);
-		
+
 		textField = new JTextField();
 		textField.setForeground(new Color(0, 0, 0));
 		textField.setFont(new Font("Times New Roman", Font.PLAIN, 30));
@@ -120,19 +119,21 @@ public class login extends JFrame {
 		textField.setBounds(145, 74, 270, 45);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(40, 102, 204));
 		panel.setBounds(0, 0, 123, 200);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBounds(0, 29, 123, 146);
 		panel.add(lblNewLabel_1);
-		//ImageIcon user_p = new ImageIcon(getClass().getResource("16480.png"));
-		//Icon icono = new ImageIcon(user_p.getImage().getScaledInstance(lblNewLabel_1.getWidth(), lblNewLabel_1.getHeight(), Image.SCALE_DEFAULT));
-		//lblNewLabel_1.setIcon(icono);
+		// ImageIcon user_p = new ImageIcon(getClass().getResource("16480.png"));
+		// Icon icono = new
+		// ImageIcon(user_p.getImage().getScaledInstance(lblNewLabel_1.getWidth(),
+		// lblNewLabel_1.getHeight(), Image.SCALE_DEFAULT));
+		// lblNewLabel_1.setIcon(icono);
 		this.repaint();
 		btnNewButton_1 = new JButton("X");
 		btnNewButton_1.setFocusable(false);
@@ -151,7 +152,7 @@ public class login extends JFrame {
 		btnNewButton_1.setForeground(new Color(220, 20, 60));
 		btnNewButton_1.setBounds(422, 0, 28, 23);
 		contentPane.add(btnNewButton_1);
-		
+
 		lblNewLabel = new JLabel("DNI");
 		lblNewLabel.setBounds(145, 22, 56, 36);
 		contentPane.add(lblNewLabel);

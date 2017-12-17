@@ -19,15 +19,17 @@ public class LlistaSocis {
 	// constructor
 	/**
 	 * Constructor que crea una lista
+	 * 
 	 * @param len
 	 */
 	public LlistaSocis(int len) {
 		lista = new Soci[len];
 		lineas = 0;
 	}
-	
+
 	/**
 	 * Retorna el numero de socis de la lista
+	 * 
 	 * @return
 	 */
 	public int getLineas() {
@@ -37,6 +39,7 @@ public class LlistaSocis {
 	@Override
 	/**
 	 * Metode ToString
+	 * 
 	 * @return string
 	 */
 	public String toString() {
@@ -47,9 +50,9 @@ public class LlistaSocis {
 		return r;
 	}
 
-
 	/**
 	 * Afegeir un soci a la llista
+	 * 
 	 * @param nuevo
 	 */
 	public void afegeix(Soci nuevo) {
@@ -58,9 +61,10 @@ public class LlistaSocis {
 			lineas++;
 		}
 	}
-	
+
 	/**
 	 * Guarda els socis al un fitxer
+	 * 
 	 * @throws IOException
 	 */
 	public void guardar() throws IOException {
@@ -105,10 +109,11 @@ public class LlistaSocis {
 		escriure.close();
 	}
 
-		/**
-		 * llegeix un fitxer i omple una llista de socis
-		 * @throws FileNotFoundException
-		 */
+	/**
+	 * llegeix un fitxer i omple una llista de socis
+	 * 
+	 * @throws FileNotFoundException
+	 */
 	public void leer() throws FileNotFoundException {
 
 		File f = new File("user.txt");
@@ -151,8 +156,7 @@ public class LlistaSocis {
 
 				if (punts != null) {
 					int p = Integer.parseInt(punts);
-					NoEstudiant nuevo = new NoEstudiant(dni, nom, data_n, data_a, incidencias, num_prestec,
-							p);
+					NoEstudiant nuevo = new NoEstudiant(dni, nom, data_n, data_a, incidencias, num_prestec, p);
 					afegeix(nuevo);
 
 				} else {
@@ -163,9 +167,10 @@ public class LlistaSocis {
 			scan.close();
 		}
 	}
-	
+
 	/**
 	 * retorna un soci a partir de un dni
+	 * 
 	 * @param dni
 	 * @return soci
 	 */
@@ -177,21 +182,22 @@ public class LlistaSocis {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * retorna la llista de socis
+	 * 
 	 * @return lista
 	 */
 	public Soci[] getLista() {
 		return lista;
 	}
 
-
-/**
- * compueba si un socio existe en la lista a partir de su dni
- * @param dni
- * @return
- */
+	/**
+	 * compueba si un socio existe en la lista a partir de su dni
+	 * 
+	 * @param dni
+	 * @return
+	 */
 	public boolean existeix(String dni) {
 		boolean r = false;
 		for (int i = 0; i < lineas; i++) {
@@ -204,6 +210,7 @@ public class LlistaSocis {
 
 	/**
 	 * Elimina un socio de la lista a apartir del dni
+	 * 
 	 * @param dni
 	 */
 	public void eliminar(String dni) {
@@ -224,6 +231,5 @@ public class LlistaSocis {
 			i++;
 		} while (i < lineas && !trobat);
 	}
-
 
 }
