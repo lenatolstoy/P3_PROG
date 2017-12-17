@@ -113,7 +113,7 @@ public class BibliotecaUsuari extends Biblioteca {
 	 * @throws ErrorComprovarCodi 
 	 */
 	public void ferPrestec(String id_llibre, String dni, String data_ini)
-			throws LlibreNoTrobat, SociInexistent, MaximPrestecs, PrestecJaExisteix, LlibreNoDisponible, ErrorComprovarCodi {
+			throws LlibreNoTrobat, SociInexistent, MaximPrestecs, PrestecJaExisteix, LlibreNoDisponible{
 		Soci soci = socis.retornaSoci(dni);
 		Llibre llibre = llibres.retornaLlibre(id_llibre);
 		// Comprovem que el llibre es troba a la llista de llibres
@@ -164,7 +164,7 @@ public class BibliotecaUsuari extends Biblioteca {
 	 * @throws ErrorComprovarCodi 
 	 */
 	public void finalitzarPrestec(String id_llibre, String dni)
-			throws LlibreNoTrobat, SociInexistent, PrestecInexistent, ErrorComprovarCodi {
+			throws LlibreNoTrobat, SociInexistent, PrestecInexistent{
 		Prestec prestec = prestecsActius.retornaPrestec(prestecsActius.posicio(id_llibre, dni));
 		Soci soci = socis.retornaSoci(dni);
 		Llibre llibre = llibres.retornaLlibre(id_llibre);

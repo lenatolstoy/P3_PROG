@@ -1,4 +1,4 @@
-* Practica 3. Classe Biblioteca.
+/** Practica 3. Classe Biblioteca.
  * 
  * 
  * @author Ivan Grima

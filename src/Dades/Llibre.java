@@ -49,14 +49,18 @@ public class Llibre {
 	 * @param comptador
 	 *            (int) s'utilitza per implementar el codi.
 	 */
-	public Llibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio) throws ErrorGenerarCodi  {
+	public Llibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio){
 
 		this.titol = titol;
 		this.autors = autors;
 		this.tema = tema;
 		this.num_edicio = num_edicio;
 		this.any_edicio = any_edicio;
-	    this.codi = generarCodi(titol, autors[0]);
+	    try {
+			this.codi = generarCodi(titol, autors[0]);
+		} catch (ErrorGenerarCodi e) {
+			e.printStackTrace();
+		}
 		// Quan s'elimina un llibre simplement s'inactiva (o es posa com a no disponible
 		// -> tenerlo en cuenta a la hora de hacer reservas -> CRIS)
 		actiu = true;
@@ -267,14 +271,13 @@ public class Llibre {
 	 * Mètode que duplica la instància del llibre
 	 * 
 	 * @return duplicat
-	 * @throws ErrorGenerarCodi 
 	 */
 
 	/*
 	 * Creem un nou objecte perque si nomes copiem la referencia si en modifiquem un
 	 * l'altre tambe es modificara perque son el mateix.
 	 */
-	public Llibre Duplicat() throws ErrorGenerarCodi {
+	public Llibre Duplicat(){
 		Llibre aux = new Llibre(this.titol, this.autors, this.tema, this.num_edicio, this.any_edicio, this.codi, this.actiu);
 		return (aux);
 	}

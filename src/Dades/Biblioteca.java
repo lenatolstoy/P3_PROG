@@ -14,9 +14,6 @@ package Dades;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import Exceptions.ErrorGenerarCodi;
-import Exceptions.LlibreNoDisponible;
-import Exceptions.ReservesDiaSuperior30;
 
 public abstract class Biblioteca {
 	protected LlistaLlibres llibres;
@@ -83,9 +80,8 @@ public abstract class Biblioteca {
 
 	/**
 	 * Metode que ens permet llegir els fitxers de dades
-	 * @throws ErrorGenerarCodi 
 	 */
-	public void llegir() throws ErrorGenerarCodi {
+	public void llegir(){
 		try {
 			llibres.llegirFitxer();
 		} catch (IOException e1) {

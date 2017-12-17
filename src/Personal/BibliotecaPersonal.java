@@ -18,8 +18,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import Dades.*;
-import Exceptions.ErrorComprovarCodi;
-import Exceptions.ErrorGenerarCodi;
 
 public class BibliotecaPersonal extends Biblioteca {
 	/**
@@ -44,7 +42,7 @@ public class BibliotecaPersonal extends Biblioteca {
 	 *            enter amb l'any d'edicio del llibre
 	 * @throws ErrorGenerarCodi 
 	 */
-	public void afegirLlibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio) throws ErrorGenerarCodi {
+	public void afegirLlibre(String titol, String[] autors, String tema, int num_edicio, int any_edicio) {
 		llibres.afegirLlibre(new Llibre(titol, autors, tema, num_edicio, any_edicio));
 	}
 
@@ -66,7 +64,7 @@ public class BibliotecaPersonal extends Biblioteca {
 	 * @throws ErrorGenerarCodi 
 	 */
 	public void afegirLlibreCientific(String titol, String[] autors, String tema, int num_edicio, int any_edicio,
-			int dies_prestec) throws ErrorGenerarCodi {
+			int dies_prestec) {
 		llibres.afegirLlibreCientific(new Llibre_Cientific(titol, autors, tema, num_edicio, any_edicio, dies_prestec));
 	}
 
@@ -78,7 +76,7 @@ public class BibliotecaPersonal extends Biblioteca {
 	 *            String que indica l'identificador del llibre
 	 * @throws ErrorComprovarCodi 
 	 */
-	public void eliminaLlibre(String id_llibre) throws ErrorComprovarCodi {
+	public void eliminaLlibre(String id_llibre){
 		llibres.retornaLlibre(id_llibre).setActiu(false);
 	}
 
@@ -146,7 +144,7 @@ public class BibliotecaPersonal extends Biblioteca {
 	 * @return String amb els llibres que es troben en prestec
 	 * @throws ErrorComprovarCodi 
 	 */
-	public String llibresEnPrestec() throws ErrorComprovarCodi {
+	public String llibresEnPrestec() {
 		LlistaPrestecs prestecsActuals = prestecsActius.enPrestecAvui();
 		String resultat = "";
 		for (int i = 0; i < prestecsActuals.getNprestecs(); i++) {
