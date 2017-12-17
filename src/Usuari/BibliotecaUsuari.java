@@ -13,6 +13,8 @@ package Usuari;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Date;
+
 import Dades.*;
 import Exceptions.*;
 
@@ -191,8 +193,8 @@ public class BibliotecaUsuari extends Biblioteca {
 	 * @param id_llibre
 	 * @param dni
 	 */
-	public void anularReserva(String id_llibre, String dni) {
-
+	public void anularReserva(String id_llibre, String dni, Date data) {
+		reserves.AnularReserva(id_llibre, dni, data);
 	}
 
 	/**
@@ -201,7 +203,7 @@ public class BibliotecaUsuari extends Biblioteca {
 	 * @param dni
 	 *            dni de la persona de la qual volem saber les reserves i els
 	 *            prestecs
-	 * @return String amb totes les dades de les reserves i els prestecs
+	 * @return Prestec[] amb tots els prestecs d'un usuari
 	 */
 	public Prestec[] consultarPrestecs(String dni) {
 		LlistaPrestecs aux = prestecsActius.prestecsUsuari(dni);
@@ -209,5 +211,17 @@ public class BibliotecaUsuari extends Biblioteca {
 			return null;
 		else
 			return aux.getLlista();
+	}
+	
+	/**
+	 * Metode que ens permet veure els prestecs d'un usuari
+	 *
+	 * @param dni
+	 *            dni de la persona de la qual volem saber les reserves i els
+	 *            prestecs
+	 * @return String amb totes les dades de les reserves i els prestecs
+	 */
+	public Reserva[] consultarReserves(String dni) {
+		return reserves.ConsultarReserves(dni);
 	}
 }
