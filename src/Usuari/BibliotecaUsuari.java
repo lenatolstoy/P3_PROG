@@ -1,5 +1,5 @@
 /**
- * Practica 3. Classe Biblioteca.
+ * Practica 3. Classe BibliotecaUsuari.
  *
  *
  * @author Ivan Grima
@@ -12,12 +12,7 @@
 package Usuari;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-
 import Dades.*;
 import Exceptions.*;
 
@@ -42,42 +37,15 @@ public class BibliotecaUsuari extends Biblioteca {
 	}
 
 	/**
-	 * Metode que consulta les dades dels llibres amb un titol o part d'un titol i
-	 * ens indica si esta disponible o no
+	 * Metode que consulta les dades dels llibres amb un titol o part d'un titol
 	 *
 	 * @param titol
 	 *            String amb el titol o part del titol a buscar
-	 * @return String amb les dades dels llibres i si es troben disponibles o no per
-	 *         a fer reserva avui
-	 * @throws ErrorGenerarCodi 
+	 * @return Llibre[] amb els llibres que coincideixen amb el tiotl
 	 */
-	public String consultaLlibresPerTitol(String titol) throws ErrorGenerarCodi {
+	public Llibre[] consultaLlibresPerTitol(String titol){
 		// Obtenim una llista amb els llibres que coincideixen amb part del titol
-		LlistaLlibres consulta = llibres.buscaLlibresNom(titol);
-
-		// Inicialitzem el String que retornarem
-		String resultat = "";
-
-		// Recorrem els llibres amb els quals coincideix el titol per a veure si estan
-		// disponibles o no
-		for (int i = 0; i < consulta.getNumllibres(); i++) {
-
-			// Afegim a la String les dades del llibre
-			resultat = resultat + i + ". " + consulta.getLlistallibres()[i].toString();
-
-			// Emmagatzemem el codi del llibre i la data d'avui en una String
-			String idllibre = consulta.getLlistallibres()[i].getCodi();
-			DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-			String avui = formato.format(Calendar.getInstance().getTime());
-
-			// Segons si el llibre es troba disponible o no afegim disponible o no
-			// disponible al final de la linea
-			if (!prestecsActius.enPrestec(idllibre, avui) && !reserves.ReservaDia(idllibre, Calendar.getInstance().getTime()))
-				resultat = resultat + "\tDISPONIBLE\n";
-			else
-				resultat = resultat + "\tNO DISPONIBLE\n";
-		}
-		return resultat;
+		return llibres.buscaLlibresPerNom(titol);
 	}
 
 	/**
@@ -88,8 +56,8 @@ public class BibliotecaUsuari extends Biblioteca {
 	 *            String que ens indica el tema del qual volem saber els llibres
 	 * @return String amb les dades de tots els llibres
 	 */
-	public String consultaLlibresPerTema(String tema) {
-		return llibres.buscaPerTematica(tema);
+	public Llibre[] consultaLlibresPerTema(String tema) {
+		return llibres.PerTematica(tema);
 	}
 
 	/**
@@ -110,10 +78,10 @@ public class BibliotecaUsuari extends Biblioteca {
 	 * @throws PrestecJaExisteix
 	 *             si l'usuari te un prestec actiu del mateix llibre no pot fer un
 	 *             altre prestec
-	 * @throws ErrorComprovarCodi 
+	 * @throws ErrorComprovarCodi
 	 */
 	public void ferPrestec(String id_llibre, String dni, String data_ini)
-			throws LlibreNoTrobat, SociInexistent, MaximPrestecs, PrestecJaExisteix, LlibreNoDisponible{
+			throws LlibreNoTrobat, SociInexistent, MaximPrestecs, PrestecJaExisteix, LlibreNoDisponible {
 		Soci soci = socis.retornaSoci(dni);
 		Llibre llibre = llibres.retornaLlibre(id_llibre);
 		// Comprovem que el llibre es troba a la llista de llibres
@@ -127,7 +95,7 @@ public class BibliotecaUsuari extends Biblioteca {
 		// Comprovem que el soci no es trobi en el seu maxim de prestecs
 		else if (soci.max_prestec())
 			throw new MaximPrestecs();
-		else if (prestecsActius.posicio(id_llibre,dni) != -1)
+		else if (prestecsActius.posicio(id_llibre, dni) != -1)
 			throw new PrestecJaExisteix();
 		else {
 			int num_dies;
@@ -144,8 +112,7 @@ public class BibliotecaUsuari extends Biblioteca {
 				soci.prestecUP();
 				// Afegim el prestec a la llista
 				prestecsActius.afegirPrestec(new Prestec(id_llibre, dni, data_ini));
-			}
-			else
+			} else
 				throw new LlibreNoDisponible();
 		}
 	}
@@ -161,10 +128,10 @@ public class BibliotecaUsuari extends Biblioteca {
 	 *             en el cas de que el llibre a retornar no existeixi
 	 * @throws SociInexistent
 	 *             en el cas de que el dni no sigui d'un usuari
-	 * @throws ErrorComprovarCodi 
+	 * @throws ErrorComprovarCodi
 	 */
 	public void finalitzarPrestec(String id_llibre, String dni)
-			throws LlibreNoTrobat, SociInexistent, PrestecInexistent{
+			throws LlibreNoTrobat, SociInexistent, PrestecInexistent {
 		Prestec prestec = prestecsActius.retornaPrestec(prestecsActius.posicio(id_llibre, dni));
 		Soci soci = socis.retornaSoci(dni);
 		Llibre llibre = llibres.retornaLlibre(id_llibre);
@@ -195,29 +162,27 @@ public class BibliotecaUsuari extends Biblioteca {
 		}
 	}
 
-
 	/**
 	 * Metode que li permet a l'usuari fer la reserva d'un llibre
 	 *
 	 * @param id_llibre
 	 * @param dni
 	 * @param dia
+	 * @throws LlibreNoDisponible 
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws ReservesDiaSuperior30 
 	 */
-	public void ferReserva(String id_llibre, String dni, String dia) {
-		Date data = null;
-		// Passem el string a tipus data
-		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		try {
-			data = format.parse(dia);
-		} catch (ParseException e) {
-			e.printStackTrace();
+	public void ferReserva(Reserva reserva) throws ClassNotFoundException, IOException, LlibreNoDisponible, ReservesDiaSuperior30 {
+		if (!reserves.LlibreDisponible(reserva.getCodillibre(), reserva.getData(), prestecsActius)) {
+
+			throw new LlibreNoDisponible(reserva.getCodillibre());
 		}
-		try {
-			// Afegim la reserva a la llista
-			reserves.AfegirReserva(new Reserva(id_llibre, dni, data));
-		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
-		}
+		if (reserves.NumRerservesDia(reserva.getData()) >= 30) {
+			throw new ReservesDiaSuperior30(reserva.getData());
+
+		} else
+			reserves.AfegirReserva(reserva);
 	}
 
 	/**
@@ -230,20 +195,14 @@ public class BibliotecaUsuari extends Biblioteca {
 	}
 
 	/**
-	 * Metode que ens permet veure els prestecs (en cas de que el dni sigui d'un
-	 * soci) i les reserves d'un usuari
+	 * Metode que ens permet veure els prestecs d'un usuari
 	 *
 	 * @param dni
 	 *            dni de la persona de la qual volem saber les reserves i els
 	 *            prestecs
 	 * @return String amb totes les dades de les reserves i els prestecs
 	 */
-	public String consultarPrestecsIReserves(String dni) {
-		String resultat = "";
-		if (socis.existeix(dni)) {
-			resultat = "LLIBRES EN PRESTEC:\n" + prestecsActius.prestecsUsuari(dni).toString();
-		}
-		resultat = resultat + "\n LLIBRES EN RESERVA:\n" + reserves.ConsultarReserves(dni).toString();
-		return resultat;
+	public Prestec[] consultarPrestecs(String dni) {
+		return prestecsActius.prestecsUsuari(dni).getLlista();
 	}
 }
